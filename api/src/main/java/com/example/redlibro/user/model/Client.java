@@ -16,5 +16,5 @@ import lombok.experimental.SuperBuilder;
 public class Client extends UserModel {
 
     private String name;
-    private String surName;
+    private String lastName;
 }

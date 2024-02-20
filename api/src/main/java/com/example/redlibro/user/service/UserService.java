@@ -39,7 +39,7 @@ public class UserService {
         Client c = Client.builder()
                 .username(createUserReques.username())
                 .password(passwordEncoder.encode(createUserReques.password()))
-                .surName(createUserReques.username())
+                .lastName(createUserReques.lastName())
                 .name(createUserReques.name())
                 .roles(Set.of(UserRol.User))
                 .build();

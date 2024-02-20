@@ -1,3 +1,4 @@
+import 'package:app_flutter/pages/register_screen.dart';
 import 'package:app_flutter/repositories/auth/auth_repositori.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -115,6 +116,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
               child: const Text('LOGIN'),
+            ),
+          ),
+          const SizedBox(height: 20), // Espacio entre los botones
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton(
+              onPressed: () {
+                // Navegar a la pantalla de registro
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => RegisterScreen()),
+                );
+              },
+              child: const Text('REGISTER'),
             ),
           ),
         ],

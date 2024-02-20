@@ -5,7 +5,7 @@ public record CreateClientRequest(
         String username,
         String password,
         String verifyPassword,
-        String surname,
+        String lastName,
         String name
 ) {
 }

@@ -28,6 +28,7 @@ public class ClienteResponse {
                 .id(client.getUuid().toString())
                 .username(client.getUsername())
                 .name(client.getName())
+                .lastName(client.getLastName())
                 .roles(client.getRoles().stream()
                         .map(Enum::name)
                         .collect(Collectors.toSet()))
