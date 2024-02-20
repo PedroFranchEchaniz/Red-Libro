@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Parameter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,13 +16,14 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder
-public class User implements UserDetails {
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public class UserModel implements UserDetails {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -38,11 +40,13 @@ public class User implements UserDetails {
     @Column(columnDefinition = "uuid")
     private UUID uuid;
 
-    private String userName;
+    @NaturalId
+    @Column(unique = true, updatable = false)
+    private String username;
     private String password;
 
     @ElementCollection
-    private Set<UserRol> rol;
+    private Set<UserRol> roles;
 
 
     @Builder.Default
@@ -56,8 +60,8 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return rol.stream()
-                .map(role -> "ROLE_" + rol)
+        return roles.stream()
+                .map(role -> "ROLE_" + role)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
@@ -69,7 +73,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     @Override

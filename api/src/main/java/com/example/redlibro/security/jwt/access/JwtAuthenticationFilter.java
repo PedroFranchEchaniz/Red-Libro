@@ -1,7 +1,7 @@
 package com.example.redlibro.security.jwt.access;
 
 import com.example.redlibro.security.errorhandling.JwtTokenException;
-import com.example.redlibro.user.model.User;
+import com.example.redlibro.user.model.UserModel;
 import com.example.redlibro.user.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -32,20 +32,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtProvider jwtProvider;
 
     @Autowired
-    @Qualifier("handerExceptionResolver")
+    @Qualifier("handlerExceptionResolver")
     private HandlerExceptionResolver resolver;
+
+
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
         String token = getJwtTokenFromRequest(request);
 
         try {
             if (StringUtils.hasText(token) && jwtProvider.validateToken(token)) {
                 UUID userId = jwtProvider.getUserIdFromJwtToken(token);
 
-                Optional<User> result = userService.findById(userId);
+                Optional<UserModel> result = userService.findById(userId);
 
                 if (result.isPresent()) {
-                    User user = result.get();
+                    UserModel user = result.get();
 
                     UsernamePasswordAuthenticationToken authentication =
                             new UsernamePasswordAuthenticationToken(
@@ -80,4 +84,3 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return null;
     }
 }
-

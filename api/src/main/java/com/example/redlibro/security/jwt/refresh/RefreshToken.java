@@ -1,7 +1,7 @@
 package com.example.redlibro.security.jwt.refresh;
 
 
-import com.example.redlibro.user.model.User;
+import com.example.redlibro.user.model.UserModel;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
@@ -24,7 +24,7 @@ public class RefreshToken {
     @MapsId
     @OneToOne
     @JoinColumn(name = "user_id", columnDefinition = "uuid")
-    private User user;
+    private UserModel user;
 
     @NaturalId
     @Column(nullable = false, unique = true)

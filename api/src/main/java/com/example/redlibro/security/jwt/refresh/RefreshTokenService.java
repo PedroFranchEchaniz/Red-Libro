@@ -1,7 +1,7 @@
 package com.example.redlibro.security.jwt.refresh;
 
 import com.example.redlibro.security.errorhandling.TokenRefreshException;
-import com.example.redlibro.user.model.User;
+import com.example.redlibro.user.model.UserModel;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +24,7 @@ public class RefreshTokenService {
         return refreshTokenRepository.findByToken(token);
     }
 
-    public RefreshToken createRefreshToken(User user) {
+    public RefreshToken createRefreshToken(UserModel user) {
         RefreshToken refreshToken = RefreshToken.builder()
                 .user(user)
                 .token(UUID.randomUUID().toString())
@@ -47,7 +47,7 @@ public class RefreshTokenService {
     }
 
     @Transactional
-    public void deleteByUser(User user) {
+    public void deleteByUser(UserModel user) {
         refreshTokenRepository.deleteByUser(user);
     }
 

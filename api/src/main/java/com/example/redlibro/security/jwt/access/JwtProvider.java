@@ -1,7 +1,7 @@
 package com.example.redlibro.security.jwt.access;
 
 import com.example.redlibro.security.errorhandling.JwtTokenException;
-import com.example.redlibro.user.model.User;
+import com.example.redlibro.user.model.UserModel;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,13 +49,13 @@ public class JwtProvider {
 
     public String generateToken(Authentication authentication) {
 
-        User user = (User) authentication.getPrincipal();
+        UserModel user = (UserModel) authentication.getPrincipal();
 
         return generateToken(user);
 
     }
 
-    public String generateToken(User user) {
+    public String generateToken(UserModel user) {
         Date tokenExpirationDateTime =
                 Date.from(
                         LocalDateTime

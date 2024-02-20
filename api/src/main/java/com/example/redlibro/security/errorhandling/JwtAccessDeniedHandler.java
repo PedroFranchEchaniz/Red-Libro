@@ -13,6 +13,8 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
 
+@Component
+@RequiredArgsConstructor
 public class JwtAccessDeniedHandler implements AccessDeniedHandler {
     @Autowired
     @Qualifier("handlerExceptionResolver")
