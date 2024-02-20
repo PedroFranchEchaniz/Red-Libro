@@ -45,7 +45,7 @@ public class UserModel implements UserDetails {
     private String username;
     private String password;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<UserRol> roles;
 
 
