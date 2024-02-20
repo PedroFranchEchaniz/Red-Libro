@@ -143,7 +143,7 @@ public class SecurityConfig {
                 .requestMatchers(
                         antMatcher("/h2-console/**"),
                         antMatcher("/auth/register"),
-                        antMatcher("/auth/login"),
+                        antMatcher("/client/login"),
                         antMatcher("/api-docs"),
                         antMatcher("/swagger-ui/**"),
                         antMatcher("/swagger-ui-miapi.html"),
