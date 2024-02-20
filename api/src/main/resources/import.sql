@@ -1,0 +1,2 @@
+INSERT INTO user_model (account_non_expired, account_non_locked, credentials_non_expired, enabled, uuid, password, username) Values (true, true, true, true, 'c4e27173-52b5-4bd9-94ee-88a07167fa72', '1234', 'username' )
+INSERT INTO Client (name, sur_name, uuid) values ('Paco', 'Fernadez', 'c4e27173-52b5-4bd9-94ee-88a07167fa72');
