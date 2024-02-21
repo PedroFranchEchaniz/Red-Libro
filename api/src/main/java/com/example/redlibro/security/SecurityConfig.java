@@ -116,9 +116,9 @@ public class SecurityConfig {
                                 .anyRequest().authenticated();*/
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers(
-                                antMatcher("/pedido/**"),
+                                antMatcher("/client/**"),
                                 antMatcher("/producto/**")
-                        ).hasRole("CLIENTE")
+                        ).hasRole("User")
                         .requestMatchers(antMatcher("/cocinero/**")).hasRole("TRABAJADOR")
                         .requestMatchers(antMatcher("/repartidor/**")).hasRole("TRABAJADOR")
                         .requestMatchers(antMatcher("/admin/**")).hasRole("ADMIN")

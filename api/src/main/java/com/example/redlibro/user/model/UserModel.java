@@ -44,6 +44,7 @@ public class UserModel implements UserDetails {
     @Column(unique = true, updatable = false)
     private String username;
     private String password;
+    private String avatar;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<UserRol> roles;

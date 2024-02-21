@@ -41,6 +41,7 @@ public class UserService {
                 .password(passwordEncoder.encode(createUserReques.password()))
                 .lastName(createUserReques.lastName())
                 .name(createUserReques.name())
+                .avatar(createUserReques.avatar())
                 .roles(Set.of(UserRol.User))
                 .build();
         return clientRepository.save(c);
@@ -60,6 +61,7 @@ public class UserService {
                 .direccion(createShopRequest.direcction())
                 .lat(createShopRequest.lat())
                 .lon(createShopRequest.lon())
+                .avatar(createShopRequest.avatar())
                 .roles(Set.of(UserRol.Shop))
                 .build();
 

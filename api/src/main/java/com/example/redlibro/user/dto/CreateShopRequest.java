@@ -8,6 +8,7 @@ public record CreateShopRequest(
         String name,
         String direcction,
         String contacto,
+        String avatar,
         String lat,
         String lon
 ) {
