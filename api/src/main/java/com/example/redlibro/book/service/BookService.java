@@ -23,7 +23,7 @@ public class BookService {
         if (bookRepository.findById(createBookRequest.ISBN()).isPresent())
             return null;
         Set<Genre> genres = Arrays.stream(createBookRequest.genres())
-                .map(genreName -> Genre.valueOf(genreName))
+                .map(Genre::valueOf)
                 .collect(Collectors.toSet());
 
         Book b = Book.builder()
