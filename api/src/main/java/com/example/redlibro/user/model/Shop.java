@@ -1,11 +1,14 @@
+
 package com.example.redlibro.user.model;
 
+import com.example.redlibro.store.Store;
 import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.OneToMany;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,4 +23,11 @@ public class Shop extends UserModel {
     private String contacto;
     private String lat;
     private String lon;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @Builder.Default
+    @OneToMany()
+    private List<Store> stores = new ArrayList<>();
+
 }
