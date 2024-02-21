@@ -1,4 +1,4 @@
-package com.example.redlibro.store;
+package com.example.redlibro.shelving;
 
 import jakarta.persistence.Embeddable;
 import lombok.Data;
@@ -10,10 +10,10 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @Embeddable
-public class StorePk implements Serializable {
+public class ShelvingPk implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID shop_uuid;
+    private UUID user_uuid;
     private String book_isbn;
 }

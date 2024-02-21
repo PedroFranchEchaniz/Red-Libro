@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
@@ -15,16 +17,18 @@ import lombok.experimental.SuperBuilder;
 public class Store {
 
     @EmbeddedId
-    @Builder.Default
-    private StorePk storePk= new StorePk();
+    private StorePk storePk = new StorePk();
     private int stock;
+    private LocalDate dateRegiste;
+    private double precio;
 
-    @ManyToOne
-    @JoinColumn(name = "shop_uuid")
+    @OneToOne
+    @JoinColumn(name = "shop_uuid", referencedColumnName = "UUID", insertable = false, updatable = false)
     private Shop shop;
 
     @ManyToOne
-    @JoinColumn(foreignKey = @ForeignKey(name = "book_isbn"))
+    @MapsId("book_isbn")
+    @JoinColumn(name = "book_isbn", referencedColumnName = "ISBN")
     private Book book;
 
 }
