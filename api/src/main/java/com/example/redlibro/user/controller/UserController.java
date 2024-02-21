@@ -4,6 +4,7 @@ import com.example.redlibro.security.jwt.access.JwtProvider;
 import com.example.redlibro.security.jwt.refresh.RefreshTokenService;
 import com.example.redlibro.user.dto.*;
 import com.example.redlibro.user.model.Client;
+import com.example.redlibro.user.model.Shop;
 import com.example.redlibro.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -53,5 +54,12 @@ public class UserController {
     @GetMapping("/client/profile")
     public ResponseEntity<GetClienteDetoDetail> getLoggedClient(@AuthenticationPrincipal Client client){
         return ResponseEntity.ok(GetClienteDetoDetail.of(client));
+    }
+
+    @PostMapping("/shop/register")
+    public ResponseEntity<ShopResponse> createUserShop (@Valid @RequestBody CreateShopRequest createShopRequest){
+        Shop shop = userService.createShop(createShopRequest);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ShopResponse.fromShop(shop));
     }
 }

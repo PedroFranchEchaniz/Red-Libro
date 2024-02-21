@@ -143,6 +143,7 @@ public class SecurityConfig {
                 .requestMatchers(
                         antMatcher("/h2-console/**"),
                         antMatcher("/client/register"),
+                        antMatcher("/shop/register"),
                         antMatcher("/client/login"),
                         antMatcher("/shop/login"),
                         antMatcher("/api-docs"),

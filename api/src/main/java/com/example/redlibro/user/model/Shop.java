@@ -2,9 +2,7 @@
 package com.example.redlibro.user.model;
 
 import com.example.redlibro.store.Store;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -27,8 +25,7 @@ public class Shop extends UserModel {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @Builder.Default
-    @OneToOne(mappedBy = "shop")
-    private Store stores = new Store();
+    @OneToOne(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Store store;
 
 }
