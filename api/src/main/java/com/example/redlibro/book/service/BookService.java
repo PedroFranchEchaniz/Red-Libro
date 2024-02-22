@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,6 +26,7 @@ public class BookService {
         Set<Genre> genres = Arrays.stream(createBookRequest.genres())
                 .map(Genre::valueOf)
                 .collect(Collectors.toSet());
+        LocalDate fecha = LocalDate.parse(createBookRequest.fecha());
 
         Book b = Book.builder()
                 .ISBN(createBookRequest.ISBN())
@@ -33,6 +35,8 @@ public class BookService {
                 .editorial(createBookRequest.editorial())
                 .portada(createBookRequest.portda())
                 .genres(genres)
+                .fecha(fecha)
+                .fechaAlta(LocalDate.now())
                 .build();
        return bookRepository.save(b);
     }

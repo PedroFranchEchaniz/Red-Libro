@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
@@ -28,5 +30,7 @@ public class Shelving {
     @MapsId("book_isbn")
     @JoinColumn(name = "book_isbn", referencedColumnName = "ISBN")
     private Book book;
+
+    LocalDate fechaAlta;
 
 }

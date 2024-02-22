@@ -6,6 +6,7 @@ public record CreateBookRequest(
         String autor,
         String editorial,
         String portda,
+        String fecha,
         String[]genres
 
 ) {
