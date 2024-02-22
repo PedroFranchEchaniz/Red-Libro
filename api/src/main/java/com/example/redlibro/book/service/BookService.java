@@ -8,8 +8,10 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Array;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,5 +41,14 @@ public class BookService {
                 .fechaAlta(LocalDate.now())
                 .build();
        return bookRepository.save(b);
+    }
+
+    public List<Book>[] librosOrdenados (){
+        List<Book>[] arrayBooks = (List<Book>[])new List<?>[2];
+
+        arrayBooks[0] = bookRepository.fantasybooks();
+        arrayBooks[1] = bookRepository.detectivebooks();
+
+        return arrayBooks;
     }
 }
