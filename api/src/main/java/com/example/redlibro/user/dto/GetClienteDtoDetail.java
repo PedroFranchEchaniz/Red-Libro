@@ -2,15 +2,15 @@ package com.example.redlibro.user.dto;
 
 import com.example.redlibro.user.model.Client;
 
-public record GetClienteDetoDetail(
+public record GetClienteDtoDetail(
         String uuid,
         String name,
-        String  lastName,
+        String lastName,
         String avatar,
         String username
 ) {
-    public static GetClienteDetoDetail of (Client c){
-        return new GetClienteDetoDetail(
+    public static GetClienteDtoDetail of (Client c){
+        return new GetClienteDtoDetail(
                 c.getUuid().toString(),
                 c.getName(),
                 c.getLastName(),

@@ -10,7 +10,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -35,7 +34,7 @@ public class UserController {
     }
 
     @PostMapping("/client/login")
-    public ResponseEntity<JwtClientResponse> login (@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<JwtClientResponse> loginCliente (@RequestBody LoginRequest loginRequest){
         Authentication authentication =
                 authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
@@ -52,8 +51,8 @@ public class UserController {
 
 
     @GetMapping("/client/profile")
-    public ResponseEntity<GetClienteDetoDetail> getLoggedClient(@AuthenticationPrincipal Client client){
-        return ResponseEntity.ok(GetClienteDetoDetail.of(client));
+    public ResponseEntity<GetClienteDtoDetail> getLoggedClient(@AuthenticationPrincipal Client client){
+        return ResponseEntity.ok(GetClienteDtoDetail.of(client));
     }
 
     @PostMapping("/shop/register")
@@ -61,5 +60,26 @@ public class UserController {
         Shop shop = userService.createShop(createShopRequest);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ShopResponse.fromShop(shop));
+    }
+
+    @PostMapping("/shop/login")
+    public ResponseEntity<JwtShopResponse> loginShop (@RequestBody LoginRequest loginRequest){
+        Authentication authentication =
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                loginRequest.getUsername(),
+                                loginRequest.getPassword()
+                        )
+                );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtProvider.generateToken(authentication);
+        Shop shop = (Shop) authentication.getPrincipal();
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(JwtShopResponse.of(shop,token));
+    }
+
+    @GetMapping("/shop/profile")
+    public ResponseEntity<GetShopDtoDetail> getLoggedShop(@AuthenticationPrincipal Shop shop){
+        return ResponseEntity.ok(GetShopDtoDetail.of(shop));
     }
 }
