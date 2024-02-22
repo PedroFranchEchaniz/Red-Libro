@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Array;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -44,11 +45,17 @@ public class BookService {
     }
 
    public List<Book>[] librosOrdenados (){
-        List<Book>[] arrayBooks = (List<Book>[])new List<?>[2];
+        List<Book>[] arrayBooks = (List<Book>[])new List<?>[5];
 
         arrayBooks[0] = bookRepository.fantasybooks();
         arrayBooks[1] = bookRepository.detectivebooks();
+        arrayBooks[4] = bookRepository.syfybooks();
 
+       for (int i = 0; i < arrayBooks.length; i++) {
+           if (arrayBooks[i] == null) {
+               arrayBooks[i] = new ArrayList<>();
+           }
+       }
         return arrayBooks;
     }
 }

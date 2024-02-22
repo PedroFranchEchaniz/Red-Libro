@@ -20,7 +20,7 @@ class AuthRepositoryImpl extends AuthRepository {
       body: json
           .encode(loginDto.toJson()), // Asegúrate de convertir el DTO a JSON.
     );
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       return LogiResponse.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to do login');

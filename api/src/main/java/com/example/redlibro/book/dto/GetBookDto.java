@@ -9,7 +9,9 @@ public record GetBookDto(
         String autor,
         String editorial,
         String fecha,
-        String fechaAlta
+        String fechaAlta,
+
+        String portada
 ) {
     public static GetBookDto of(Book book){
         return GetBookDto.builder()
@@ -18,6 +20,7 @@ public record GetBookDto(
                 .editorial(book.getEditorial())
                 .fecha(book.getFecha().toString())
                 .fechaAlta(book.getFechaAlta().toString())
+                .portada(book.getPortada())
                 .build();
     }
 }

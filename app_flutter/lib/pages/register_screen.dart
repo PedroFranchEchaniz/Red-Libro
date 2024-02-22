@@ -1,6 +1,6 @@
+import 'package:app_flutter/blocs/register-bloc/register_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:app_flutter/blocs/bloc/register_bloc.dart';
 import 'package:app_flutter/repositories/register/register_repositori_impl.dart';
 
 class RegisterScreen extends StatefulWidget {

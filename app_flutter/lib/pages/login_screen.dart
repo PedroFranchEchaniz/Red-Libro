@@ -1,8 +1,11 @@
+import 'package:app_flutter/blocs/array-book-bloc/bloc/book_bloc.dart';
+import 'package:app_flutter/blocs/login-bloc/login_bloc.dart';
+import 'package:app_flutter/pages/home_screen.dart';
 import 'package:app_flutter/pages/register_screen.dart';
+import 'package:app_flutter/repositories/arrayBooks/arrayBooks_repository_impl.dart';
 import 'package:app_flutter/repositories/auth/auth_repositori.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:app_flutter/blocs/bloc/login_bloc.dart';
 import 'package:app_flutter/repositories/auth/auth_repository_impl.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -46,8 +49,15 @@ class _LoginScreenState extends State<LoginScreen> {
         child: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state is DoLoginSuccess) {
-              // Implementar navegación a otra pantalla tras el login exitoso
-              // Ejemplo: Navigator.of(context).pushReplacementNamed('/home');
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => BlocProvider<BookBloc>(
+                    create: (context) => BookBloc(
+                        ArrayBooksRepositoryImpl()), // Asumiendo que tienes un constructor adecuado
+                    child: HomePage(),
+                  ),
+                ),
+              );
             } else if (state is DoLoginError) {
               // Mostrar mensaje de error
               ScaffoldMessenger.of(context).showSnackBar(
