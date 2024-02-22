@@ -43,7 +43,7 @@ public class BookService {
        return bookRepository.save(b);
     }
 
-    public List<Book>[] librosOrdenados (){
+   public List<Book>[] librosOrdenados (){
         List<Book>[] arrayBooks = (List<Book>[])new List<?>[2];
 
         arrayBooks[0] = bookRepository.fantasybooks();

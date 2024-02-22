@@ -11,9 +11,9 @@ import java.util.UUID;
 
 public interface BookRepository extends JpaRepository<Book, String> {
 
-    @Query("SELECT b FROM Book b JOIN b.genres g WHERE g = 'FANTASIA'")
+    @Query("SELECT b FROM Book b JOIN b.genres g WHERE g = 0")
     List<Book> fantasybooks();
 
-    @Query("SELECT b FROM Book b JOIN b.genres g WHERE g = 'POLICIACA'")
+    @Query("SELECT b FROM Book b JOIN b.genres g WHERE g = 1")
     List<Book> detectivebooks();
 }

@@ -40,7 +40,7 @@ public class BookController {
                 .toList();
     }
 
-    @GetMapping("/shop/allBooks")
+    @GetMapping("/shop/listsBooks")
     public List<GetBookDto> []allBooksArray(){
         List<Book>[] librosOrdenados = bookService.librosOrdenados();
 
