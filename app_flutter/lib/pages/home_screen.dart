@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.blue)),
                     ),
                     Container(
-                      height: 200,
+                      height: 350,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: nonEmptyCategories[categoryIndex]
@@ -61,13 +61,13 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (context, index) {
                           final book = nonEmptyCategories[categoryIndex][index];
                           return Container(
-                            width: 120,
+                            width: 180,
                             margin: EdgeInsets.only(right: 16.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 AspectRatio(
-                                  aspectRatio: 1,
+                                  aspectRatio: 2 / 3,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(8.0),
                                     child: Image.network(
@@ -130,20 +130,21 @@ class HorizontalList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      height:
+          400, // Ajusta la altura para asegurar suficiente espacio para todo el contenido
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: books.length, // Número de libros en la categoría
+        itemCount: books.length,
         itemBuilder: (context, index) {
           final book = books[index];
           return Container(
-            width: 120,
+            width: 200, // Aumenta el ancho para dar más espacio al contenido
             margin: EdgeInsets.only(right: 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AspectRatio(
-                  aspectRatio: 1,
+                Flexible(
+                  // Usa Flexible en lugar de AspectRatio para la imagen
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.network(
@@ -157,14 +158,15 @@ class HorizontalList extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8),
+                // Elimina Expanded o ajusta flex si decides usarlo, para evitar solapamiento
                 Text(book.titulo ?? "Sin título",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black)),
+                        color: Colors.white)), // Ajusta según el tema de tu app
                 SizedBox(height: 4),
                 Text(book.autor ?? "Autor desconocido",
                     maxLines: 1,
@@ -172,7 +174,8 @@ class HorizontalList extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
-                        color: Colors.grey[600])),
+                        color: Colors
+                            .grey[400])), // Ajusta según el tema de tu app
               ],
             ),
           );
