@@ -3,6 +3,9 @@ package com.example.redlibro.book.dto;
 import com.example.redlibro.book.model.Book;
 import lombok.Builder;
 
+import java.util.List;
+import java.util.Set;
+
 @Builder
 public record GetBookDto(
         String isbn,
@@ -11,7 +14,8 @@ public record GetBookDto(
         String editorial,
         String fecha,
         String fechaAlta,
-        String portada
+        String portada,
+        String genres
 ) {
     public static GetBookDto of(Book book){
         return GetBookDto.builder()
@@ -22,6 +26,7 @@ public record GetBookDto(
                 .fecha(book.getFecha().toString())
                 .fechaAlta(book.getFechaAlta().toString())
                 .portada(book.getPortada())
+                .genres(book.getGenres().toString())
                 .build();
     }
 }

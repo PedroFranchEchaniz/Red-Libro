@@ -8,9 +8,14 @@ class ArrayBooksRepositoryImpl extends ArrayBooksRepository {
   final Client _httpClient = Client();
 
   @override
+  Future<ArrayBooksResponse> fetchBookDetails(String isbn) {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<ArrayBooksResponse> getArrayBooks() async {
     final response = await _httpClient.get(
-      Uri.parse('http://localhost:8080/client/listsBooks'),
+      Uri.parse('http://localhost:8080/book/listsBooks'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization':

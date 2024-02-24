@@ -1,7 +1,9 @@
-import 'package:app_flutter/blocs/array-book-bloc/bloc/book_bloc.dart';
-import 'package:app_flutter/models/response/book_response.dart';
+import 'package:app_flutter/widget/book-list-widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:app_flutter/blocs/array-book-bloc/bloc/book_bloc.dart';
+import 'package:app_flutter/models/response/book_response.dart';
+// Asegúrate de importar el widget BookListWidget aquí
 
 class HomePage extends StatefulWidget {
   @override
@@ -41,72 +43,10 @@ class _HomePageState extends State<HomePage> {
               itemCount: nonEmptyCategories
                   .length, // Usar el tamaño de la lista filtrada
               itemBuilder: (context, categoryIndex) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text('Categoría ${categoryIndex + 1}',
-                          style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue)),
-                    ),
-                    Container(
-                      height: 350,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: nonEmptyCategories[categoryIndex]
-                            .length, // Número de libros en la categoría
-                        itemBuilder: (context, index) {
-                          final book = nonEmptyCategories[categoryIndex][index];
-                          return Container(
-                            width: 180,
-                            margin: EdgeInsets.only(right: 16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AspectRatio(
-                                  aspectRatio: 2 / 3,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.network(
-                                      book.portada ?? '',
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, error, stackTrace) =>
-                                              Container(
-                                        color: Colors.grey[200],
-                                        alignment: Alignment.center,
-                                        child: Icon(Icons.broken_image),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(book.titulo ?? "Sin título",
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color.fromARGB(
-                                            255, 235, 230, 230))),
-                                SizedBox(height: 4),
-                                Text(book.autor ?? "Autor desconocido",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.grey[600])),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+                // Aquí utilizamos el widget BookListWidget para cada categoría
+                return BookListWidget(
+                  books: nonEmptyCategories[categoryIndex],
+                  categoryIndex: categoryIndex,
                 );
               },
             );
@@ -116,69 +56,6 @@ class _HomePageState extends State<HomePage> {
             );
           }
           return Center(child: Text("No hay libros disponibles"));
-        },
-      ),
-    );
-  }
-}
-
-class HorizontalList extends StatelessWidget {
-  final List<Book> books;
-
-  const HorizontalList({Key? key, required this.books}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height:
-          400, // Ajusta la altura para asegurar suficiente espacio para todo el contenido
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: books.length,
-        itemBuilder: (context, index) {
-          final book = books[index];
-          return Container(
-            width: 200, // Aumenta el ancho para dar más espacio al contenido
-            margin: EdgeInsets.only(right: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Flexible(
-                  // Usa Flexible en lugar de AspectRatio para la imagen
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network(
-                      book.portada ?? '',
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => Container(
-                        color: Colors.grey[200],
-                        alignment: Alignment.center,
-                        child: Icon(Icons.broken_image),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 8),
-                // Elimina Expanded o ajusta flex si decides usarlo, para evitar solapamiento
-                Text(book.titulo ?? "Sin título",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white)), // Ajusta según el tema de tu app
-                SizedBox(height: 4),
-                Text(book.autor ?? "Autor desconocido",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: Colors
-                            .grey[400])), // Ajusta según el tema de tu app
-              ],
-            ),
-          );
         },
       ),
     );
