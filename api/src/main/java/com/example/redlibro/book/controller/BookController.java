@@ -10,13 +10,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -33,14 +31,14 @@ public class BookController {
                 .body(BookResponse.fromBook(book));
     }
 
-    @GetMapping("/shop/allBooks")
+    @GetMapping("/book/allBooks")
     public List<GetBookDto> allBooks(){
         return bookRepository.findAll().stream()
                 .map(GetBookDto::of)
                 .toList();
     }
 
-    @GetMapping("/client/listsBooks")
+    @GetMapping("/book/listsBooks")
     public List<GetBookDto> []allBooksArray(){
         List<Book>[] librosOrdenados = bookService.librosOrdenados();
 
@@ -48,5 +46,14 @@ public class BookController {
                 .map(list -> list.stream().map(GetBookDto::of).collect(Collectors.toList()))
                 .toArray(List[]::new);
         return dtoLists;
+    }
+
+
+    @GetMapping("/book/{isbn}")
+        public GetBookDto detailsbook (@PathVariable String isbn)  {
+        Optional<Book> b = bookRepository.findById(isbn);
+        if(b == null)
+            return null;
+        return GetBookDto.of(b.get());
     }
 }
