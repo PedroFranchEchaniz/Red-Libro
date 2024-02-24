@@ -15,7 +15,8 @@ public record GetBookDto(
         String fecha,
         String fechaAlta,
         String portada,
-        String genres
+        String genres,
+        String resumen
 ) {
     public static GetBookDto of(Book book){
         return GetBookDto.builder()
@@ -27,6 +28,7 @@ public record GetBookDto(
                 .fechaAlta(book.getFechaAlta().toString())
                 .portada(book.getPortada())
                 .genres(book.getGenres().toString())
+                .resumen(book.getResumen())
                 .build();
     }
 }

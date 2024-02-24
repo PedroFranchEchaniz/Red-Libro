@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.springframework.cglib.core.Local;
+import org.w3c.dom.Text;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -27,6 +28,9 @@ public class Book {
     private String portada;
     private LocalDate fecha;
     private LocalDate fechaAlta;
+
+    @Column(columnDefinition = "TEXT")
+    private String resumen;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Genre> genres;

@@ -2,7 +2,7 @@ INSERT INTO user_model (account_non_expired, account_non_locked, credentials_non
 INSERT INTO Client (name, last_name, uuid) values ('Paco', 'Fernadez', 'c4e27173-52b5-4bd9-94ee-88a07167fa72');
 INSERT INTO user_model_roles(user_model_uuid, roles) values ('c4e27173-52b5-4bd9-94ee-88a07167fa72', 1);
 
-INSERT INTO book (isbn, titulo, autor, editorial, portada, fecha, fecha_alta) VALUES ('1234567890', 'El Señor de los Anillos', 'J.R.R. Tolkien', 'Minotauro', 'https://m.media-amazon.com/images/I/91CZONTFNgL._SY342_.jpg', '1891-06-2', '2023-01-19');
+INSERT INTO book (isbn, titulo, autor, editorial, portada, fecha, fecha_alta, resumen) VALUES ('1234567890', 'El Señor de los Anillos', 'J.R.R. Tolkien', 'Minotauro', 'https://m.media-amazon.com/images/I/91CZONTFNgL._SY342_.jpg', '1891-06-2', '2023-01-19', 'En la conclusión épica de "El Señor de los Anillos", Frodo y Sam, guiados por Gollum, continúan su peligrosa misión hacia el Monte del Destino para destruir el Anillo Único. Mientras, Aragorn lidera a los Pueblos Libres en la batalla final contra las fuerzas de Sauron en Minas Tirith. Es una lucha desesperada por la libertad y la esperanza, con el destino de la Tierra Media en la balanza. J.R.R. Tolkien cierra su obra maestra con heroísmo, sacrificio y la promesa de paz tras la oscuridad.');
 INSERT INTO book_genres (book_isbn, genres) VALUES ('1234567890', 0);
 
 INSERT INTO book (isbn, titulo, autor, editorial, portada, fecha, fecha_alta) VALUES ('1234567891', 'Guia del autoestopista intergalactico', 'Douglas Adams', 'Anagrama', 'https://quelibroleo.com/images/libros/libro_1384705967.jpg', '1999-06-2', '2024-02-22');
