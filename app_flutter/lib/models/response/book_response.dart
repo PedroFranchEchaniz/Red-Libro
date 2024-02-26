@@ -8,6 +8,7 @@ class Book {
   String? portada;
   String? generos;
   String? resumen;
+  double? valoracion;
 
   Book(
       {this.isbn,
@@ -18,7 +19,8 @@ class Book {
       this.fechaAlta,
       this.portada,
       this.generos,
-      this.resumen});
+      this.resumen,
+      this.valoracion});
 
   factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
@@ -30,7 +32,8 @@ class Book {
         fechaAlta: json['fechaAlta'],
         portada: json['portada'],
         generos: json['generos'],
-        resumen: json['resumen']);
+        resumen: json['resumen'],
+        valoracion: json['valoracion']);
   }
 
   Map<String, dynamic> toJson() {
@@ -43,7 +46,8 @@ class Book {
       'fechaAlta': fechaAlta,
       'portada': portada,
       'generos': generos,
-      'resumen': resumen
+      'resumen': resumen,
+      'valoracion': valoracion
     };
   }
 }

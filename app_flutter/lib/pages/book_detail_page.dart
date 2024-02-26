@@ -1,5 +1,6 @@
 import 'package:app_flutter/models/response/book_response.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class BookDetailPage extends StatelessWidget {
   final Book book;
@@ -12,138 +13,106 @@ class BookDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        title: Text(book.titulo ?? 'Sin título'),
+        backgroundColor: Colors.black,
         elevation: 0,
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  book.portada ?? '',
-                  width: double.infinity,
-                  height: 200,
-                  fit: BoxFit.cover,
+          // Fondo con la imagen de portada y el degradado
+          Positioned.fill(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                book.portada ?? '',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.black.withOpacity(0.0),
+                    Colors.black,
+                  ],
                 ),
               ),
-              Positioned.fill(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.transparent,
-                        Colors.black.withOpacity(0.4),
-                      ],
-                    ),
+            ),
+          ),
+          // Contenido dividido en dos columnas
+          Row(
+            children: [
+              // Columna para la portada del libro
+              Expanded(
+                child: Center(
+                  child: Column(
+                    mainAxisSize:
+                        MainAxisSize.min, // Centra el contenido verticalmente
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          book.portada ?? '',
+                          width: MediaQuery.of(context).size.width *
+                              0.4, // Ajusta el ancho según necesites
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      SizedBox(
+                          height: 8), // Espacio entre la imagen y la valoración
+                      RatingBarIndicator(
+                        rating: book.valoracion ??
+                            0.0, // Asegúrate de que `book.valoracion` no sea nulo
+                        itemBuilder: (context, index) => Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        itemCount: 5, // Número total de estrellas
+                        itemSize: 24.0, // Tamaño de las estrellas
+                        direction: Axis.horizontal,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // Columna para los datos del libro
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        book.titulo ?? "Sin título",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text("Autor: ${book.autor ?? "Autor desconocido"}",
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          )),
+                      Text(
+                          "Editorial: ${book.editorial ?? "Editorial desconocida"}",
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          )),
+                      const SizedBox(height: 8),
+                      // Repite para los demás datos del libro...
+                    ],
                   ),
                 ),
               ),
             ],
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 16),
-                        Text(
-                          book.titulo ?? "Sin título",
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          book.autor ?? "Autor desconocido",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          book.generos ?? "Género desconocido",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          book.editorial ?? "Editorial desconocida",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 16),
-                        Text(
-                          "Calificación: ${book.calificacion ?? "Desconocida"}",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          "Páginas: ${book.paginas ?? "Desconocido"}",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          "Fecha de publicación: ${book.fechaPublicacion ?? "Desconocida"}",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            ation: BoxDecoration(
-              color: Colors.white,
-              borderRadius: Border.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-              ),
-            ),
-            child: Text(
-              book.resumen ?? "Sinopsis desconocida",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-              ),
-            ),
           ),
         ],
       ),
