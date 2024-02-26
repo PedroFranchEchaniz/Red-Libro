@@ -1,6 +1,8 @@
-import 'package:app_flutter/pages/book_detail_page.dart';
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
+
 import 'package:app_flutter/models/response/book_response.dart';
+import 'package:app_flutter/pages/book_detail_page.dart';
 
 class BookListWidget extends StatelessWidget {
   final List<Book> books;
@@ -53,10 +55,11 @@ class BookListWidget extends StatelessWidget {
                         aspectRatio: 2 / 3,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(
-                            book.portada ?? '',
+                          child: FadeInImage.memoryNetwork(
+                            placeholder: kTransparentImage,
+                            image: book.portada ?? '',
                             fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
+                            imageErrorBuilder: (context, error, stackTrace) =>
                                 Container(
                               color: Colors.grey[200],
                               alignment: Alignment.center,

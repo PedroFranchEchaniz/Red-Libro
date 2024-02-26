@@ -9,6 +9,7 @@ class BookRating {
   String? genres;
   String? resumen;
   int? valoracion;
+  bool? disponible;
 
   BookRating(
       {this.isbn,
@@ -20,7 +21,8 @@ class BookRating {
       this.portada,
       this.genres,
       this.resumen,
-      this.valoracion});
+      this.valoracion,
+      this.disponible});
 
   BookRating.fromJson(Map<String, dynamic> json) {
     isbn = json['isbn'];
@@ -33,6 +35,7 @@ class BookRating {
     genres = json['genres'];
     resumen = json['resumen'];
     valoracion = json['valoracion'];
+    disponible = json['disponible'];
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +50,7 @@ class BookRating {
     data['genres'] = this.genres;
     data['resumen'] = this.resumen;
     data['valoracion'] = this.valoracion;
+    data['disponible'] = this.disponible;
     return data;
   }
 }
