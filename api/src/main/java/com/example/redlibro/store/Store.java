@@ -22,12 +22,13 @@ public class Store {
     private LocalDate dateRegiste;
     private double precio;
 
-    @OneToOne
-    @JoinColumn(name = "shop_uuid", referencedColumnName = "UUID", insertable = false, updatable = false)
+    @ManyToOne
+    @MapsId("shopUuid")
+    @JoinColumn(name = "shop_uuid", referencedColumnName = "UUID")
     private Shop shop;
 
     @ManyToOne
-    @MapsId("book_isbn")
+    @MapsId("bookIsbn")
     @JoinColumn(name = "book_isbn", referencedColumnName = "ISBN")
     private Book book;
 

@@ -14,6 +14,6 @@ public class StorePk implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID shop_uuid;
-    private String book_isbn;
+    private UUID shopUuid;
+    private String bookIsbn;
 }

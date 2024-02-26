@@ -19,4 +19,6 @@ public interface BookRepository extends JpaRepository<Book, String> {
 
     @Query("SELECT b FROM Book b JOIN b.genres g WHERE g = 4")
     List<Book> syfybooks();
+
+    
 }

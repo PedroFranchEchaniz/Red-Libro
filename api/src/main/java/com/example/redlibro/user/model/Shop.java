@@ -25,7 +25,7 @@ public class Shop extends UserModel {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToOne(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Store store;
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Store> stores = new ArrayList<>();
 
 }

@@ -75,7 +75,7 @@ class BookDetailPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          book.genero ?? "Género desconocido",
+                          book.generos ?? "Género desconocido",
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white,

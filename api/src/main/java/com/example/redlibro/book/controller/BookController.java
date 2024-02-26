@@ -31,7 +31,7 @@ public class BookController {
                 .body(BookResponse.fromBook(book));
     }
 
-    @GetMapping("/book/allBooks")
+    /*@GetMapping("/book/allBooks")
     public List<GetBookDto> allBooks(){
         return bookRepository.findAll().stream()
                 .map(GetBookDto::of)
@@ -55,5 +55,5 @@ public class BookController {
         if(b == null)
             return null;
         return GetBookDto.of(b.get());
-    }
+    }*/
 }
