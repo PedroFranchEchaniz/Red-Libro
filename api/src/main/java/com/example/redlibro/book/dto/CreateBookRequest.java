@@ -1,5 +1,8 @@
 package com.example.redlibro.book.dto;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
 public record CreateBookRequest(
         String ISBN,
         String titulo,
@@ -7,7 +10,13 @@ public record CreateBookRequest(
         String editorial,
         String portda,
         String fecha,
-        String[]genres
+        String[]genres,
+        String resumen,
+        double mediaValoracion,
+        String uuidShor,
+        int stock,
+        double precio,
+        LocalDate fechaRegistro
 
 ) {
 }

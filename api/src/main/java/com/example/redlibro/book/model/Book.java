@@ -1,19 +1,16 @@
 package com.example.redlibro.book.model;
 
 import com.example.redlibro.rating.model.Rating;
-import com.example.redlibro.store.Store;
+import com.example.redlibro.store.model.Store;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.springframework.cglib.core.Local;
-import org.w3c.dom.Text;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,6 +31,7 @@ public class Book {
     private LocalDate fecha;
     private LocalDate fechaAlta;
     private double mediaValoracion;
+    private boolean disponible;
 
     @Column(columnDefinition = "TEXT")
     private String resumen;

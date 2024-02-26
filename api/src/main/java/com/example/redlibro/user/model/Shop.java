@@ -1,7 +1,7 @@
 
 package com.example.redlibro.user.model;
 
-import com.example.redlibro.store.Store;
+import com.example.redlibro.store.model.Store;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

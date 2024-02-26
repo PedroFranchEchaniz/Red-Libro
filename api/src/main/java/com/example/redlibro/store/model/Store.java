@@ -1,4 +1,4 @@
-package com.example.redlibro.store;
+package com.example.redlibro.store.model;
 
 import com.example.redlibro.book.model.Book;
 import com.example.redlibro.user.model.Shop;

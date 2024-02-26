@@ -14,8 +14,8 @@ public record GetBookWithRating(
         String portada,
         String genres,
         String resumen,
-
-        Double valoracion
+        Double valoracion,
+        boolean disponible
 ) {
     public static GetBookWithRating of (Book book){
         return GetBookWithRating.builder()
@@ -29,6 +29,7 @@ public record GetBookWithRating(
                 .genres(book.getGenres().toString())
                 .resumen(book.getResumen())
                 .valoracion(book.getMediaValoracion())
+                .disponible(book.isDisponible())
                 .build();
     }
 }

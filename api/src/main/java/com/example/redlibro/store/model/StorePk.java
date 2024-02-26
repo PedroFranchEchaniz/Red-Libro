@@ -1,4 +1,4 @@
-package com.example.redlibro.store;
+package com.example.redlibro.store.model;
 
 import jakarta.persistence.Embeddable;
 import lombok.Data;
