@@ -107,11 +107,17 @@ class BookDetailPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: ElevatedButton(
-                        onPressed: () => BlocProvider.of<ShopBloc>(context)
-                            .add(GetShopsWithBook(book.isbn!)),
+                        onPressed: () {
+                          // Aquí puedes añadir el log para depurar
+                          print(
+                              'Enviando evento GetShopsWithBook con ISBN: ${book.isbn}');
+                          // Ahora, envías el evento al Bloc
+                          BlocProvider.of<ShopBloc>(context)
+                              .add(GetShopsWithBook(book.isbn!));
+                        },
                         child: Text('Reserva'),
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
+                          backgroundColor: Colors.green,
                         ),
                       ),
                     ),

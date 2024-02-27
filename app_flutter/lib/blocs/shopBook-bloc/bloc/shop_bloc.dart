@@ -12,12 +12,15 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
 
   ShopBloc({required this.shopWithBookRepository}) : super(ShopsInitial()) {
     on<GetShopsWithBook>((event, emit) async {
+      print('Procesando evento GetShopsWithBook con ISBN: ${event.isbn}');
       emit(ShopsLoading());
       try {
         final List<ShopsWithBookResponse> shops =
             await shopWithBookRepository.getShopWithBook(event.isbn);
+        print('Tiendas cargadas: $shops');
         emit(ShopsLoaded(shops));
       } catch (e) {
+        print('Error al cargar tiendas: $e');
         emit(ShopsError(e.toString()));
       }
     });
