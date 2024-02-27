@@ -5,8 +5,8 @@ sealed class BookEvent {}
 
 class FetchBooks extends BookEvent {}
 
-class ToggleBookDetails extends BookEvent {
+class BookViewDetail extends BookEvent {
   final int index;
 
-  ToggleBookDetails(this.index);
+  BookViewDetail(this.index);
 }

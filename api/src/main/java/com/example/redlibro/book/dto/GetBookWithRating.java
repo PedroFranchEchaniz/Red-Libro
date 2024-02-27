@@ -3,11 +3,8 @@ package com.example.redlibro.book.dto;
 import com.example.redlibro.book.model.Book;
 import lombok.Builder;
 
-import java.util.List;
-import java.util.Set;
-
 @Builder
-public record GetBookDto(
+public record GetBookWithRating(
         String isbn,
         String titulo,
         String autor,
@@ -17,10 +14,11 @@ public record GetBookDto(
         String portada,
         String genres,
         String resumen,
-        Double valoracion
+        Double valoracion,
+        boolean disponible
 ) {
-    public static GetBookDto of(Book book){
-        return GetBookDto.builder()
+    public static GetBookWithRating of (Book book){
+        return GetBookWithRating.builder()
                 .isbn(book.getISBN())
                 .titulo(book.getTitulo())
                 .autor(book.getAutor())
@@ -30,6 +28,8 @@ public record GetBookDto(
                 .portada(book.getPortada())
                 .genres(book.getGenres().toString())
                 .resumen(book.getResumen())
+                .valoracion(book.getMediaValoracion())
+                .disponible(book.isDisponible())
                 .build();
     }
 }

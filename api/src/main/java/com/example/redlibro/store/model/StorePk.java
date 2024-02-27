@@ -1,4 +1,4 @@
-package com.example.redlibro.store;
+package com.example.redlibro.store.model;
 
 import jakarta.persistence.Embeddable;
 import lombok.Data;
@@ -14,6 +14,6 @@ public class StorePk implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID shop_uuid;
-    private String book_isbn;
+    private UUID shopUuid;
+    private String bookIsbn;
 }

@@ -22,9 +22,10 @@ public class Shelving {
     @EmbeddedId
     private ShelvingPk shelvingPk = new ShelvingPk();
 
-    @OneToOne
-    @JoinColumn(name = "client_isnb", referencedColumnName = "UUID", insertable = false,updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "client_uuid", referencedColumnName = "UUID")
     private Client client;
+
 
     @ManyToOne
     @MapsId("book_isbn")
