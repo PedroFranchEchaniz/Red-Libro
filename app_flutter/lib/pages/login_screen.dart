@@ -1,9 +1,11 @@
 import 'package:app_flutter/blocs/array-book-bloc/bloc/book_bloc.dart';
 import 'package:app_flutter/blocs/login-bloc/login_bloc.dart';
+import 'package:app_flutter/blocs/shopBook-bloc/bloc/shop_bloc.dart';
 import 'package:app_flutter/pages/home_screen.dart';
 import 'package:app_flutter/pages/register_screen.dart';
 import 'package:app_flutter/repositories/arrayBooks/arrayBooks_repository_impl.dart';
 import 'package:app_flutter/repositories/auth/auth_repositori.dart';
+import 'package:app_flutter/repositories/shopWithBook/shopWithBook_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_flutter/repositories/auth/auth_repository_impl.dart';
@@ -51,9 +53,20 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state is DoLoginSuccess) {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => BlocProvider<BookBloc>(
-                    create: (context) => BookBloc(
-                        ArrayBooksRepositoryImpl()), // Asumiendo que tienes un constructor adecuado
+                  builder: (context) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider<BookBloc>(
+                        create: (context) =>
+                            BookBloc(ArrayBooksRepositoryImpl()),
+                      ),
+                      // Asegúrate de incluir ShopBloc si es necesario para HomePage o sus descendientes
+                      BlocProvider<ShopBloc>(
+                        create: (context) => ShopBloc(
+                            shopWithBookRepository:
+                                ShopWithBookRepositoryImpl()),
+                      ),
+                    ],
+                    // Asumiendo que tienes un constructor adecuado
                     child: HomePage(),
                   ),
                 ),

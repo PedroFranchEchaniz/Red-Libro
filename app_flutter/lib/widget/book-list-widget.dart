@@ -1,4 +1,7 @@
+import 'package:app_flutter/blocs/shopBook-bloc/bloc/shop_bloc.dart';
+import 'package:app_flutter/repositories/shopWithBook/shopWithBook_repository_impl.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import 'package:app_flutter/models/response/book_response.dart';
@@ -39,11 +42,13 @@ class BookListWidget extends StatelessWidget {
               final book = books[index];
               return GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => BookDetailPage(book: book),
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => BlocProvider<ShopBloc>(
+                      create: (context) => ShopBloc(
+                          shopWithBookRepository: ShopWithBookRepositoryImpl()),
+                      child: BookDetailPage(book: book),
                     ),
-                  );
+                  ));
                 },
                 child: Container(
                   width: 180,

@@ -7,6 +7,7 @@ import com.example.redlibro.book.dto.GetBookWithRating;
 import com.example.redlibro.book.model.Book;
 import com.example.redlibro.book.repository.BookRepository;
 import com.example.redlibro.book.service.BookService;
+import com.example.redlibro.user.dto.GetShopWithBook;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -51,8 +52,15 @@ public class BookController {
 
 
     @GetMapping("/book/{isbn}")
-        public GetBookWithRating detailsbook (@PathVariable String isbn)  {
+    public GetBookWithRating detailsbook (@PathVariable String isbn)  {
         Book b = bookService.libroMedia(isbn);
         return  GetBookWithRating.of(b);
+    }
+
+    @GetMapping("/book/avaibleInShop/{isbn}")
+    public List<GetShopWithBook> shopWithBooks (@PathVariable String isbn){
+        return bookService.shopsWithBook(isbn).stream()
+                .map(GetShopWithBook::of)
+                .toList();
     }
 }
