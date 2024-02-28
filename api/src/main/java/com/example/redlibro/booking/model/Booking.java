@@ -36,10 +36,13 @@ public class Booking {
     @JoinColumn(name = "client_uuid", referencedColumnName = "uuid")
     private Client client;
 
-    @ManyToOne
-    @JoinColumn(name = "store_id", referencedColumnName = "id")
-    private Store store;
-
     @Column(nullable = false)
     private UUID bookingCode = UUID.randomUUID();
+
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "shop_uuid", referencedColumnName = "shopUuid", insertable = false, updatable = false),
+            @JoinColumn(name = "book_isbn", referencedColumnName = "bookIsbn", insertable = false, updatable = false)
+    })
+    private Store store;
 }
