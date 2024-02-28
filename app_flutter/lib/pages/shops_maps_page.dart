@@ -21,14 +21,12 @@ class ShopsMapPage extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            // Imagen de fondo extendida
             Positioned.fill(
               child: Image.network(
                 book.portada ?? '',
                 fit: BoxFit.cover,
               ),
             ),
-            // Gradiente sobre la imagen de fondo
             Positioned.fill(
               child: DecoratedBox(
                 decoration: BoxDecoration(
@@ -47,10 +45,7 @@ class ShopsMapPage extends StatelessWidget {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
-                      height: MediaQuery.of(context).size.height *
-                          0.3), // Espacio para que el mapa esté más arriba
-                  // Mapa
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.3),
                   Container(
                     height: 250,
                     child: GoogleMap(
@@ -70,7 +65,6 @@ class ShopsMapPage extends StatelessWidget {
                           .toSet(),
                     ),
                   ),
-                  // Lista de tiendas
                   Container(
                     height: 250,
                     child: ListView.builder(
