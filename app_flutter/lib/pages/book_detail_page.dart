@@ -20,13 +20,17 @@ class BookDetailPage extends StatelessWidget {
       ),
       body: BlocListener<ShopBloc, ShopState>(
         listener: (context, state) {
+          print('Estado recibido: $state');
           if (state is ShopsLoaded) {
+            print('Navegando a ShopsMapPage con tiendas: ${state.shops}');
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => ShopsMapPage(shops: state.shops),
+                builder: (context) =>
+                    ShopsMapPage(shops: state.shops, book: book),
               ),
             );
           } else if (state is ShopsError) {
+            print('Mostrando error: ${state.message}');
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.message)),
             );
@@ -108,10 +112,8 @@ class BookDetailPage extends StatelessWidget {
                       padding: const EdgeInsets.all(16.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          // Aquí puedes añadir el log para depurar
                           print(
-                              'Enviando evento GetShopsWithBook con ISBN: ${book.isbn}');
-                          // Ahora, envías el evento al Bloc
+                              'Botón presionado. Enviando evento GetShopsWithBook con ISBN: ${book.isbn}');
                           BlocProvider.of<ShopBloc>(context)
                               .add(GetShopsWithBook(book.isbn!));
                         },

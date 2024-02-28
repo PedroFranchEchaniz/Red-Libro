@@ -14,14 +14,17 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
     on<GetShopsWithBook>((event, emit) async {
       print('Procesando evento GetShopsWithBook con ISBN: ${event.isbn}');
       emit(ShopsLoading());
+      print('Estado emitido: ShopsLoading');
       try {
         final List<ShopsWithBookResponse> shops =
             await shopWithBookRepository.getShopWithBook(event.isbn);
         print('Tiendas cargadas: $shops');
         emit(ShopsLoaded(shops));
+        print('Estado emitido: ShopsLoaded');
       } catch (e) {
         print('Error al cargar tiendas: $e');
         emit(ShopsError(e.toString()));
+        print('Estado emitido: ShopsError');
       }
     });
   }
