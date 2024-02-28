@@ -1,5 +1,6 @@
 package com.example.redlibro.user.model;
 
+import com.example.redlibro.booking.model.Booking;
 import com.example.redlibro.rating.model.Rating;
 import com.example.redlibro.shelving.Shelving;
 import jakarta.persistence.CascadeType;
@@ -30,5 +31,8 @@ public class Client extends UserModel {
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Shelving> shelvings = new HashSet<>();
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Booking> bookings = new HashSet<>();
 
 }
