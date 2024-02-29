@@ -2,11 +2,13 @@ package com.example.redlibro.booking.model;
 
 import com.example.redlibro.store.model.Store;
 import com.example.redlibro.user.model.Client;
+import com.example.redlibro.user.model.Shop;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -40,9 +42,9 @@ public class Booking {
     private UUID bookingCode = UUID.randomUUID();
 
     @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "shop_uuid", referencedColumnName = "shopUuid", insertable = false, updatable = false),
-            @JoinColumn(name = "book_isbn", referencedColumnName = "bookIsbn", insertable = false, updatable = false)
-    })
-    private Store store;
+    @JoinColumn(name = "shop_uuid")
+    private Shop shop;
+
+    private LocalDate fechaReserva;
+
 }
