@@ -16,7 +16,7 @@ public interface StoreRepository extends JpaRepository<Store, StorePk> {
     @Query("SELECT COUNT(s) FROM Store s WHERE s.book.ISBN = ?1 AND s.stock > 0")
     Long existsByBookIsbnAndStockGreaterThanZero(String isbn);
 
-    @Query("SELECT s.shop FROM Store s WHERE s.book.ISBN = ?1 AND s.stock > 0")
-    Optional<List<Shop>> shoWithBookAvailable (String isbn);
+    @Query("SELECT s FROM Store s WHERE s.book.ISBN = ?1 AND s.stock > 0")
+    Optional<List<Store>> shoWithBookAvailable (String isbn);
 }
 

@@ -71,11 +71,92 @@ class ShopsMapPage extends StatelessWidget {
                       itemCount: shops.length,
                       itemBuilder: (context, index) {
                         final shop = shops[index];
-                        return ListTile(
-                          title: Text(shop.name!,
-                              style: TextStyle(color: Colors.white)),
-                          subtitle: Text(shop.direccion!,
-                              style: TextStyle(color: Colors.white70)),
+                        return Card(
+                          color: Colors.black54,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(shop.name!,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16)),
+                                      Text(shop.direccion!,
+                                          style: TextStyle(
+                                              color: Colors.white70,
+                                              fontSize: 14)),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    '${shop.precio} €',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 16),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      // Aquí se inicia el código para mostrar el diálogo de confirmación
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: Text('Confirmar Reserva'),
+                                            content: SingleChildScrollView(
+                                              child: ListBody(
+                                                children: <Widget>[
+                                                  Text(
+                                                      '¿Deseas reservar el libro en la siguiente tienda?'),
+                                                  Text('Nombre: ${shop.name}'),
+                                                  Text(
+                                                      'Dirección: ${shop.direccion}'),
+                                                  Text(
+                                                      'Precio: ${shop.precio} €'),
+                                                ],
+                                              ),
+                                            ),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                child: Text('Cancelar'),
+                                                onPressed: () {
+                                                  Navigator.of(context)
+                                                      .pop(); // Cierra el diálogo
+                                                },
+                                              ),
+                                              TextButton(
+                                                child: Text('Confirmar'),
+                                                onPressed: () {
+                                                  // Aquí puedes agregar la lógica para manejar la confirmación de la reserva
+                                                  Navigator.of(context)
+                                                      .pop(); // Cierra el diálogo
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Text('Reservar'),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors
+                                          .green, // background (button) color
+                                      onPrimary: Colors
+                                          .white, // foreground (text) color
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         );
                       },
                     ),

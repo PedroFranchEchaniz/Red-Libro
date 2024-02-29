@@ -1,21 +1,23 @@
 package com.example.redlibro.user.dto;
 
+import com.example.redlibro.store.model.Store;
 import com.example.redlibro.user.model.Shop;
 
 public record GetShopWithBook(
         String name,
         String direccion,
-
         String lat,
+        String lon,
+        Double precio
 
-        String lon
 ) {
-    public static GetShopWithBook of (Shop p){
+    public static GetShopWithBook of (Store store){
         return new GetShopWithBook(
-                p.getName(),
-                p.getDireccion(),
-                p.getLat(),
-                p.getLon()
+                store.getShop().getName(),
+                store.getShop().getDireccion(),
+                store.getShop().getLat(),
+                store.getShop().getLon(),
+                store.getPrecio()
         );
     }
 }
