@@ -1,5 +1,6 @@
 package com.example.redlibro.booking.dto;
 
+import com.example.redlibro.booking.model.Booking;
 import lombok.Builder;
 
 import java.time.LocalDate;
@@ -11,7 +12,19 @@ public record GetBookingDto(
         LocalDate fechaReserva,
         String nombreUsuario,
 
+        String nombreLibro,
+        String idbn
+
 
 
 ) {
+
+    public static GetBookingDto of (Booking booking){
+        return GetBookingDto.builder()
+                .codigo(booking.getBookingCode().toString())
+                .fechaReserva(booking.getFechaReserva())
+                .nombreUsuario(booking.getClient().getUsername())
+                .idbn(booking.)
+                .build();
+    }
 }
