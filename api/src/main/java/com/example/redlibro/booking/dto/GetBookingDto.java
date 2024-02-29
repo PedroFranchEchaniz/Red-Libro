@@ -12,7 +12,7 @@ public record GetBookingDto(
         LocalDate fechaReserva,
         String nombreUsuario,
 
-        String nombreLibro,
+        String titulo,
         String idbn
 
 
@@ -24,7 +24,8 @@ public record GetBookingDto(
                 .codigo(booking.getBookingCode().toString())
                 .fechaReserva(booking.getFechaReserva())
                 .nombreUsuario(booking.getClient().getUsername())
-                .idbn(booking.)
+                .idbn(booking.getBook().getISBN())
+                .titulo(booking.getBook().getTitulo())
                 .build();
     }
 }

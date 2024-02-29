@@ -1,6 +1,7 @@
 package com.example.redlibro.booking.controller;
 
 import com.example.redlibro.book.service.BookService;
+import com.example.redlibro.booking.dto.GetBookingDto;
 import com.example.redlibro.booking.model.Booking;
 import com.example.redlibro.booking.service.BookingService;
 import com.example.redlibro.store.model.StorePk;
@@ -17,7 +18,7 @@ public class BookingController {
 
     private final BookingService bookingService;
     @PostMapping("/booking/{storePk}/{clientUUid}")
-    public Booking reserva (@PathVariable StorePk pk, @PathVariable UUID uuid){
-        return bookingService.reservar(pk, uuid);
+    public GetBookingDto reserva (@PathVariable StorePk pk, @PathVariable UUID uuid){
+        return GetBookingDto.of(bookingService.reservar(pk, uuid));
     }
 }

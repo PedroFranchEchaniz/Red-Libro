@@ -1,5 +1,6 @@
 package com.example.redlibro.booking.model;
 
+import com.example.redlibro.book.model.Book;
 import com.example.redlibro.store.model.Store;
 import com.example.redlibro.user.model.Client;
 import com.example.redlibro.user.model.Shop;
@@ -46,5 +47,9 @@ public class Booking {
     private Shop shop;
 
     private LocalDate fechaReserva;
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "book_isbn")
+    private Book book;
 
 }
