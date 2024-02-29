@@ -16,10 +16,7 @@ class ArrayBooksRepositoryImpl extends ArrayBooksRepository {
 
   @override
   Future<ArrayBooksResponse> getArrayBooks() async {
-    // Leer el token almacenado
     String? token = await _storage.read(key: 'authToken');
-
-    // Si no hay token, lanza una excepción o maneja el caso como consideres necesario
     if (token == null) {
       throw Exception('Authorization token not found');
     }
@@ -28,7 +25,7 @@ class ArrayBooksRepositoryImpl extends ArrayBooksRepository {
       Uri.parse('http://10.0.2.2:8080/book/listsBooks'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $token', // Usa el token leído
+        'Authorization': 'Bearer $token',
       },
     );
 

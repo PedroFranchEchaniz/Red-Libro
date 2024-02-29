@@ -11,10 +11,8 @@ class BookDetailRepositoryImpl extends BookDetailRepository {
 
   @override
   Future<BookRating> getDetailBook(String isbn) async {
-    // Leer el token almacenado
     String? token = await _storage.read(key: 'authToken');
 
-    // Si no hay token, lanza una excepción o maneja el caso como consideres necesario
     if (token == null) {
       throw Exception('Authorization token not found');
     }
@@ -23,7 +21,7 @@ class BookDetailRepositoryImpl extends BookDetailRepository {
       Uri.parse('http://localhost:8080/book/$isbn'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $token', // Usa el token leído
+        'Authorization': 'Bearer $token',
       },
     );
 
