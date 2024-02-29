@@ -37,7 +37,7 @@ class ShopsMapPage extends StatelessWidget {
                       Colors.transparent,
                       Colors.black.withOpacity(0.7),
                     ],
-                    stops: [0.5, 0.9], // Ajusta estos valores según necesites
+                    stops: [0.5, 0.9],
                   ),
                 ),
               ),
