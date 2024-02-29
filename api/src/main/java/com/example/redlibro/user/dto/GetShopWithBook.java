@@ -8,7 +8,9 @@ public record GetShopWithBook(
         String direccion,
         String lat,
         String lon,
-        Double precio
+        Double precio,
+
+        String uuid
 
 ) {
     public static GetShopWithBook of (Store store){
@@ -17,7 +19,8 @@ public record GetShopWithBook(
                 store.getShop().getDireccion(),
                 store.getShop().getLat(),
                 store.getShop().getLon(),
-                store.getPrecio()
+                store.getPrecio(),
+                store.getShop().getUuid().toString()
         );
     }
 }

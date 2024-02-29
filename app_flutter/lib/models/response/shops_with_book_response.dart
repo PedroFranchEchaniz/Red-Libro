@@ -4,8 +4,10 @@ class ShopsWithBookResponse {
   String? lat;
   String? lon;
   double? precio;
+  String? uuid;
 
-  ShopsWithBookResponse({this.name, this.direccion, this.lat, this.lon});
+  ShopsWithBookResponse(
+      {this.name, this.direccion, this.lat, this.lon, this.uuid, this.precio});
 
   ShopsWithBookResponse.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -13,6 +15,7 @@ class ShopsWithBookResponse {
     lat = json['lat'];
     lon = json['lon'];
     precio = json['precio'];
+    uuid = json['uuid'];
   }
 
   Map<String, dynamic> toJson() {
@@ -22,6 +25,7 @@ class ShopsWithBookResponse {
     data['lat'] = this.lat;
     data['lon'] = this.lon;
     data['precio'] = this.precio;
+    data['uuid'] = this.uuid;
     return data;
   }
 }
