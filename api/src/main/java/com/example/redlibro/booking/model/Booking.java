@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -39,8 +40,11 @@ public class Booking {
     @JoinColumn(name = "client_uuid", referencedColumnName = "uuid")
     private Client client;
 
-    @Column(nullable = false)
-    private UUID bookingCode = UUID.randomUUID();
+    private UUID bookingCode;
+
+    private String lat;
+
+    private String lon;
 
     @ManyToOne
     @JoinColumn(name = "shop_uuid")

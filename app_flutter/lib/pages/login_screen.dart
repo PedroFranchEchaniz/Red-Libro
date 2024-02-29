@@ -53,14 +53,10 @@ class _LoginScreenState extends State<LoginScreen> {
           listener: (context, state) {
             if (state is DoLoginSuccess) {
               final storage = FlutterSecureStorage();
-
-              // Almacenar el token de autenticación
               storage
                   .write(key: 'authToken', value: state.userLogin.token)
                   .then((_) {
-                // Almacenar el UUID
                 storage.write(key: 'uuid', value: state.userLogin.id).then((_) {
-                  // Navegar a HomePage una vez que ambos, el token y el UUID, han sido almacenados
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (context) => MultiBlocProvider(

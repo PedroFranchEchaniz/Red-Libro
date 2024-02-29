@@ -31,6 +31,10 @@ public class BookingService {
                 .shop(store.getShop())
                 .client(client)
                 .fechaReserva(LocalDate.now())
+                .bookingCode(UUID.randomUUID())
+                .book(store.getBook())
+                .lat(store.getShop().getLat())
+                .lon(store.getShop().getLon())
                 .build();
         return bookingRepository.save(booking);
     }

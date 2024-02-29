@@ -117,12 +117,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers(
                                 antMatcher("/client/**"),
-                                antMatcher("/book/**")
+                                antMatcher("/book/**"),
+                                antMatcher("/booking/**")
                         ).hasRole("User")
                         .requestMatchers(antMatcher("/shop/**"),
                                 antMatcher("/book/**"))
                         .hasRole("Shop")
-
                         .anyRequest().authenticated());
 
 
