@@ -35,6 +35,8 @@ public class BookingService {
                 .book(store.getBook())
                 .lat(store.getShop().getLat())
                 .lon(store.getShop().getLon())
+                .fechaReserva(LocalDate.now())
+                .fechaExpiacion(LocalDate.now().plusDays(3))
                 .build();
         return bookingRepository.save(booking);
     }

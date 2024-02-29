@@ -10,12 +10,11 @@ import java.time.LocalDate;
 public record GetBookingDto(
         String codigo,
         LocalDate fechaReserva,
+        LocalDate fechaExpiacion,
         String nombreUsuario,
         String titulo,
         String idbn,
-
         String lat,
-
         String lon
 
 
@@ -26,6 +25,7 @@ public record GetBookingDto(
         return GetBookingDto.builder()
                 .codigo(booking.getBookingCode().toString())
                 .fechaReserva(booking.getFechaReserva())
+                .fechaExpiacion(booking.getFechaExpiacion())
                 .nombreUsuario(booking.getClient().getUsername())
                 .idbn(booking.getBook().getISBN())
                 .titulo(booking.getBook().getTitulo())
