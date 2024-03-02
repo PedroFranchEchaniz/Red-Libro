@@ -1,4 +1,3 @@
-import 'package:app_flutter/blocs/array-book-bloc/bloc/book_bloc.dart';
 import 'package:app_flutter/models/response/shops_with_book_response.dart';
 import 'package:app_flutter/repositories/shopWithBook/shopWithBook_repository.dart';
 import 'package:bloc/bloc.dart';
@@ -12,13 +11,19 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
 
   ShopBloc({required this.shopWithBookRepository}) : super(ShopsInitial()) {
     on<GetShopsWithBook>((event, emit) async {
+      print('Procesando evento GetShopsWithBook con ISBN: ${event.isbn}');
       emit(ShopsLoading());
+      print('Estado emitido: ShopsLoading');
       try {
         final List<ShopsWithBookResponse> shops =
             await shopWithBookRepository.getShopWithBook(event.isbn);
+        print('Tiendas cargadas: $shops');
         emit(ShopsLoaded(shops));
+        print('Estado emitido: ShopsLoaded');
       } catch (e) {
+        print('Error al cargar tiendas: $e');
         emit(ShopsError(e.toString()));
+        print('Estado emitido: ShopsError');
       }
     });
   }

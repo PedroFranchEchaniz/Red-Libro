@@ -9,6 +9,7 @@ import 'package:app_flutter/repositories/shopWithBook/shopWithBook_repository_im
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_flutter/repositories/auth/auth_repository_impl.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -51,28 +52,32 @@ class _LoginScreenState extends State<LoginScreen> {
         child: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state is DoLoginSuccess) {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => MultiBlocProvider(
-                    providers: [
-                      BlocProvider<BookBloc>(
-                        create: (context) =>
-                            BookBloc(ArrayBooksRepositoryImpl()),
+              final storage = FlutterSecureStorage();
+              storage
+                  .write(key: 'authToken', value: state.userLogin.token)
+                  .then((_) {
+                storage.write(key: 'uuid', value: state.userLogin.id).then((_) {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => MultiBlocProvider(
+                        providers: [
+                          BlocProvider<BookBloc>(
+                            create: (context) =>
+                                BookBloc(ArrayBooksRepositoryImpl()),
+                          ),
+                          BlocProvider<ShopBloc>(
+                            create: (context) => ShopBloc(
+                                shopWithBookRepository:
+                                    ShopWithBookRepositoryImpl()),
+                          ),
+                        ],
+                        child: HomePage(),
                       ),
-                      // Asegúrate de incluir ShopBloc si es necesario para HomePage o sus descendientes
-                      BlocProvider<ShopBloc>(
-                        create: (context) => ShopBloc(
-                            shopWithBookRepository:
-                                ShopWithBookRepositoryImpl()),
-                      ),
-                    ],
-                    // Asumiendo que tienes un constructor adecuado
-                    child: HomePage(),
-                  ),
-                ),
-              );
+                    ),
+                  );
+                });
+              });
             } else if (state is DoLoginError) {
-              // Mostrar mensaje de error
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.errorMessage)),
               );

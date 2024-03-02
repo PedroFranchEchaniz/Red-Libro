@@ -48,10 +48,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: BlocConsumer<RegisterBloc, RegisterState>(
           listener: (context, state) {
             if (state is DoRegisterSucces) {
-              // Aquí puedes manejar lo que ocurre después de un registro exitoso
-              // Por ejemplo, navegación a la pantalla de inicio de sesión o a la pantalla principal
             } else if (state is DoRegisterError) {
-              // Mostrar mensaje de error
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.errorMessage)),
               );

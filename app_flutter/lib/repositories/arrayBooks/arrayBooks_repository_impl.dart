@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:app_flutter/models/response/array_films_response.dart';
 import 'package:app_flutter/repositories/arrayBooks/arrayBooks_repository.dart';
 import 'package:http/http.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ArrayBooksRepositoryImpl extends ArrayBooksRepository {
   final Client _httpClient = Client();
+  final _storage = FlutterSecureStorage();
 
   @override
   Future<ArrayBooksResponse> fetchBookDetails(String isbn) {
@@ -14,18 +16,23 @@ class ArrayBooksRepositoryImpl extends ArrayBooksRepository {
 
   @override
   Future<ArrayBooksResponse> getArrayBooks() async {
+    String? token = await _storage.read(key: 'authToken');
+    if (token == null) {
+      throw Exception('Authorization token not found');
+    }
+
     final response = await _httpClient.get(
-      Uri.parse('http://localhost:8080/book/listsBooks'),
+      Uri.parse('http://10.0.2.2:8080/book/listsBooks'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization':
-            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MDg2MjMxNDMsImV4cCI6MTcwOTIyNzk0M30.MCK6MDKMS0NCMYYnClIPZn2A2VC4-fHrBV4sJYQ4wh360CE-0M1mLXwTpzbc7i5Xb0gOMG2XNvPbKYyFsqXA5Q',
+        'Authorization': 'Bearer $token',
       },
     );
+
     if (response.statusCode == 200) {
       return ArrayBooksResponse.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Something bad happens, sorry');
+      throw Exception('Failed to load books');
     }
   }
 }

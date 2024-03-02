@@ -10,11 +10,15 @@ class ShopsLoading extends ShopState {}
 class ShopsLoaded extends ShopState {
   final List<ShopsWithBookResponse> shops;
 
-  ShopsLoaded(this.shops);
+  ShopsLoaded(this.shops) {
+    print('ShopsLoaded creado con ${shops.length} tiendas');
+  }
 }
 
 class ShopsError extends ShopState {
   final String message;
 
-  ShopsError(this.message);
+  ShopsError(this.message) {
+    print('ShopsError creado con mensaje: $message');
+  }
 }

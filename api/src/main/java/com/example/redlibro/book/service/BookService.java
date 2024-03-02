@@ -130,11 +130,11 @@ public class BookService {
         return count != null && count > 0;
     }
 
-    public List<Shop> shopsWithBook (String isbn){
-        Optional<List<Shop>> listaTiendas = storeRepository.shoWithBookAvailable(isbn);
+    public List<Store> shopsWithBook (String isbn){
+        Optional<List<Store>> listaTiendas = storeRepository.shoWithBookAvailable(isbn);
         if(listaTiendas.isEmpty())
             return null;
-        List<Shop> listasEncontrdas = listaTiendas.get();
+        List<Store> listasEncontrdas = listaTiendas.get();
         return listasEncontrdas;
     }
 
