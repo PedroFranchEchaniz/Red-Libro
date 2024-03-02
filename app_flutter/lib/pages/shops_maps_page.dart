@@ -1,3 +1,4 @@
+import 'package:app_flutter/models/response/confirm_booking_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -26,6 +27,31 @@ class _ShopsMapPageState extends State<ShopsMapPage> {
   void initState() {
     super.initState();
     _updateMarkers();
+  }
+
+  void _showBookingConfirmationDialog(ConfirmBookingResponse bookingResponse) {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text('Reserva Confirmada'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.check_circle, color: Colors.green, size: 48),
+              Text('Tu reserva ha sido confirmada.'),
+              Text('Código de reserva: ${bookingResponse.codigo}'),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () => Navigator.of(dialogContext).pop(),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _updateMarkers([String? selectedShopUuid]) {
@@ -103,12 +129,7 @@ class _ShopsMapPageState extends State<ShopsMapPage> {
       body: BlocListener<BookingBloc, BookingState>(
         listener: (context, state) {
           if (state is BookingLoad) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) =>
-                    BookingConfirmationPage(bookingResponse: state.booking),
-              ),
-            );
+            _showBookingConfirmationDialog(state.booking);
           } else if (state is BookingError) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.message)));
