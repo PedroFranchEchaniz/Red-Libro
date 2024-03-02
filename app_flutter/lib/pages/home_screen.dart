@@ -82,8 +82,8 @@ class _HomePageState extends State<HomePage> {
             label: 'Libros',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Otra pantalla',
+            icon: Icon(Icons.verified_user),
+            label: 'User',
           ),
         ],
         currentIndex: _selectedIndex,

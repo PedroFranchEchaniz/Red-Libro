@@ -5,7 +5,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:app_flutter/models/response/book_response.dart';
 import 'package:app_flutter/models/response/shops_with_book_response.dart';
-import 'package:app_flutter/pages/booking_confirmation_page.dart';
 import 'package:app_flutter/blocs/booking-bloc/bloc/booking_bloc.dart';
 
 class ShopsMapPage extends StatefulWidget {
@@ -21,7 +20,6 @@ class ShopsMapPage extends StatefulWidget {
 
 class _ShopsMapPageState extends State<ShopsMapPage> {
   Set<Marker> _markers = {};
-  String? _selectedShopUuid;
 
   @override
   void initState() {
@@ -56,7 +54,6 @@ class _ShopsMapPageState extends State<ShopsMapPage> {
 
   void _updateMarkers([String? selectedShopUuid]) {
     setState(() {
-      _selectedShopUuid = selectedShopUuid;
       _markers = selectedShopUuid == null
           ? widget.shops
               .map((shop) => Marker(
