@@ -1,11 +1,11 @@
-import 'package:app_flutter/blocs/shopBook-bloc/bloc/shop_bloc.dart';
-import 'package:app_flutter/repositories/shopWithBook/shopWithBook_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import 'package:app_flutter/models/response/book_response.dart';
 import 'package:app_flutter/pages/book_detail_page.dart';
+import 'package:app_flutter/blocs/shopBook-bloc/bloc/shop_bloc.dart';
+import 'package:app_flutter/repositories/shopWithBook/shopWithBook_repository_impl.dart';
 
 class BookListWidget extends StatelessWidget {
   final List<Book> books;
@@ -19,6 +19,13 @@ class BookListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Verificar si la lista de libros está vacía
+    if (books.isEmpty) {
+      // Si está vacía, no se devuelve ningún widget (o se podría devolver un widget alternativo)
+      return SizedBox.shrink(); // Esto devuelve un widget que no ocupa espacio.
+    }
+
+    // Si la lista no está vacía, se construye el widget normalmente
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
