@@ -27,23 +27,21 @@ class _UserScreenState extends State<UserScreen> {
             return Center(child: CircularProgressIndicator());
           } else if (state is UserLoaded) {
             final user = state.user;
-            return Center(
+            return SingleChildScrollView(
+              // Permite el desplazamiento vertical
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(height: 20),
                   CircleAvatar(
                     radius: 60,
                     backgroundColor: Colors.transparent,
                     backgroundImage: FadeInImage.memoryNetwork(
-                      placeholder:
-                          kTransparentImage, // Un placeholder transparente
+                      placeholder: kTransparentImage,
                       image: user.avatar ?? '',
                       fit: BoxFit.cover,
                       imageErrorBuilder: (context, error, stackTrace) {
-                        // Puedes definir aquí un widget alternativo en caso de error
-                        // Por ejemplo, un icono o imagen codificada en base64
-                        return Icon(Icons.person,
-                            size: 120); // Un icono como placeholder
+                        return Icon(Icons.person, size: 120);
                       },
                     ).image,
                   ),
@@ -53,6 +51,59 @@ class _UserScreenState extends State<UserScreen> {
                   Text('Apellido: ${user.lastName ?? "No disponible"}'),
                   SizedBox(height: 10),
                   Text('Usuario: ${user.username ?? "No disponible"}'),
+                  SizedBox(height: 20),
+                  Container(
+                    height: 250, // Ajusta según necesidad
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: user.booking?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        final reserva = user.booking![index];
+                        return Card(
+                          elevation: 4,
+                          child: Container(
+                            width: 180, // Ajusta según necesidad
+                            padding: EdgeInsets.all(8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Image.network(
+                                    reserva.portada ?? '',
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Container(
+                                        color: Colors.grey,
+                                        child: Icon(Icons.image, size: 50),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  reserva.titulo ?? "Sin título",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  'Fecha Reserva: ${reserva.fechaReserva ?? "N/A"}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  'Fecha Expiración: ${reserva.fechaExpiacion ?? "N/A"}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             );

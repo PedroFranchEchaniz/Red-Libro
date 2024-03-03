@@ -51,3 +51,6 @@ INSERT INTO shelving (user_uuid, book_isbn) VALUES ('c4e27173-52b5-4bd9-94ee-88a
 INSERT INTO rating (stars, book_isbn, client_uuid) VALUES (5, '1234567890', 'c4e27173-52b5-4bd9-94ee-88a07167fa71');
 INSERT INTO rating (stars, book_isbn, client_uuid) VALUES (4, '1234567890', 'c4e27173-52b5-4bd9-94ee-88a07167fa72');
 INSERT INTO rating (stars, book_isbn, client_uuid) VALUES (5, '9783333333333', 'c4e27173-52b5-4bd9-94ee-88a07167fa72');
+
+INSERT INTO booking (uuid, client_uuid, booking_code, lat, lon, shop_uuid, fecha_reserva, fecha_expiacion, book_isbn) VALUES ('eae35383-4d00-4a98-8e38-b7c896be48e0', 'c4e27173-52b5-4bd9-94ee-88a07167fa72', 'fa40752a-db5c-4b4c-ae33-ad46c87df0cd', '40.416775', '-3.703790', '3fff85ce-354b-4e4c-bbc3-7ce138e573b6', '2024-03-01', '2024-03-15', '1234567890');
+INSERT INTO booking (uuid, client_uuid, booking_code, lat, lon, shop_uuid, fecha_reserva, fecha_expiacion, book_isbn) VALUES ('b35cfe4a-e4f5-4dc5-b6cb-c6f6fe05b050', 'c4e27173-52b5-4bd9-94ee-88a07167fa72', 'd3f7b829-f7b2-484e-8c86-2026f480b2ab', '40.416775', '-3.703790', '3fff85ce-354b-4e4c-bbc3-7ce138e573b6', '2024-03-01', '2024-03-15', '1234567891');
