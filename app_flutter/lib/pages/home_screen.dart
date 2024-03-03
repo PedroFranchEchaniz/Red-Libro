@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_flutter/blocs/array-book-bloc/bloc/book_bloc.dart';
 import 'package:app_flutter/widget/book-list-widget.dart';
 import 'package:app_flutter/blocs/User-loged-bloc/bloc/loges_user_bloc.dart';
-import 'package:app_flutter/pages/user_screen.dart';
+import 'package:app_flutter/widget/user_screen.dart';
 import 'package:app_flutter/repositories/userRegisted/user_registed_repository_impl.dart';
 
 class HomePage extends StatefulWidget {
