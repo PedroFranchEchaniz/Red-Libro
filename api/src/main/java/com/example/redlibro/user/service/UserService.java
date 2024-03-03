@@ -13,6 +13,7 @@ import com.example.redlibro.user.repository.ClientRepository;
 import com.example.redlibro.user.repository.ShopRepository;
 import com.example.redlibro.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -105,9 +106,11 @@ public class UserService {
         return passwordEncoder.matches(clearPassword, user.getPassword());
     }
 
+    @Transactional
     public GetClienteDtoDetail getClienteDetail(UUID clientUuid) {
-        Client client = clientRepository.findById(clientUuid)
+        Client client = clientRepository.findClientWithRatings(clientUuid)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado"));
+
 
         List<GetBookingDto> bookingDtos = clientRepository.findBookingsByClientUuid(clientUuid);
 
@@ -117,7 +120,7 @@ public class UserService {
                 client.getLastName(),
                 client.getAvatar(),
                 client.getUsername(),
-                new HashSet<>(bookingDtos) // Convierte la lista a un Set para el DTO
+                new HashSet<>(bookingDtos)
         );
     }
 }
