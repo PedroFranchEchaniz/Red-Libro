@@ -51,8 +51,9 @@ public class UserController {
 
 
     @GetMapping("/client/profile")
-    public ResponseEntity<GetClienteDtoDetail> getLoggedClient(@AuthenticationPrincipal Client client){
-        return ResponseEntity.ok(GetClienteDtoDetail.of(client));
+    public ResponseEntity<GetClienteDtoDetail> getLoggedClient(@AuthenticationPrincipal Client client) {
+        GetClienteDtoDetail clienteDetail = userService.getClienteDetail(client.getUuid());
+        return ResponseEntity.ok(clienteDetail);
     }
 
     @PostMapping("/shop/register")

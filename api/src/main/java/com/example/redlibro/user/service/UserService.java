@@ -1,7 +1,9 @@
 package com.example.redlibro.user.service;
 
+import com.example.redlibro.booking.dto.GetBookingDto;
 import com.example.redlibro.user.dto.CreateClientRequest;
 import com.example.redlibro.user.dto.CreateShopRequest;
+import com.example.redlibro.user.dto.GetClienteDtoDetail;
 import com.example.redlibro.user.exception.PasswordNotValidException;
 import com.example.redlibro.user.model.Client;
 import com.example.redlibro.user.model.Shop;
@@ -10,16 +12,14 @@ import com.example.redlibro.user.model.UserRol;
 import com.example.redlibro.user.repository.ClientRepository;
 import com.example.redlibro.user.repository.ShopRepository;
 import com.example.redlibro.user.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -83,7 +83,6 @@ public class UserService {
 
     public Optional<UserModel> editPassword(UUID userId, String newPassword) {
 
-        // Aquí no se realizan comprobaciones de seguridad. Tan solo se modifica
 
         return userRepository.findById(userId)
                 .map(u -> {
@@ -98,12 +97,27 @@ public class UserService {
     }
 
     public void deleteById(UUID id) {
-        // Prevenimos errores al intentar borrar algo que no existe
         if (userRepository.existsById(id))
             userRepository.deleteById(id);
     }
 
     public boolean passwordMatch(UserModel user, String clearPassword) {
         return passwordEncoder.matches(clearPassword, user.getPassword());
+    }
+
+    public GetClienteDtoDetail getClienteDetail(UUID clientUuid) {
+        Client client = clientRepository.findById(clientUuid)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado"));
+
+        List<GetBookingDto> bookingDtos = clientRepository.findBookingsByClientUuid(clientUuid);
+
+        return new GetClienteDtoDetail(
+                client.getUuid().toString(),
+                client.getName(),
+                client.getLastName(),
+                client.getAvatar(),
+                client.getUsername(),
+                new HashSet<>(bookingDtos) // Convierte la lista a un Set para el DTO
+        );
     }
 }
