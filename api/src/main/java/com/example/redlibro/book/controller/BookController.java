@@ -38,12 +38,13 @@ public class BookController {
     }
 
     @GetMapping("/book/listsBooks")
-    public List<GetBookWithRating> []allBooksArray(){
+    public List<List<GetBookAndRating>> allBooksArray() {
         List<Book>[] librosOrdenados = bookService.librosOrdenados();
-
-        List<GetBookWithRating>[] dtoLists = Arrays.stream(librosOrdenados)
-                .map(list -> list.stream().map(GetBookWithRating::of).collect(Collectors.toList()))
-                .toArray(List[]::new);
+        List<List<GetBookAndRating>> dtoLists = Arrays.stream(librosOrdenados)
+                .map(list -> list.stream()
+                        .map(book -> bookService.getRatingsForBook(book.getISBN())) // Usar getRatingsForBook para obtener las valoraciones
+                        .collect(Collectors.toList()))
+                .collect(Collectors.toList()); // Cambio para retornar una lista de listas
         return dtoLists;
     }
 

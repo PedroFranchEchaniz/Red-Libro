@@ -14,116 +14,149 @@ class BookDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          book.titulo ?? 'Sin título',
-          style: TextStyle(
-              color: Colors.white), // Cambio el color de la letra a blanco
-        ),
+        title: Text(book.titulo ?? 'Sin título',
+            style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.black,
         elevation: 0,
       ),
       body: BlocListener<ShopBloc, ShopState>(
         listener: (context, state) {
           if (state is ShopsLoaded) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) =>
-                    ShopsMapPage(shops: state.shops, book: book),
-              ),
-            );
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) =>
+                  ShopsMapPage(shops: state.shops, book: book),
+            ));
           } else if (state is ShopsError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
-            );
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.message)));
           }
         },
-        child: Container(
-          height: double.infinity,
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    book.portada ?? '',
-                    fit: BoxFit.cover,
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Image.network(
+                book.portada ?? '',
+                fit: BoxFit.cover,
+              ),
+            ),
+            Positioned.fill(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.black.withOpacity(0.3),
+                      Colors.black.withOpacity(0.7),
+                      Colors.black.withOpacity(1)
+                    ],
+                    stops: [0.0, 0.5, 1.0],
                   ),
                 ),
               ),
-              Positioned.fill(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black.withOpacity(0.3),
-                        Colors.black.withOpacity(0.7),
-                        Colors.black,
-                      ],
-                      stops: [0.0, 0.3, 0.5],
+            ),
+            SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                        height: 20), // Espacio adicional en la parte superior
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        book.portada ?? '',
+                        width: MediaQuery.of(context).size.width *
+                            0.6, // Ajuste de tamaño para la portada en el contenido
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                  ),
-                ),
-              ),
-              SafeArea(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height *
-                              0.4), // Espacio para la imagen superior
-                      RatingBarIndicator(
-                        rating: book.valoracion ?? 0.0,
-                        itemBuilder: (context, index) => Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        itemCount: 5,
-                        itemSize: 24.0,
-                        direction: Axis.horizontal,
-                      ),
-                      Text(
-                        book.titulo ?? "Sin título",
+                    SizedBox(height: 20), // Espacio después de la portada
+                    Text(book.titulo ?? "Sin título",
                         style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white)),
+                    SizedBox(height: 10), // Espacio antes del autor
+                    Text("Autor: ${book.autor ?? "Autor desconocido"}",
+                        style: TextStyle(fontSize: 18, color: Colors.white)),
+                    SizedBox(height: 20), // Espacio antes del botón de reserva
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                      child: ElevatedButton(
+                        onPressed: () => BlocProvider.of<ShopBloc>(context)
+                            .add(GetShopsWithBook(book.isbn!)),
+                        child: Text('Reserva'),
+                        style: ElevatedButton.styleFrom(primary: Colors.green),
                       ),
-                      Text(
-                        "Autor: ${book.autor ?? "Autor desconocido"}",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(book.resumen ?? "Resumen no disponible",
+                          style:
+                              TextStyle(fontSize: 16, color: Colors.white70)),
+                    ),
+                    if (book.valoraciones == null ||
+                        book.valoraciones!.isEmpty) ...[
                       Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            BlocProvider.of<ShopBloc>(context)
-                                .add(GetShopsWithBook(book.isbn!));
+                        padding: const EdgeInsets.symmetric(vertical: 20.0),
+                        child: Text('No hay valoraciones disponibles',
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.white70)),
+                      )
+                    ] else ...[
+                      Container(
+                        height: 200, // Ajusta este valor según necesites
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: book.valoraciones?.length ?? 0,
+                          itemBuilder: (context, index) {
+                            final valoracion = book.valoraciones![index];
+                            return Container(
+                              width: 200, // Ajusta este valor según necesites
+                              child: Card(
+                                color: Colors.white70,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(valoracion.userName ?? "Anónimo",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold)),
+                                      SizedBox(height: 4),
+                                      RatingBarIndicator(
+                                        rating: valoracion.valoracion ?? 0.0,
+                                        itemBuilder: (context, _) => Icon(
+                                            Icons.star,
+                                            color: Colors.amber),
+                                        itemCount: 5,
+                                        itemSize: 20.0,
+                                        direction: Axis.horizontal,
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        valoracion.comentario ??
+                                            "Sin comentario",
+                                        style: TextStyle(fontSize: 14),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
                           },
-                          child: Text('Reserva'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Text(
-                          book.resumen ?? "Resumen no disponible",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white70,
-                          ),
                         ),
                       ),
                     ],
-                  ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
