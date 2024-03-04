@@ -3,6 +3,8 @@ package com.example.redlibro.user.service;
 import com.example.redlibro.book.model.Book;
 import com.example.redlibro.booking.dto.GetBookingDto;
 import com.example.redlibro.shelving.Repository.ShelvingRepository;
+import com.example.redlibro.shelving.dto.BooksInshelvingDto;
+import com.example.redlibro.shelving.dto.ShelvingDto;
 import com.example.redlibro.user.dto.CreateClientRequest;
 import com.example.redlibro.user.dto.CreateShopRequest;
 import com.example.redlibro.user.dto.GetClienteDtoDetail;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -131,5 +134,11 @@ public class UserService {
         if(shelvingRepository.isbnIsPresent(isbn)>0)
             return true;
         return false;
+    }
+
+    public List<BooksInshelvingDto> booksInShelving(UUID uuid){
+        return shelvingRepository.shelvingOfClient(uuid).get().stream()
+                .map(book -> BooksInshelvingDto.of(book))
+                .collect(Collectors.toList());
     }
 }

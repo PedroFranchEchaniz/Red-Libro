@@ -7,6 +7,7 @@ import com.example.redlibro.security.jwt.refresh.RefreshTokenService;
 import com.example.redlibro.shelving.Repository.ShelvingRepository;
 import com.example.redlibro.shelving.Shelving;
 import com.example.redlibro.shelving.ShelvingPk;
+import com.example.redlibro.shelving.dto.BooksInshelvingDto;
 import com.example.redlibro.shelving.dto.ShelvingDto;
 import com.example.redlibro.user.dto.*;
 import com.example.redlibro.user.model.Client;
@@ -26,6 +27,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -117,5 +120,10 @@ public class UserController {
     @GetMapping("client/bookInShelving/{isbn}")
     public Boolean bookInShelving (@PathVariable String isbn){
          return userService.bookInShelving(isbn);
+    }
+
+    @GetMapping("client/booksInShelving")
+    public List<BooksInshelvingDto> booksInShelving (@AuthenticationPrincipal Client client){
+        return userService.booksInShelving(client.getUuid());
     }
 }
