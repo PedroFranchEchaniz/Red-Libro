@@ -1,3 +1,5 @@
+import 'package:app_flutter/repositories/UserShevingRepository/user_shelving_repository.dart';
+import 'package:app_flutter/repositories/UserShevingRepository/user_shelving_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -7,8 +9,9 @@ import 'package:app_flutter/pages/shops_maps_page.dart';
 
 class BookDetailPage extends StatelessWidget {
   final Book book;
+  final ShelvingRepositoryImpl shelvingRepository = ShelvingRepositoryImpl();
 
-  const BookDetailPage({Key? key, required this.book}) : super(key: key);
+  BookDetailPage({Key? key, required this.book}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -80,14 +83,38 @@ class BookDetailPage extends StatelessWidget {
                     Text("Autor: ${book.autor ?? "Autor desconocido"}",
                         style: TextStyle(fontSize: 18, color: Colors.white)),
                     SizedBox(height: 20), // Espacio antes del botón de reserva
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                      child: ElevatedButton(
-                        onPressed: () => BlocProvider.of<ShopBloc>(context)
-                            .add(GetShopsWithBook(book.isbn!)),
-                        child: Text('Reserva'),
-                        style: ElevatedButton.styleFrom(primary: Colors.green),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            BlocProvider.of<ShopBloc>(context)
+                                .add(GetShopsWithBook(book.isbn!));
+                          },
+                          child: Text('Reserva'),
+                          style:
+                              ElevatedButton.styleFrom(primary: Colors.green),
+                        ),
+                        SizedBox(width: 10),
+                        IconButton(
+                          icon: Icon(Icons.bookmark_add, color: Colors.blue),
+                          onPressed: () async {
+                            try {
+                              await shelvingRepository
+                                  .addToShelving(book.isbn!);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Libro añadido a tu estantería')));
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content:
+                                          Text('Error al añadir el libro')));
+                            }
+                          },
+                        ),
+                      ],
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
