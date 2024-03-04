@@ -137,7 +137,8 @@ public class UserService {
     }
 
     public List<BooksInshelvingDto> booksInShelving(UUID uuid){
-        return shelvingRepository.shelvingOfClient(uuid).get().stream()
+        return shelvingRepository.shelvingOfClient(uuid)
+                .stream()
                 .map(book -> BooksInshelvingDto.of(book))
                 .collect(Collectors.toList());
     }

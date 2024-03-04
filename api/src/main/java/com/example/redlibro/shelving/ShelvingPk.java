@@ -14,6 +14,6 @@ public class ShelvingPk implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID user_uuid;
+    private UUID client_uuid;
     private String book_isbn;
 }

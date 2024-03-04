@@ -46,7 +46,9 @@ INSERT INTO store (shop_uuid, book_isbn, stock, precio, date_registe) VALUES ('3
 INSERT INTO store (shop_uuid, book_isbn, stock, precio, date_registe) VALUES ('3fff85ce-354b-4e4c-bbc3-7ce138e573b7', '9780060935467', 6, 12, '2024-02-25');
 INSERT INTO store (shop_uuid, book_isbn, stock, precio, date_registe) VALUES ('3fff85ce-354b-4e4c-bbc3-7ce138e573b7', '9783333333333', 15, 25, '2024-02-28');
 
-INSERT INTO shelving (user_uuid, book_isbn) VALUES ('c4e27173-52b5-4bd9-94ee-88a07167fa72', '1234567890');
+INSERT INTO shelving (client_uuid, book_isbn, fecha_alta) VALUES ('c4e27173-52b5-4bd9-94ee-88a07167fa72', '1234567890', '2024-02-25');
+INSERT INTO shelving (client_uuid, book_isbn, fecha_alta) VALUES ('c4e27173-52b5-4bd9-94ee-88a07167fa72', '9783333333333', '2024-02-28');
+
 
 INSERT INTO rating (stars, book_isbn, client_uuid, opinion) VALUES (5, '1234567890', 'c4e27173-52b5-4bd9-94ee-88a07167fa71', 'Esta genial');
 INSERT INTO rating (stars, book_isbn, client_uuid, opinion) VALUES (4, '1234567890', 'c4e27173-52b5-4bd9-94ee-88a07167fa72', 'Lo mejor que he leido');

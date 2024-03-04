@@ -16,6 +16,6 @@ public interface ShelvingRepository extends JpaRepository<Shelving, ShelvingPk> 
     int isbnIsPresent(String isbn);
 
     @Query("SELECT s.book FROM Shelving s WHERE s.client.uuid = ?1")
-    Optional<List<Book>> shelvingOfClient(UUID id);
+    List<Book> shelvingOfClient(UUID id);
 
 }

@@ -106,7 +106,7 @@ public class UserController {
     public ResponseEntity<ShelvingDto> addToShelving(@PathVariable String isbn, @AuthenticationPrincipal Client client){
         ShelvingPk shelvingPk = new ShelvingPk();
         shelvingPk.setBook_isbn(isbn);
-        shelvingPk.setUser_uuid(client.getUuid());
+        shelvingPk.setClient_uuid(client.getUuid());
 
         Shelving shelving = new Shelving();
         shelving.setShelvingPk(shelvingPk);
@@ -122,8 +122,8 @@ public class UserController {
          return userService.bookInShelving(isbn);
     }
 
-    @GetMapping("client/booksInShelving")
-    public List<BooksInshelvingDto> booksInShelving (@AuthenticationPrincipal Client client){
+    @GetMapping("client/booksInUserShelving")
+    public List<BooksInshelvingDto> booksInUserShelving (@AuthenticationPrincipal Client client){
         return userService.booksInShelving(client.getUuid());
     }
 }
