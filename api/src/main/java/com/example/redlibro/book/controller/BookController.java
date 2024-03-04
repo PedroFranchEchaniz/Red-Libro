@@ -1,9 +1,6 @@
 package com.example.redlibro.book.controller;
 
-import com.example.redlibro.book.dto.BookResponse;
-import com.example.redlibro.book.dto.CreateBookRequest;
-import com.example.redlibro.book.dto.GetBookDto;
-import com.example.redlibro.book.dto.GetBookWithRating;
+import com.example.redlibro.book.dto.*;
 import com.example.redlibro.book.model.Book;
 import com.example.redlibro.book.repository.BookRepository;
 import com.example.redlibro.book.service.BookService;
@@ -52,9 +49,8 @@ public class BookController {
 
 
     @GetMapping("/book/{isbn}")
-    public GetBookWithRating detailsbook (@PathVariable String isbn)  {
-        Book b = bookService.libroMedia(isbn);
-        return  GetBookWithRating.of(b);
+    public GetBookAndRating detailsbook (@PathVariable String isbn)  {
+        return bookService.getRatingsForBook(isbn);
     }
 
     @GetMapping("/book/avaibleInShop/{isbn}")
