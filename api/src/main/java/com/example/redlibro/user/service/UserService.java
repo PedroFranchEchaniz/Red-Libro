@@ -1,6 +1,8 @@
 package com.example.redlibro.user.service;
 
+import com.example.redlibro.book.model.Book;
 import com.example.redlibro.booking.dto.GetBookingDto;
+import com.example.redlibro.shelving.Repository.ShelvingRepository;
 import com.example.redlibro.user.dto.CreateClientRequest;
 import com.example.redlibro.user.dto.CreateShopRequest;
 import com.example.redlibro.user.dto.GetClienteDtoDetail;
@@ -30,12 +32,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final ClientRepository clientRepository;
     private final ShopRepository shopRepository;
+    private final ShelvingRepository shelvingRepository;
 
-    public Client createClient(CreateClientRequest createUserReques){
-        if(userRepository.existsByUsernameIgnoreCase(createUserReques.username()))
+    public Client createClient(CreateClientRequest createUserReques) {
+        if (userRepository.existsByUsernameIgnoreCase(createUserReques.username()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El usuario ya esta registrado");
-        if(!createUserReques.password().equalsIgnoreCase(createUserReques.verifyPassword())){
-            throw  new PasswordNotValidException();
+        if (!createUserReques.password().equalsIgnoreCase(createUserReques.verifyPassword())) {
+            throw new PasswordNotValidException();
         }
         Client c = Client.builder()
                 .username(createUserReques.username())
@@ -48,11 +51,11 @@ public class UserService {
         return clientRepository.save(c);
     }
 
-    public Shop createShop(CreateShopRequest createShopRequest){
-        if(userRepository.existsByUsernameIgnoreCase(createShopRequest.username()))
+    public Shop createShop(CreateShopRequest createShopRequest) {
+        if (userRepository.existsByUsernameIgnoreCase(createShopRequest.username()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El usuario ya esta registrado");
-        if(!createShopRequest.password().equalsIgnoreCase(createShopRequest.verifyPassword())){
-            throw  new PasswordNotValidException();
+        if (!createShopRequest.password().equalsIgnoreCase(createShopRequest.verifyPassword())) {
+            throw new PasswordNotValidException();
         }
         Shop s = Shop.builder()
                 .username(createShopRequest.username())
@@ -122,5 +125,11 @@ public class UserService {
                 client.getUsername(),
                 new HashSet<>(bookingDtos)
         );
+    }
+
+    public Boolean bookInShelving(String isbn) {
+        if(shelvingRepository.isbnIsPresent(isbn)>0)
+            return true;
+        return false;
     }
 }

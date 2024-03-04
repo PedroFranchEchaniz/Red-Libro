@@ -96,21 +96,38 @@ class BookDetailPage extends StatelessWidget {
                               ElevatedButton.styleFrom(primary: Colors.green),
                         ),
                         SizedBox(width: 10),
-                        IconButton(
-                          icon: Icon(Icons.bookmark_add, color: Colors.blue),
-                          onPressed: () async {
-                            try {
-                              await shelvingRepository
-                                  .addToShelving(book.isbn!);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text(
-                                          'Libro añadido a tu estantería')));
-                            } catch (e) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content:
-                                          Text('Error al añadir el libro')));
+                        FutureBuilder<bool>(
+                          future:
+                              shelvingRepository.bookIsInShelving(book.isbn!),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return CircularProgressIndicator(); // Mostrar un loader mientras se espera
+                            } else if (snapshot.hasError) {
+                              return Text('Error'); // Manejar el error
+                            } else if (snapshot.data == true) {
+                              return Container(); // No mostrar el botón si el libro ya está en la estantería
+                            } else {
+                              // Mostrar el botón si el libro no está en la estantería
+                              return IconButton(
+                                icon: Icon(Icons.bookmark_add,
+                                    color: Colors.blue),
+                                onPressed: () async {
+                                  try {
+                                    await shelvingRepository
+                                        .addToShelving(book.isbn!);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                'Libro añadido a tu estantería')));
+                                  } catch (e) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                'Error al añadir el libro')));
+                                  }
+                                },
+                              );
                             }
                           },
                         ),

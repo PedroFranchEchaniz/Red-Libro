@@ -1,5 +1,6 @@
 package com.example.redlibro.user.controller;
 
+import com.example.redlibro.book.dto.GetBookDto;
 import com.example.redlibro.book.repository.BookRepository;
 import com.example.redlibro.security.jwt.access.JwtProvider;
 import com.example.redlibro.security.jwt.refresh.RefreshTokenService;
@@ -37,6 +38,7 @@ public class UserController {
     private final ShelvingRepository shelvingRepository;
     private final BookRepository bookRepository;
     private final ClientRepository clientRepository;
+
 
 
     @PostMapping("/client/register")
@@ -110,5 +112,10 @@ public class UserController {
         shelving.setFechaAlta(LocalDate.now());
         shelvingRepository.save(shelving);
         return ResponseEntity.ok(ShelvingDto.of(shelving));
+    }
+
+    @GetMapping("client/bookInShelving/{isbn}")
+    public Boolean bookInShelving (@PathVariable String isbn){
+         return userService.bookInShelving(isbn);
     }
 }

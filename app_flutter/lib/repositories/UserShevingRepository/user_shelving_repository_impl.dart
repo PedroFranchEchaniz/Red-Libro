@@ -32,4 +32,28 @@ class ShelvingRepositoryImpl implements ShelvingRepository {
       throw Exception('Failed to add book to shelving');
     }
   }
+
+  @override
+  Future<bool> bookIsInShelving(String isbn) async {
+    String? token = await _storage.read(key: 'authToken');
+
+    if (token == null) {
+      throw Exception('Authorization token not found');
+    }
+
+    final response = await _httpClient.get(
+      Uri.parse('http://10.0.2.2:8080/client/bookInShelving/$isbn'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // Asumiendo que el endpoint devuelve un booleano directamente en el cuerpo de la respuesta
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to check if book is in shelving');
+    }
+  }
 }
