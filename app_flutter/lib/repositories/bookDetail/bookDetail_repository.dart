@@ -1,5 +1,6 @@
 import 'package:app_flutter/models/response/book_detail_rating.dart';
+import 'package:app_flutter/models/response/book_response.dart';
 
 abstract class BookDetailRepository {
-  Future<BookRating> getDetailBook(String isbn);
+  Future<Book> getDetailBook(String isbn);
 }

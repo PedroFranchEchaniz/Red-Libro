@@ -10,6 +10,7 @@ class BookRating {
   String? resumen;
   int? valoracion;
   bool? disponible;
+  List<Valoraciones>? valoraciones;
 
   BookRating(
       {this.isbn,
@@ -22,7 +23,8 @@ class BookRating {
       this.genres,
       this.resumen,
       this.valoracion,
-      this.disponible});
+      this.disponible,
+      this.valoraciones});
 
   BookRating.fromJson(Map<String, dynamic> json) {
     isbn = json['isbn'];
@@ -36,6 +38,12 @@ class BookRating {
     resumen = json['resumen'];
     valoracion = json['valoracion'];
     disponible = json['disponible'];
+    if (json['valoraciones'] != null) {
+      valoraciones = <Valoraciones>[];
+      json['valoraciones'].forEach((v) {
+        valoraciones!.add(new Valoraciones.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -51,6 +59,31 @@ class BookRating {
     data['resumen'] = this.resumen;
     data['valoracion'] = this.valoracion;
     data['disponible'] = this.disponible;
+    if (this.valoraciones != null) {
+      data['valoraciones'] = this.valoraciones!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Valoraciones {
+  String? userName;
+  int? valoracion;
+  Null? comentario;
+
+  Valoraciones({this.userName, this.valoracion, this.comentario});
+
+  Valoraciones.fromJson(Map<String, dynamic> json) {
+    userName = json['userName'];
+    valoracion = json['valoracion'];
+    comentario = json['comentario'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['userName'] = this.userName;
+    data['valoracion'] = this.valoracion;
+    data['comentario'] = this.comentario;
     return data;
   }
 }
