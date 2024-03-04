@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:app_flutter/models/response/book_detail_rating.dart';
 import 'package:app_flutter/models/response/book_response.dart';
 import 'package:app_flutter/repositories/bookDetail/bookDetail_repository.dart';
 import 'package:http/http.dart';

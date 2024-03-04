@@ -69,7 +69,7 @@ class BookRating {
 class Valoraciones {
   String? userName;
   int? valoracion;
-  Null? comentario;
+  String? comentario;
 
   Valoraciones({this.userName, this.valoracion, this.comentario});
 

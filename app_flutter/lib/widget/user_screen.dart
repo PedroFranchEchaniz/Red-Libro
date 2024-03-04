@@ -28,7 +28,6 @@ class _UserScreenState extends State<UserScreen> {
           } else if (state is UserLoaded) {
             final user = state.user;
             return SingleChildScrollView(
-              // Permite el desplazamiento vertical
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -52,8 +51,12 @@ class _UserScreenState extends State<UserScreen> {
                   SizedBox(height: 10),
                   Text('Usuario: ${user.username ?? "No disponible"}'),
                   SizedBox(height: 20),
+                  // Sección de reservas
+                  Text('Reservas',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   Container(
-                    height: 250, // Ajusta según necesidad
+                    height: 250,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: user.booking?.length ?? 0,
@@ -62,7 +65,7 @@ class _UserScreenState extends State<UserScreen> {
                         return Card(
                           elevation: 4,
                           child: Container(
-                            width: 180, // Ajusta según necesidad
+                            width: 180,
                             padding: EdgeInsets.all(8),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,6 +97,63 @@ class _UserScreenState extends State<UserScreen> {
                                 ),
                                 Text(
                                   'Fecha Expiración: ${reserva.fechaExpiacion ?? "N/A"}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  // Sección de estantes
+                  SizedBox(height: 20),
+                  Text('Estantes',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  Container(
+                    height: 250,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: user.shelving?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        final estante = user.shelving![index];
+                        return Card(
+                          elevation: 4,
+                          child: Container(
+                            width: 180,
+                            padding: EdgeInsets.all(8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Image.network(
+                                    estante.portada ?? '',
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Container(
+                                        color: Colors.grey,
+                                        child: Icon(Icons.book, size: 50),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  estante.titulo ?? "Sin título",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  'Autor: ${estante.autor ?? "Desconocido"}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  'Valoración: ${estante.valoracionMedia?.toString() ?? "N/A"}',
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),

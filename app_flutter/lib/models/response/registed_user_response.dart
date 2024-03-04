@@ -2,9 +2,10 @@ class RegistedUserResponse {
   String? uuid;
   String? name;
   String? lastName;
-  Null? avatar;
+  String? avatar;
   String? username;
   List<Booking>? booking;
+  List<Shelving>? shelving;
 
   RegistedUserResponse(
       {this.uuid,
@@ -12,7 +13,8 @@ class RegistedUserResponse {
       this.lastName,
       this.avatar,
       this.username,
-      this.booking});
+      this.booking,
+      this.shelving});
 
   RegistedUserResponse.fromJson(Map<String, dynamic> json) {
     uuid = json['uuid'];
@@ -26,6 +28,12 @@ class RegistedUserResponse {
         booking!.add(new Booking.fromJson(v));
       });
     }
+    if (json['shelving'] != null) {
+      shelving = <Shelving>[];
+      json['shelving'].forEach((v) {
+        shelving!.add(new Shelving.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -37,6 +45,9 @@ class RegistedUserResponse {
     data['username'] = this.username;
     if (this.booking != null) {
       data['booking'] = this.booking!.map((v) => v.toJson()).toList();
+    }
+    if (this.shelving != null) {
+      data['shelving'] = this.shelving!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -87,6 +98,31 @@ class Booking {
     data['idbn'] = this.idbn;
     data['lat'] = this.lat;
     data['lon'] = this.lon;
+    return data;
+  }
+}
+
+class Shelving {
+  String? titulo;
+  String? portada;
+  String? autor;
+  double? valoracionMedia;
+
+  Shelving({this.titulo, this.portada, this.autor, this.valoracionMedia});
+
+  Shelving.fromJson(Map<String, dynamic> json) {
+    titulo = json['titulo'];
+    portada = json['portada'];
+    autor = json['autor'];
+    valoracionMedia = json['valoracionMedia'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['titulo'] = this.titulo;
+    data['portada'] = this.portada;
+    data['autor'] = this.autor;
+    data['valoracionMedia'] = this.valoracionMedia;
     return data;
   }
 }
