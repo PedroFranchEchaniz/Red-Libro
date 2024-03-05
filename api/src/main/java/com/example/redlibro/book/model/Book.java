@@ -2,6 +2,7 @@ package com.example.redlibro.book.model;
 
 import com.example.redlibro.rating.model.Rating;
 import com.example.redlibro.store.model.Store;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

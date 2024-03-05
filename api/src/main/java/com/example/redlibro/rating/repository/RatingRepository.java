@@ -1,5 +1,6 @@
 package com.example.redlibro.rating.repository;
 
+import com.example.redlibro.book.model.Book;
 import com.example.redlibro.rating.dto.GetRatingDto;
 import com.example.redlibro.rating.model.Rating;
 import com.example.redlibro.rating.model.RatingPk;
@@ -19,6 +20,7 @@ public interface RatingRepository extends JpaRepository<Rating, RatingPk> {
     List<Object[]> findAvgRatingsForBooks(List<String> isbns);
 
     @Query("SELECT new com.example.redlibro.rating.dto.GetRatingDto(r.client.username, r.stars, r.opinion) FROM Rating r WHERE r.book.ISBN = :isbn")
-    List<GetRatingDto> findRatingsByIsbn(@Param("isbn") String isbn);
+    List<GetRatingDto> findRatingsByIsbn(String isbn);
+
 
 }

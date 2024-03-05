@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Embeddable
 @Getter
@@ -14,6 +15,6 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 public class RatingPk implements Serializable {
-    private String clientId;
+    private UUID clientId;
     private String bookIsbn;
 }

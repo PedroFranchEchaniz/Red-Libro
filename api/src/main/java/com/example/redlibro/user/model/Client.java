@@ -26,7 +26,7 @@ public class Client extends UserModel {
     private String name;
     private String lastName;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     private Set<Rating> ratings = new HashSet<>();
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
