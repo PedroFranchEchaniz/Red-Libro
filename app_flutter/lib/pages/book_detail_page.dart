@@ -17,8 +17,8 @@ class BookDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(book.titulo ?? 'Sin título',
-            style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.black,
+            style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         elevation: 0,
       ),
       body: BlocListener<ShopBloc, ShopState>(
@@ -52,9 +52,9 @@ class BookDetailPage extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Colors.black.withOpacity(0.3),
-                      Colors.black.withOpacity(0.7),
-                      Colors.black.withOpacity(1)
+                      const Color.fromARGB(255, 255, 255, 255).withOpacity(0.3),
+                      const Color.fromARGB(255, 255, 255, 255).withOpacity(0.7),
+                      const Color.fromARGB(255, 255, 255, 255).withOpacity(1)
                     ],
                     stops: [0.0, 0.5, 1.0],
                   ),
@@ -83,10 +83,12 @@ class BookDetailPage extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white)),
+                            color: const Color.fromARGB(255, 0, 0, 0))),
                     SizedBox(height: 10), // Espacio antes del autor
                     Text("Autor: ${book.autor ?? "Autor desconocido"}",
-                        style: TextStyle(fontSize: 18, color: Colors.white)),
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: const Color.fromARGB(255, 0, 0, 0))),
                     SizedBox(height: 20), // Espacio antes del botón de reserva
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -140,16 +142,18 @@ class BookDetailPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(book.resumen ?? "Resumen no disponible",
-                          style:
-                              TextStyle(fontSize: 16, color: Colors.white70)),
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: const Color.fromARGB(179, 0, 0, 0))),
                     ),
                     if (book.valoraciones == null ||
                         book.valoraciones!.isEmpty) ...[
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: Text('No hay valoraciones disponibles',
-                            style:
-                                TextStyle(fontSize: 16, color: Colors.white70)),
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Color.fromARGB(179, 0, 0, 0))),
                       )
                     ] else ...[
                       Container(
@@ -162,7 +166,7 @@ class BookDetailPage extends StatelessWidget {
                             return Container(
                               width: 200,
                               child: Card(
-                                color: Colors.white70,
+                                color: Color.fromARGB(179, 255, 255, 255),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(

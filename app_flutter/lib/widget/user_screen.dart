@@ -19,9 +19,9 @@ class _UserScreenState extends State<UserScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Información del Usuario"),
-        backgroundColor: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: BlocBuilder<LogesUserBloc, LogesUserState>(
         builder: (context, state) {
           if (state is UsearLoading) {
@@ -44,13 +44,16 @@ class _UserScreenState extends State<UserScreen> {
                   ),
                   SizedBox(height: 20),
                   Text('Nombre: ${user.name ?? "No disponible"}',
-                      style: TextStyle(color: Colors.white)),
+                      style:
+                          TextStyle(color: const Color.fromARGB(255, 0, 0, 0))),
                   SizedBox(height: 10),
                   Text('Apellido: ${user.lastName ?? "No disponible"}',
-                      style: TextStyle(color: Colors.white)),
+                      style:
+                          TextStyle(color: const Color.fromARGB(255, 0, 0, 0))),
                   SizedBox(height: 10),
                   Text('Usuario: ${user.username ?? "No disponible"}',
-                      style: TextStyle(color: Colors.white)),
+                      style:
+                          TextStyle(color: const Color.fromARGB(255, 0, 0, 0))),
                   SizedBox(height: 20),
                   Text('Reservas',
                       style: TextStyle(

@@ -36,11 +36,12 @@ class _HomePageState extends State<HomePage> {
           } else if (state is ErrorLoaded) {
             return Center(
                 child: Text("Error al cargar los libros: ${state.errorMessage}",
-                    style: TextStyle(color: Colors.white)));
+                    style:
+                        TextStyle(color: const Color.fromARGB(255, 0, 0, 0))));
           }
           return Center(
               child: Text("No hay libros disponibles",
-                  style: TextStyle(color: Colors.white)));
+                  style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0))));
         },
       ),
       BlocProvider<LogesUserBloc>(
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> {
     ];
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         title: Image.asset('assets/images/logo.png', height: 90.0),
         backgroundColor: Colors.blue,

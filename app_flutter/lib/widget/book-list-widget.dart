@@ -80,7 +80,7 @@ class BookListWidget extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 235, 230, 230),
+                          color: Color.fromARGB(255, 0, 0, 0),
                         ),
                       ),
                       SizedBox(height: 4),
@@ -91,7 +91,7 @@ class BookListWidget extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          color: Colors.grey[600],
+                          color: const Color.fromARGB(255, 0, 0, 0),
                         ),
                       ),
                     ],
