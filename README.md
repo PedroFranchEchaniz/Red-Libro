@@ -18,25 +18,24 @@
 
 1. **Login**: Página para iniciar sesión en la aplicación.
 
-   ![Login Screen](URL_DE_LA_IMAGEN)
+   ![Login Screen](img/login.png)
 
 2. **Home**: Página principal que muestra una visión general y acceso a las diferentes secciones.
 
-   ![Home Screen](URL_DE_LA_IMAGEN)
+   ![Home Screen](img/libros.png)
 
 3. **Libros**: Página que lista los libros disponibles.
 
-   ![Libros Screen](URL_DE_LA_IMAGEN)
+   ![Libros Screen](img/libros.png)
 
 4. **User**: Página de perfil del usuario donde puede gestionar su información.
 
-   ![User Screen](URL_DE_LA_IMAGEN)
+   ![User Screen](img/usuario.png)
 
-5. **Listado de Libros**: Página que muestra una lista de libros basada en criterios específicos (categorías, popularidad, etc.).
+5. **Detalle del Libro**: Página que muestra información detallada sobre un libro específico, incluyendo la descripción, valoraciones, y opciones para reservar.
 
-   ![Listado de Libros Screen](URL_DE_LA_IMAGEN)
+   ![Detalle del Libro Screen](img/libro.png)
 
-6. **Detalle del Libro**: Página que muestra información detallada sobre un libro específico, incluyendo la descripción, valoraciones, y opciones para reservar.
+6. **Reserva**: Página que permite al usuario reservar un libro, mostrando un mapa con las localizaciones de las tiendas que tienen el libro en stock.
 
-   ![Detalle del Libro Screen](URL_DE_LA_IMAGEN)
-
+   ![Reserva Screen](URL_DE_LA_IMAGEN)
