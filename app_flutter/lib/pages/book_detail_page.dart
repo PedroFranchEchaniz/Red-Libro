@@ -78,6 +78,17 @@ class BookDetailPage extends StatelessWidget {
                         },
                       ),
                     ),
+                    SizedBox(height: 20), // Espacio para la imagen superior
+                    RatingBarIndicator(
+                      rating: book.valoracion ?? 0.0,
+                      itemBuilder: (context, index) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      itemCount: 5,
+                      itemSize: 24.0,
+                      direction: Axis.horizontal,
+                    ),
                     SizedBox(height: 20),
                     Text(book.titulo ?? "Sin título",
                         style: TextStyle(
