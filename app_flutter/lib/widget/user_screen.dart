@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_flutter/blocs/User-loged-bloc/bloc/loges_user_bloc.dart';
-import 'package:transparent_image/transparent_image.dart'; // Asegúrate de tener este paquete
+import 'package:transparent_image/transparent_image.dart';
 
 class UserScreen extends StatefulWidget {
   @override
@@ -20,7 +20,9 @@ class _UserScreenState extends State<UserScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Información del Usuario"),
+        backgroundColor: Colors.black, // Fondo del AppBar en negro.
       ),
+      backgroundColor: Colors.black, // Fondo de la pantalla en negro.
       body: BlocBuilder<LogesUserBloc, LogesUserState>(
         builder: (context, state) {
           if (state is UsearLoading) {
@@ -40,21 +42,26 @@ class _UserScreenState extends State<UserScreen> {
                       image: user.avatar ?? '',
                       fit: BoxFit.cover,
                       imageErrorBuilder: (context, error, stackTrace) {
-                        return Icon(Icons.person, size: 120);
+                        return Icon(Icons.person,
+                            size: 120, color: Colors.white);
                       },
                     ).image,
                   ),
                   SizedBox(height: 20),
-                  Text('Nombre: ${user.name ?? "No disponible"}'),
+                  Text('Nombre: ${user.name ?? "No disponible"}',
+                      style: TextStyle(color: Colors.white)),
                   SizedBox(height: 10),
-                  Text('Apellido: ${user.lastName ?? "No disponible"}'),
+                  Text('Apellido: ${user.lastName ?? "No disponible"}',
+                      style: TextStyle(color: Colors.white)),
                   SizedBox(height: 10),
-                  Text('Usuario: ${user.username ?? "No disponible"}'),
+                  Text('Usuario: ${user.username ?? "No disponible"}',
+                      style: TextStyle(color: Colors.white)),
                   SizedBox(height: 20),
-                  // Sección de reservas
                   Text('Reservas',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white)),
                   Container(
                     height: 250,
                     child: ListView.builder(
@@ -63,6 +70,7 @@ class _UserScreenState extends State<UserScreen> {
                       itemBuilder: (context, index) {
                         final reserva = user.booking![index];
                         return Card(
+                          color: Colors.grey[850],
                           elevation: 4,
                           child: Container(
                             width: 180,
@@ -75,28 +83,30 @@ class _UserScreenState extends State<UserScreen> {
                                     reserva.portada ?? '',
                                     fit: BoxFit.cover,
                                     errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        color: Colors.grey,
-                                        child: Icon(Icons.image, size: 50),
-                                      );
+                                      return Image.asset('/images/image.png',
+                                          fit: BoxFit.cover);
                                     },
                                   ),
                                 ),
                                 SizedBox(height: 5),
                                 Text(
                                   reserva.titulo ?? "Sin título",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 SizedBox(height: 5),
                                 Text(
                                   'Fecha Reserva: ${reserva.fechaReserva ?? "N/A"}',
+                                  style: TextStyle(color: Colors.white),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 Text(
                                   'Fecha Expiración: ${reserva.fechaExpiacion ?? "N/A"}',
+                                  style: TextStyle(color: Colors.white),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -107,11 +117,12 @@ class _UserScreenState extends State<UserScreen> {
                       },
                     ),
                   ),
-                  // Sección de estantes
                   SizedBox(height: 20),
                   Text('Estantes',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white)),
                   Container(
                     height: 250,
                     child: ListView.builder(
@@ -120,6 +131,7 @@ class _UserScreenState extends State<UserScreen> {
                       itemBuilder: (context, index) {
                         final estante = user.shelving![index];
                         return Card(
+                          color: Colors.grey[850],
                           elevation: 4,
                           child: Container(
                             width: 180,
@@ -132,28 +144,31 @@ class _UserScreenState extends State<UserScreen> {
                                     estante.portada ?? '',
                                     fit: BoxFit.cover,
                                     errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        color: Colors.grey,
-                                        child: Icon(Icons.book, size: 50),
-                                      );
+                                      return Image.asset(
+                                          'assets/images/image.png',
+                                          fit: BoxFit.cover);
                                     },
                                   ),
                                 ),
                                 SizedBox(height: 5),
                                 Text(
                                   estante.titulo ?? "Sin título",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 SizedBox(height: 5),
                                 Text(
                                   'Autor: ${estante.autor ?? "Desconocido"}',
+                                  style: TextStyle(color: Colors.white),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 Text(
                                   'Valoración: ${estante.valoracionMedia?.toString() ?? "N/A"}',
+                                  style: TextStyle(color: Colors.white),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -168,9 +183,13 @@ class _UserScreenState extends State<UserScreen> {
               ),
             );
           } else if (state is UserError) {
-            return Center(child: Text('Error: ${state.message}'));
+            return Center(
+                child: Text('Error: ${state.message}',
+                    style: TextStyle(color: Colors.white)));
           }
-          return Center(child: Text('Cargando información del usuario...'));
+          return Center(
+              child: Text('Cargando información del usuario...',
+                  style: TextStyle(color: Colors.white)));
         },
       ),
     );

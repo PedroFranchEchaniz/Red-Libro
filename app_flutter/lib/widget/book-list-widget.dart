@@ -19,13 +19,10 @@ class BookListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Verificar si la lista de libros está vacía
     if (books.isEmpty) {
-      // Si está vacía, no se devuelve ningún widget (o se podría devolver un widget alternativo)
-      return SizedBox.shrink(); // Esto devuelve un widget que no ocupa espacio.
+      return SizedBox.shrink();
     }
 
-    // Si la lista no está vacía, se construye el widget normalmente
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -67,16 +64,13 @@ class BookListWidget extends StatelessWidget {
                         aspectRatio: 2 / 3,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: FadeInImage.memoryNetwork(
-                            placeholder: kTransparentImage,
-                            image: book.portada ?? '',
+                          child: Image.network(
+                            book.portada ?? '',
                             fit: BoxFit.cover,
-                            imageErrorBuilder: (context, error, stackTrace) =>
-                                Container(
-                              color: Colors.grey[200],
-                              alignment: Alignment.center,
-                              child: Icon(Icons.broken_image),
-                            ),
+                            errorBuilder: (context, error, stackTrace) {
+                              return Image.asset('assets/images/image.png',
+                                  fit: BoxFit.cover);
+                            },
                           ),
                         ),
                       ),

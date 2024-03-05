@@ -39,6 +39,10 @@ class BookDetailPage extends StatelessWidget {
               child: Image.network(
                 book.portada ?? '',
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset('assets/images/image.png',
+                      fit: BoxFit.cover);
+                },
               ),
             ),
             Positioned.fill(
@@ -61,18 +65,20 @@ class BookDetailPage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
-                        height: 20), // Espacio adicional en la parte superior
+                    SizedBox(height: 20),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
                         book.portada ?? '',
-                        width: MediaQuery.of(context).size.width *
-                            0.6, // Ajuste de tamaño para la portada en el contenido
-                        fit: BoxFit.contain,
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset('assets/images/image.png',
+                              fit: BoxFit.cover);
+                        },
                       ),
                     ),
-                    SizedBox(height: 20), // Espacio después de la portada
+                    SizedBox(height: 20),
                     Text(book.titulo ?? "Sin título",
                         style: TextStyle(
                             fontSize: 24,
@@ -101,13 +107,12 @@ class BookDetailPage extends StatelessWidget {
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
-                              return CircularProgressIndicator(); // Mostrar un loader mientras se espera
+                              return CircularProgressIndicator();
                             } else if (snapshot.hasError) {
-                              return Text('Error'); // Manejar el error
+                              return Text('Error');
                             } else if (snapshot.data == true) {
-                              return Container(); // No mostrar el botón si el libro ya está en la estantería
+                              return Container();
                             } else {
-                              // Mostrar el botón si el libro no está en la estantería
                               return IconButton(
                                 icon: Icon(Icons.bookmark_add,
                                     color: Colors.blue),
@@ -148,14 +153,14 @@ class BookDetailPage extends StatelessWidget {
                       )
                     ] else ...[
                       Container(
-                        height: 200, // Ajusta este valor según necesites
+                        height: 200,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: book.valoraciones?.length ?? 0,
                           itemBuilder: (context, index) {
                             final valoracion = book.valoraciones![index];
                             return Container(
-                              width: 200, // Ajusta este valor según necesites
+                              width: 200,
                               child: Card(
                                 color: Colors.white70,
                                 child: Padding(
