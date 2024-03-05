@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transparent_image/transparent_image.dart';
-
 import 'package:app_flutter/models/response/book_response.dart';
 import 'package:app_flutter/pages/book_detail_page.dart';
 import 'package:app_flutter/blocs/shopBook-bloc/bloc/shop_bloc.dart';
