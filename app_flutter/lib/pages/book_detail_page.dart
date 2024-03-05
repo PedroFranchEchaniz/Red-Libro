@@ -78,7 +78,7 @@ class BookDetailPage extends StatelessWidget {
                         },
                       ),
                     ),
-                    SizedBox(height: 20), // Espacio para la imagen superior
+                    SizedBox(height: 20),
                     RatingBarIndicator(
                       rating: book.valoracion ?? 0.0,
                       itemBuilder: (context, index) => Icon(
