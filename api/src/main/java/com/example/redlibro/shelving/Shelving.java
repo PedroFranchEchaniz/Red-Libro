@@ -23,7 +23,7 @@ public class Shelving {
     private ShelvingPk shelvingPk = new ShelvingPk();
 
     @ManyToOne
-    @JoinColumn(name = "client_uuid", referencedColumnName = "UUID")
+    @JoinColumn(name = "client_uuid", referencedColumnName = "UUID", insertable = false, updatable = false)
     private Client client;
 
 

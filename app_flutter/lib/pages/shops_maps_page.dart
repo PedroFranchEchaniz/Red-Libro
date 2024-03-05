@@ -120,7 +120,7 @@ class _ShopsMapPageState extends State<ShopsMapPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.book.titulo ?? 'Sin título'),
-        backgroundColor: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         elevation: 0,
       ),
       body: BlocListener<BookingBloc, BookingState>(

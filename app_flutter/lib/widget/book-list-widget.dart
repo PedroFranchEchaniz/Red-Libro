@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transparent_image/transparent_image.dart';
-
 import 'package:app_flutter/models/response/book_response.dart';
 import 'package:app_flutter/pages/book_detail_page.dart';
 import 'package:app_flutter/blocs/shopBook-bloc/bloc/shop_bloc.dart';
@@ -19,13 +17,10 @@ class BookListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Verificar si la lista de libros está vacía
     if (books.isEmpty) {
-      // Si está vacía, no se devuelve ningún widget (o se podría devolver un widget alternativo)
-      return SizedBox.shrink(); // Esto devuelve un widget que no ocupa espacio.
+      return SizedBox.shrink();
     }
 
-    // Si la lista no está vacía, se construye el widget normalmente
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -67,16 +62,13 @@ class BookListWidget extends StatelessWidget {
                         aspectRatio: 2 / 3,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: FadeInImage.memoryNetwork(
-                            placeholder: kTransparentImage,
-                            image: book.portada ?? '',
+                          child: Image.network(
+                            book.portada ?? '',
                             fit: BoxFit.cover,
-                            imageErrorBuilder: (context, error, stackTrace) =>
-                                Container(
-                              color: Colors.grey[200],
-                              alignment: Alignment.center,
-                              child: Icon(Icons.broken_image),
-                            ),
+                            errorBuilder: (context, error, stackTrace) {
+                              return Image.asset('assets/images/image.png',
+                                  fit: BoxFit.cover);
+                            },
                           ),
                         ),
                       ),
@@ -88,7 +80,7 @@ class BookListWidget extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 235, 230, 230),
+                          color: Color.fromARGB(255, 0, 0, 0),
                         ),
                       ),
                       SizedBox(height: 4),
@@ -99,7 +91,7 @@ class BookListWidget extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          color: Colors.grey[600],
+                          color: const Color.fromARGB(255, 0, 0, 0),
                         ),
                       ),
                     ],

@@ -16,11 +16,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // Inicializamos el BookBloc si no ha sido inicializado antes
     BlocProvider.of<BookBloc>(context).add(FetchBooks());
 
     List<Widget> _widgetOptions = <Widget>[
-      // Mantenemos la implementación original para la lista de libros
       BlocBuilder<BookBloc, BookState>(
         builder: (context, state) {
           if (state is Loading) {
@@ -29,7 +27,6 @@ class _HomePageState extends State<HomePage> {
             return ListView.builder(
               itemCount: state.books.length,
               itemBuilder: (context, index) {
-                // Asegúrate de que esta parte coincide con tu implementación que funcionaba anteriormente
                 return BookListWidget(
                   books: state.books[index],
                   categoryIndex: index,
@@ -39,14 +36,14 @@ class _HomePageState extends State<HomePage> {
           } else if (state is ErrorLoaded) {
             return Center(
                 child: Text("Error al cargar los libros: ${state.errorMessage}",
-                    style: TextStyle(color: Colors.white)));
+                    style:
+                        TextStyle(color: const Color.fromARGB(255, 0, 0, 0))));
           }
           return Center(
               child: Text("No hay libros disponibles",
-                  style: TextStyle(color: Colors.white)));
+                  style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0))));
         },
       ),
-      // Integración de la funcionalidad del usuario
       BlocProvider<LogesUserBloc>(
         create: (context) =>
             LogesUserBloc(userRepo: RegistedUserRepositoryImpl()),
@@ -55,9 +52,9 @@ class _HomePageState extends State<HomePage> {
     ];
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
-        title: Text('Home'),
+        title: Image.asset('assets/images/logo.png', height: 90.0),
         backgroundColor: Colors.blue,
         elevation: 0,
       ),
@@ -76,7 +73,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.blue,
         onTap: (index) {
           setState(() {
             _selectedIndex = index;

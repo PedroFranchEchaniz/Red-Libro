@@ -1,9 +1,6 @@
 package com.example.redlibro.book.controller;
 
-import com.example.redlibro.book.dto.BookResponse;
-import com.example.redlibro.book.dto.CreateBookRequest;
-import com.example.redlibro.book.dto.GetBookDto;
-import com.example.redlibro.book.dto.GetBookWithRating;
+import com.example.redlibro.book.dto.*;
 import com.example.redlibro.book.model.Book;
 import com.example.redlibro.book.repository.BookRepository;
 import com.example.redlibro.book.service.BookService;
@@ -41,20 +38,20 @@ public class BookController {
     }
 
     @GetMapping("/book/listsBooks")
-    public List<GetBookWithRating> []allBooksArray(){
+    public List<List<GetBookAndRating>> allBooksArray() {
         List<Book>[] librosOrdenados = bookService.librosOrdenados();
-
-        List<GetBookWithRating>[] dtoLists = Arrays.stream(librosOrdenados)
-                .map(list -> list.stream().map(GetBookWithRating::of).collect(Collectors.toList()))
-                .toArray(List[]::new);
+        List<List<GetBookAndRating>> dtoLists = Arrays.stream(librosOrdenados)
+                .map(list -> list.stream()
+                        .map(book -> bookService.getRatingsForBook(book.getISBN())) // Usar getRatingsForBook para obtener las valoraciones
+                        .collect(Collectors.toList()))
+                .collect(Collectors.toList()); // Cambio para retornar una lista de listas
         return dtoLists;
     }
 
 
     @GetMapping("/book/{isbn}")
-    public GetBookWithRating detailsbook (@PathVariable String isbn)  {
-        Book b = bookService.libroMedia(isbn);
-        return  GetBookWithRating.of(b);
+    public GetBookAndRating detailsbook (@PathVariable String isbn)  {
+        return bookService.getRatingsForBook(isbn);
     }
 
     @GetMapping("/book/avaibleInShop/{isbn}")

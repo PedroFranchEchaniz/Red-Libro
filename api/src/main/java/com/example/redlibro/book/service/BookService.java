@@ -1,10 +1,13 @@
 package com.example.redlibro.book.service;
 
 import com.example.redlibro.book.dto.CreateBookRequest;
+import com.example.redlibro.book.dto.GetBookAndRating;
 import com.example.redlibro.book.dto.GetBookDto;
 import com.example.redlibro.book.model.Book;
 import com.example.redlibro.book.model.Genre;
 import com.example.redlibro.book.repository.BookRepository;
+import com.example.redlibro.rating.dto.GetRatingDto;
+import com.example.redlibro.rating.model.Rating;
 import com.example.redlibro.rating.repository.RatingRepository;
 import com.example.redlibro.store.model.Store;
 import com.example.redlibro.store.model.StorePk;
@@ -136,6 +139,30 @@ public class BookService {
             return null;
         List<Store> listasEncontrdas = listaTiendas.get();
         return listasEncontrdas;
+    }
+
+    public GetBookAndRating getRatingsForBook(String isbn) {
+        Book book = bookRepository.findById(isbn)
+                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
+        List<GetRatingDto> valoraciones = ratingRepository.findRatingsByIsbn(isbn)
+                .stream()
+                .map(rating -> new GetRatingDto(rating.userName(), rating.valoracion(), rating.comentario()))
+                .collect(Collectors.toList());
+
+        return new GetBookAndRating(
+                book.getISBN(),
+                book.getTitulo(),
+                book.getAutor(),
+                book.getEditorial(),
+                book.getFecha().toString(),
+                book.getFechaAlta().toString(),
+                book.getPortada(),
+                book.getGenres().toString(),
+                book.getResumen(),
+                book.getMediaValoracion(),
+                book.isDisponible(),
+                valoraciones
+        );
     }
 
 

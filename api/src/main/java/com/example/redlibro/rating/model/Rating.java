@@ -2,10 +2,7 @@ package com.example.redlibro.rating.model;
 
 import com.example.redlibro.book.model.Book;
 import com.example.redlibro.user.model.Client;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
@@ -25,8 +22,10 @@ public class Rating implements Serializable {
     private Book book;
 
     private double stars;
-
     @ManyToOne
     @MapsId("clientId")
     private Client client;
+
+    @Column(columnDefinition = "TEXT")
+    private String opinion;
 }
