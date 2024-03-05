@@ -146,12 +146,11 @@ class _LoginScreenState extends State<LoginScreen> {
               child: const Text('LOGIN'),
             ),
           ),
-          const SizedBox(height: 20), // Espacio entre los botones
+          const SizedBox(height: 20),
           SizedBox(
             width: double.infinity,
             child: OutlinedButton(
               onPressed: () {
-                // Navegar a la pantalla de registro
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => RegisterScreen()),
                 );
