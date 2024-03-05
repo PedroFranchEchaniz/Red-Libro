@@ -18,7 +18,7 @@ class BookDetailPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(book.titulo ?? 'Sin título',
             style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Colors.blue,
         elevation: 0,
       ),
       body: BlocListener<ShopBloc, ShopState>(

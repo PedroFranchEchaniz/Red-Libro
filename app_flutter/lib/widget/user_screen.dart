@@ -43,15 +43,15 @@ class _UserScreenState extends State<UserScreen> {
                                 as ImageProvider,
                   ),
                   SizedBox(height: 20),
-                  Text('Nombre: ${user.name ?? "No disponible"}',
+                  Text('${user.name ?? "No disponible"}',
                       style:
                           TextStyle(color: const Color.fromARGB(255, 0, 0, 0))),
                   SizedBox(height: 10),
-                  Text('Apellido: ${user.lastName ?? "No disponible"}',
+                  Text(' ${user.lastName ?? "No disponible"}',
                       style:
                           TextStyle(color: const Color.fromARGB(255, 0, 0, 0))),
                   SizedBox(height: 10),
-                  Text('Usuario: ${user.username ?? "No disponible"}',
+                  Text('${user.username ?? "No disponible"}',
                       style:
                           TextStyle(color: const Color.fromARGB(255, 0, 0, 0))),
                   SizedBox(height: 20),
@@ -59,7 +59,7 @@ class _UserScreenState extends State<UserScreen> {
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white)),
+                          color: const Color.fromARGB(255, 0, 0, 0))),
                   Container(
                     height: 250,
                     child: ListView.builder(
@@ -120,7 +120,7 @@ class _UserScreenState extends State<UserScreen> {
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white)),
+                          color: const Color.fromARGB(255, 0, 0, 0))),
                   Container(
                     height: 250,
                     child: ListView.builder(
