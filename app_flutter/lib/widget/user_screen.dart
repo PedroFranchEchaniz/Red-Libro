@@ -20,9 +20,9 @@ class _UserScreenState extends State<UserScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Información del Usuario"),
-        backgroundColor: Colors.black, // Fondo del AppBar en negro.
+        backgroundColor: Colors.black,
       ),
-      backgroundColor: Colors.black, // Fondo de la pantalla en negro.
+      backgroundColor: Colors.black,
       body: BlocBuilder<LogesUserBloc, LogesUserState>(
         builder: (context, state) {
           if (state is UsearLoading) {
@@ -37,15 +37,11 @@ class _UserScreenState extends State<UserScreen> {
                   CircleAvatar(
                     radius: 60,
                     backgroundColor: Colors.transparent,
-                    backgroundImage: FadeInImage.memoryNetwork(
-                      placeholder: kTransparentImage,
-                      image: user.avatar ?? '',
-                      fit: BoxFit.cover,
-                      imageErrorBuilder: (context, error, stackTrace) {
-                        return Icon(Icons.person,
-                            size: 120, color: Colors.white);
-                      },
-                    ).image,
+                    backgroundImage:
+                        user.avatar != null && user.avatar!.isNotEmpty
+                            ? NetworkImage(user.avatar!)
+                            : AssetImage('assets/images/image.png')
+                                as ImageProvider,
                   ),
                   SizedBox(height: 20),
                   Text('Nombre: ${user.name ?? "No disponible"}',

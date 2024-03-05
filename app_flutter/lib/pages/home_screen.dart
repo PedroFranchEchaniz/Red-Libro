@@ -16,11 +16,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // Inicializamos el BookBloc si no ha sido inicializado antes
     BlocProvider.of<BookBloc>(context).add(FetchBooks());
 
     List<Widget> _widgetOptions = <Widget>[
-      // Mantenemos la implementación original para la lista de libros
       BlocBuilder<BookBloc, BookState>(
         builder: (context, state) {
           if (state is Loading) {
@@ -29,7 +27,6 @@ class _HomePageState extends State<HomePage> {
             return ListView.builder(
               itemCount: state.books.length,
               itemBuilder: (context, index) {
-                // Asegúrate de que esta parte coincide con tu implementación que funcionaba anteriormente
                 return BookListWidget(
                   books: state.books[index],
                   categoryIndex: index,
@@ -46,7 +43,6 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(color: Colors.white)));
         },
       ),
-      // Integración de la funcionalidad del usuario
       BlocProvider<LogesUserBloc>(
         create: (context) =>
             LogesUserBloc(userRepo: RegistedUserRepositoryImpl()),
@@ -57,7 +53,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('Home'),
+        title: Image.asset('assets/images/logo.png', height: 90.0),
         backgroundColor: Colors.blue,
         elevation: 0,
       ),
