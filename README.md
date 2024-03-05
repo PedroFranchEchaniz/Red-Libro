@@ -38,4 +38,8 @@
 
 6. **Reserva**: Página que permite al usuario reservar un libro, mostrando un mapa con las localizaciones de las tiendas que tienen el libro en stock.
 
-   ![Reserva Screen](URL_DE_LA_IMAGEN)
+   ![Reserva Screen](img/reserva.png)
+   ![Reserva Screen](img/confirmacion.png)
+   ![Reserva Screen](img/finalizada.png)
+
+
