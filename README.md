@@ -44,7 +44,7 @@
 
 6. **Valorar**: Pop Up que merpite la valoración de un libro.
 
-   ![Reserva Screen](img/valorar.png)
+   ![Reserva Screen](img/valorar.PNG)
 
 
    
