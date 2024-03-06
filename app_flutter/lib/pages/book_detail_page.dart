@@ -18,10 +18,10 @@ class BookDetailPage extends StatelessWidget {
     required this.book,
     required this.bookDetailRepository,
   }) : super(key: key);
+
   void _showRatingDialog(BuildContext context) {
     final TextEditingController _commentController = TextEditingController();
     double _stars = 0.0;
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -64,9 +64,8 @@ class BookDetailPage extends StatelessWidget {
             TextButton(
               child: Text('Enviar'),
               onPressed: () async {
-                // Aquí se construye el RatingDto y se llama al método newRating
                 final RatingDto ratingDto = RatingDto(
-                  stars: _stars.toInt(),
+                  stars: _stars.toDouble(),
                   opinion: _commentController.text,
                 );
                 try {
@@ -152,16 +151,20 @@ class BookDetailPage extends StatelessWidget {
                         },
                       ),
                     ),
-                    SizedBox(height: 20),
-                    RatingBarIndicator(
-                      rating: book.valoracion ?? 0.0,
-                      itemBuilder: (context, index) => Icon(
-                        Icons.star,
-                        color: Colors.amber,
+                    GestureDetector(
+                      onTap: () {
+                        _showRatingDialog(context);
+                      },
+                      child: RatingBarIndicator(
+                        rating: book.valoracion ?? 0.0,
+                        itemBuilder: (context, index) => Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        itemCount: 5,
+                        itemSize: 24.0,
+                        direction: Axis.horizontal,
                       ),
-                      itemCount: 5,
-                      itemSize: 24.0,
-                      direction: Axis.horizontal,
                     ),
                     SizedBox(height: 20),
                     Text(book.titulo ?? "Sin título",

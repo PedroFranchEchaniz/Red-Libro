@@ -1,6 +1,6 @@
 class RatingDto {
   Id? id;
-  int? stars;
+  double? stars;
   String? opinion;
 
   RatingDto({this.id, this.stars, this.opinion});

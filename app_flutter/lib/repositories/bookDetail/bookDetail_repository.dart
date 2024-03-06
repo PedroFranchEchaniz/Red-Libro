@@ -4,5 +4,5 @@ import 'package:app_flutter/models/response/rating_response.dart';
 
 abstract class BookDetailRepository {
   Future<Book> getDetailBook(String isbn);
-  Future<RatingResponse> newRating(String isbn, RatingDto);
+  Future<RatingResponse> newRating(String isbn, RatingDto ratingDto);
 }

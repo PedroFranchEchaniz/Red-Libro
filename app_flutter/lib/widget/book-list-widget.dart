@@ -1,3 +1,4 @@
+import 'package:app_flutter/repositories/bookDetail/bookDetail_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_flutter/models/response/book_response.dart';
@@ -48,7 +49,11 @@ class BookListWidget extends StatelessWidget {
                     builder: (context) => BlocProvider<ShopBloc>(
                       create: (context) => ShopBloc(
                           shopWithBookRepository: ShopWithBookRepositoryImpl()),
-                      child: BookDetailPage(book: book),
+                      child: BookDetailPage(
+                        book: book,
+                        bookDetailRepository:
+                            BookDetailRepositoryImpl(), // Asumiendo que puedes crear una instancia así
+                      ),
                     ),
                   ));
                 },
