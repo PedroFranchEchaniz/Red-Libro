@@ -21,9 +21,9 @@ public class RatingController {
     private final RatingService ratingService;
 
     @PostMapping("/book/rating/{isbn}")
-    public ResponseEntity<Rating>createRating(@AuthenticationPrincipal Client client, @PathVariable String isbn, @RequestBody NewRatingDto ratingDto){
+    public ResponseEntity<GetRatingDto>createRating(@AuthenticationPrincipal Client client, @PathVariable String isbn, @RequestBody NewRatingDto ratingDto){
         Rating rating = ratingService.newRating(client.getUuid(), isbn, ratingDto);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(rating);
+                .body(GetRatingDto.of(rating));
     }
 }
