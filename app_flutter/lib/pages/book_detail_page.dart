@@ -1,4 +1,6 @@
+import 'package:app_flutter/models/dto/rating_dto.dart';
 import 'package:app_flutter/repositories/UserShevingRepository/user_shelving_repository_impl.dart';
+import 'package:app_flutter/repositories/bookDetail/bookDetail_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -9,8 +11,80 @@ import 'package:app_flutter/pages/shops_maps_page.dart';
 class BookDetailPage extends StatelessWidget {
   final Book book;
   final ShelvingRepositoryImpl shelvingRepository = ShelvingRepositoryImpl();
+  final BookDetailRepository bookDetailRepository;
 
-  BookDetailPage({Key? key, required this.book}) : super(key: key);
+  BookDetailPage({
+    Key? key,
+    required this.book,
+    required this.bookDetailRepository,
+  }) : super(key: key);
+  void _showRatingDialog(BuildContext context) {
+    final TextEditingController _commentController = TextEditingController();
+    double _stars = 0.0;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Añadir Valoración'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                RatingBar.builder(
+                  initialRating: 3,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (rating) {
+                    _stars = rating;
+                  },
+                ),
+                TextField(
+                  controller: _commentController,
+                  decoration: InputDecoration(
+                    hintText: 'Escribe tu comentario aquí',
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Enviar'),
+              onPressed: () async {
+                // Aquí se construye el RatingDto y se llama al método newRating
+                final RatingDto ratingDto = RatingDto(
+                  stars: _stars.toInt(),
+                  opinion: _commentController.text,
+                );
+                try {
+                  await bookDetailRepository.newRating(book.isbn!, ratingDto);
+                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Valoración enviada con éxito.')));
+                } catch (error) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('Error al enviar la valoración.')));
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
