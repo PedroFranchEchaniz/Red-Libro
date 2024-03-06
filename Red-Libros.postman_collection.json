@@ -1,0 +1,404 @@
+{
+	"info": {
+		"_postman_id": "83a53d92-4a68-4efa-9ffd-ba85e84570f0",
+		"name": "Red-Libros",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30052631"
+	},
+	"item": [
+		{
+			"name": "Login-Cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"username\",\r\n    \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/client/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"client",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SingUp-Cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"username3\",\r\n    \"password\":\"1234\",\r\n    \"verifyPassword\":\"1234\",\r\n    \"lastName\":\"Franch\",\r\n    \"name\":\"Pedro\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/client/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"client",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Loged-User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MDk0Njc0OTcsImV4cCI6MTcxMDA3MjI5N30.iUxjnCnFlCV4xkLFJ_8jcLqPr13pLchXXUct20pX0TPioEpLCT0s7Wif-nnvBnlS6zdEgGjhPh_Qz1padz3_GQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/client/profile",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"client",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SingUp-shop",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"username5\",\r\n    \"password\":\"1234\",\r\n    \"verifyPassword\":\"1234\",\r\n    \"name\":\"tienda\",\r\n    \"direcction\":\"calle falsa\",\r\n    \"contacto\":\"tienda@tienda\",\r\n    \"lat\":\"123\",\r\n    \"lon\":\"234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/shop/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create-Book",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzZmZmODVjZS0zNTRiLTRlNGMtYmJjMy03Y2UxMzhlNTczYjYiLCJpYXQiOjE3MDg1OTE1NTIsImV4cCI6MTcwOTE5NjM1Mn0.aJ73nc9FQajgUshF3Dlzd-9FqswKrcU2G8ZJsuebXFWSLODWzWdEgdWxcz9WqeuWa1x5Vpg9DxXXzA_Fn_dbpQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ISBN\": \"1234567890123\",\r\n  \"titulo\": \"El Nombre del Viento\",\r\n  \"autor\": \"Patrick Rothfuss\",\r\n  \"editorial\": \"DAW Books\",\r\n  \"portda\": \"https://example.com/portada.jpg\",\r\n  \"fecha\": \"2007-03-27\",\r\n  \"genres\": [\"Fantasia\"],\r\n  \"resumen\": \"Es la historia de Kvothe, un aventurero y músico extraordinario.\",\r\n  \"mediaValoracion\": 4.8,\r\n  \"uuidShor\": \"3fff85ce-354b-4e4c-bbc3-7ce138e573b6\",\r\n  \"stock\": 0,\r\n  \"precio\": 19.99  \r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/shop/newBook",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"newBook"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login-Shop",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"shop\",\r\n    \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/shop/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Loged-shop",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzZmZmODVjZS0zNTRiLTRlNGMtYmJjMy03Y2UxMzhlNTczYjYiLCJpYXQiOjE3MDg1OTAzMzIsImV4cCI6MTcwOTE5NTEzMn0.WswhM_WMiXlApUOf4HLMweSGVnGDV8rHrqJIb3jiAnCLHjVy99WJZURMf5ibFrbywAL7YVmQbyg47Pj-q5XSBg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/shop/profile",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shop",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-ArraysBooks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MDk1ODQ2NTMsImV4cCI6MTcxMDE4OTQ1M30.vgF1zieetjw92WhwVChDq3R9hQiUMcpMMaVN-RlGAHetKsMjYAimRZZuWtKVl5v3XJRIrTJvqKY8SDR6643WAg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/book/listsBooks",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book",
+						"listsBooks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Book",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MDk1Mzk0MDIsImV4cCI6MTcxMDE0NDIwMn0.-7H_kg0gFU5upRRUxHtpczxpJS9yIEgp-7OdBk0eVZGspt0Dj3KDrA9b5oEJ8ZqSUHZzLITbVEpOTcjYj5ku0A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/book/1234567890",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book",
+						"1234567890"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shops-withbook",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MDkwNjEwNDIsImV4cCI6MTcwOTY2NTg0Mn0.DBHugUhxG9vqDYd2eSQVYrwe26QdneGqSJ8FXA_Q_9ykzsRWKtsdiavfnXLUPptrypSyF6RKvbiPmd38kYXciA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/book/avaibleInShop/1234567890",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book",
+						"avaibleInShop",
+						"1234567890"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reserva",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MDkyMDU0NjUsImV4cCI6MTcwOTgxMDI2NX0.HP8EdoBIuzcqMg_priZB1H17n5IHzMpnj40AKFWx0-06MBXRd1J4Ph3oOKTnlDuJFq8snMJFZEpEqDbBTmFuvA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/booking/3fff85ce-354b-4e4c-bbc3-7ce138e573b6/1234567890/c4e27173-52b5-4bd9-94ee-88a07167fa72",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"booking",
+						"3fff85ce-354b-4e4c-bbc3-7ce138e573b6",
+						"1234567890",
+						"c4e27173-52b5-4bd9-94ee-88a07167fa72"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar a estanteria",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MDk0ODg0NzIsImV4cCI6MTcxMDA5MzI3Mn0.Wm4cTuep1QeCs9S4fzbxMSEki8NaherlJFROTk3CBqCn7jV0W8TQZI6p3vdpleVYX-G9nV7iEa4na2WHsIyIlQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/client/addShelving/1234567891",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"client",
+						"addShelving",
+						"1234567891"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-client-shelving",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MDk1ODQ2NTMsImV4cCI6MTcxMDE4OTQ1M30.vgF1zieetjw92WhwVChDq3R9hQiUMcpMMaVN-RlGAHetKsMjYAimRZZuWtKVl5v3XJRIrTJvqKY8SDR6643WAg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/client/booksInUserShelving",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"client",
+						"booksInUserShelving"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
