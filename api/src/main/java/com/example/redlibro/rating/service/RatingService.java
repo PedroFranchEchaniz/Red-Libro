@@ -22,6 +22,7 @@ public class RatingService {
     private final ClientRepository clientRepository;
 
 
+
     public Rating newRating(UUID clientUui, String bookIsbn, NewRatingDto ratingDto){
         RatingPk ratingPk = new RatingPk();
         ratingPk.setBookIsbn(bookIsbn);
@@ -31,8 +32,8 @@ public class RatingService {
                 .id(ratingPk)
                 .stars(ratingDto.stars())
                 .opinion(ratingDto.opinion())
-                .book(bookRepository.findById(bookIsbn).get())
-                .client(clientRepository.findById(clientUui).get())
+                .book(bookRepository.findByIdWithRatings(bookIsbn).get())
+                .client(clientRepository.findByUuidWithRatings(clientUui).get())
                 .build();
 
         return ratingRepository.save(newRating);
