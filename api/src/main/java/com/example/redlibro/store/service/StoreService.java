@@ -1,5 +1,6 @@
 package com.example.redlibro.store.service;
 
+import com.example.redlibro.book.exception.BookNotFoundException;
 import com.example.redlibro.store.model.Store;
 import com.example.redlibro.store.model.StorePk;
 import com.example.redlibro.store.repository.StoreRepository;
@@ -12,7 +13,9 @@ public class StoreService {
 
     private final StoreRepository storeRepository;
     public void restarStore (StorePk pk){
-        Store store = storeRepository.findById(pk).get();
+        Store store = storeRepository.findById(pk)
+                .orElseThrow(BookNotFoundException::new);
         store.setStock(store.getStock()-1);
+        storeRepository.save(store);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.redlibro.booking.service;
 
+import com.example.redlibro.book.exception.ShopNotFoundException;
+import com.example.redlibro.booking.exceptions.ClientNotFoundException;
 import com.example.redlibro.booking.model.Booking;
 import com.example.redlibro.booking.repository.BookingRepository;
 import com.example.redlibro.store.model.Store;
@@ -22,11 +24,15 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final StoreRepository storeRepository;
     private final ClientRepository clientRepository;
-    public Booking reservar (StorePk storePk, UUID uuid){
-        Store store = storeRepository.findById(storePk).get();
+    public Booking reservar(StorePk storePk, UUID uuid) {
+        Store store = storeRepository.findById(storePk)
+                .orElseThrow(ShopNotFoundException::new);
+
         storeservice.restarStore(storePk);
 
-        Client client = clientRepository.findById(uuid).get();
+        Client client = clientRepository.findById(uuid)
+                .orElseThrow(ClientNotFoundException::new);
+
         Booking booking = new Booking().builder()
                 .shop(store.getShop())
                 .client(client)
@@ -38,6 +44,8 @@ public class BookingService {
                 .fechaReserva(LocalDate.now())
                 .fechaExpiacion(LocalDate.now().plusDays(3))
                 .build();
+
         return bookingRepository.save(booking);
     }
+
 }
