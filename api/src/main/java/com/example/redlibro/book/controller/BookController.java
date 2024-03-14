@@ -4,7 +4,15 @@ import com.example.redlibro.book.dto.*;
 import com.example.redlibro.book.model.Book;
 import com.example.redlibro.book.repository.BookRepository;
 import com.example.redlibro.book.service.BookService;
+import com.example.redlibro.rating.dto.GetRatingDto;
 import com.example.redlibro.user.dto.GetShopWithBook;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +31,25 @@ public class BookController {
     private final BookService bookService;
     private final BookRepository bookRepository;
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Dar libro de alta", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetRatingDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "isbn": "1234567891",
+                                                "title": "El nombre del viento",
+                                                "editorial": "DAW Books",
+                                                "fechaAlta": "2024-03-14"
+                                            }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "500"),
+            @ApiResponse(responseCode = "500", description = "Tienda no encontrada", content = @Content)
+    })
+    @Operation(summary = "AddBook", description = "Añadir un nuevo libro")
     @PostMapping("/shop/newBook")
     public ResponseEntity<BookResponse>createBook(@Valid @RequestBody CreateBookRequest createBookRequest){
         Book book = bookService.createBook(createBookRequest);

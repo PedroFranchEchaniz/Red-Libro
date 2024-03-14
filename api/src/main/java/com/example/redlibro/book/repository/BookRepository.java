@@ -23,4 +23,7 @@ public interface BookRepository extends JpaRepository<Book, String> {
 
     @Query("SELECT b FROM Book b LEFT JOIN FETCH b.ratings WHERE b.ISBN = :isbn")
     Optional<Book> findByIdWithRatings(String isbn);
+
+    boolean existsByISBN(String isbn);
+
 }
