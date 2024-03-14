@@ -29,7 +29,7 @@ public class RatingController {
 
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Añadir producto al carrito", content = {
+            @ApiResponse(responseCode = "200", description = "Crear valoracion", content = {
                     @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = GetRatingDto.class)),
                             examples = {@ExampleObject(
