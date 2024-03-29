@@ -118,7 +118,8 @@ public class SecurityConfig {
                         .requestMatchers(
                                 antMatcher("/client/**"),
                                 antMatcher("/book/**"),
-                                antMatcher("/booking/**")
+                                antMatcher("/booking/**"),
+                                antMatcher("/shop/**")
                         ).hasRole("User")
                         .requestMatchers(antMatcher("/shop/**"),
                                 antMatcher("/book/**"))

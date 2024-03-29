@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface StoreRepository extends JpaRepository<Store, StorePk> {
@@ -18,5 +19,11 @@ public interface StoreRepository extends JpaRepository<Store, StorePk> {
 
     @Query("SELECT s FROM Store s WHERE s.book.ISBN = ?1 AND s.stock > 0")
     Optional<List<Store>> shoWithBookAvailable (String isbn);
+
+    @Query("SELECT s from Store s WHERE s.book.ISBN = ?1 AND s.shop.uuid = ?2")
+    Optional<Store>shopBookStore(String isbn, UUID uuid);
+
+    @Query("SELECT s from Store s WHERE s.shop.uuid = ?1")
+    List<Store>shopStore(UUID shopUuid);
 }
 
