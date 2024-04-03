@@ -25,7 +25,10 @@ public class StoreService {
     private final ShopRepository shopRepository;
 
     private List<Store> shopStore (UUID storeUUID){
-        return storeRepository.shopStore(storeUUID);
+        if(storeRepository.shopStore(storeUUID).isPresent()) {
+            return storeRepository.shopStore(storeUUID).get();
+        }
+        return null;
     }
 
     public void sumarStore(StorePk pk, int cantidad){

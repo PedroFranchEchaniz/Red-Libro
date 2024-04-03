@@ -24,6 +24,6 @@ public interface StoreRepository extends JpaRepository<Store, StorePk> {
     Optional<Store>shopBookStore(String isbn, UUID uuid);
 
     @Query("SELECT s from Store s WHERE s.shop.uuid = ?1")
-    List<Store>shopStore(UUID shopUuid);
+    Optional<List<Store>>shopStore(UUID shopUuid);
 }
 
