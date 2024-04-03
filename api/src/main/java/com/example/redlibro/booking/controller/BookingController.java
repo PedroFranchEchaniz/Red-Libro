@@ -19,6 +19,8 @@ import java.util.UUID;
 public class BookingController {
 
     private final BookingService bookingService;
+
+    /*Corregir reserva, no esta bien pasar uuid como path variable*/
     @PostMapping("/booking/{shopUuid}/{bookisbn}/{clientUUid}")
     public GetBookingDto reserva (@PathVariable UUID shopUuid,
                                   @PathVariable String bookisbn,

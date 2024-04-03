@@ -3,6 +3,9 @@ package com.example.redlibro.book.service;
 import com.example.redlibro.book.dto.CreateBookRequest;
 import com.example.redlibro.book.dto.GetBookAndRating;
 import com.example.redlibro.book.dto.GetBookDto;
+import com.example.redlibro.book.exception.BookAlreadyExistsException;
+import com.example.redlibro.book.exception.BookNotFoundException;
+import com.example.redlibro.book.exception.ShopNotFoundException;
 import com.example.redlibro.book.model.Book;
 import com.example.redlibro.book.model.Genre;
 import com.example.redlibro.book.repository.BookRepository;
@@ -36,9 +39,10 @@ public class BookService {
     public Book createBook(CreateBookRequest createBookRequest) {
         boolean disponible = createBookRequest.stock() > 0;
 
+        if (bookRepository.findById(createBookRequest.ISBN()).isPresent()) {
+            throw new BookAlreadyExistsException();
+        }
 
-        if (bookRepository.findById(createBookRequest.ISBN()).isPresent())
-            return null;
         Set<Genre> genres = Arrays.stream(createBookRequest.genres())
                 .map(Genre::valueOf)
                 .collect(Collectors.toSet());
@@ -57,8 +61,10 @@ public class BookService {
                 .disponible(disponible)
                 .build();
         bookRepository.save(b);
+
         Shop shop = shopRepository.findById(UUID.fromString(createBookRequest.uuidShor()))
-                .orElseThrow(() -> new RuntimeException("Tienda no encontrada"));
+                .orElseThrow(ShopNotFoundException::new);
+
         Store store = new Store();
         StorePk storePk = new StorePk();
         storePk.setShopUuid(UUID.fromString(createBookRequest.uuidShor()));
@@ -69,7 +75,7 @@ public class BookService {
         store.setBook(b);
         store.setShop(shop);
         storeRepository.save(store);
-       return b;
+        return b;
     }
 
    public List<Book>[] librosOrdenados (){
@@ -112,20 +118,17 @@ public class BookService {
     }
 
     public Book libroMedia(String isbn) {
-        Optional<Book> b = bookRepository.findById(isbn);
-        if (b.isPresent()) {
-            Book bookEncontrado = b.get();
-            Optional<Double> avgRating = ratingRepository.bookAvgRating(isbn);
-            if (avgRating.isPresent()) {
-                double average = avgRating.get();
-                bookEncontrado.setMediaValoracion(average);
-            } else {
-                bookEncontrado.setMediaValoracion(0.0);
-            }
-            return bookEncontrado;
+        Book bookEncontrado = bookRepository.findById(isbn)
+                .orElseThrow(BookNotFoundException::new);
+
+        Optional<Double> avgRating = ratingRepository.bookAvgRating(isbn);
+        if (avgRating.isPresent()) {
+            double average = avgRating.get();
+            bookEncontrado.setMediaValoracion(average);
         } else {
-            return null;
+            bookEncontrado.setMediaValoracion(0.0);
         }
+        return bookEncontrado;
     }
 
     public boolean existsByBookIsbnAndStockGreaterThanZero(String isbn) {
@@ -133,17 +136,13 @@ public class BookService {
         return count != null && count > 0;
     }
 
-    public List<Store> shopsWithBook (String isbn){
-        Optional<List<Store>> listaTiendas = storeRepository.shoWithBookAvailable(isbn);
-        if(listaTiendas.isEmpty())
-            return null;
-        List<Store> listasEncontrdas = listaTiendas.get();
-        return listasEncontrdas;
+    public List<Store> shopsWithBook(String isbn) {
+        return storeRepository.shoWithBookAvailable(isbn).orElse(new ArrayList<>());
     }
 
     public GetBookAndRating getRatingsForBook(String isbn) {
         Book book = bookRepository.findById(isbn)
-                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
+                .orElseThrow(BookNotFoundException::new);
         List<GetRatingDto> valoraciones = ratingRepository.findRatingsByIsbn(isbn)
                 .stream()
                 .map(rating -> new GetRatingDto(rating.userName(), rating.valoracion(), rating.comentario()))
