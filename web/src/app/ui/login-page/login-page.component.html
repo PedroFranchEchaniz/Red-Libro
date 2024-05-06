@@ -1,0 +1,12 @@
+<h1 class="text-center text-black">GOURMET BURGUER</h1>
+<div class="w-25 text-center mx-auto">
+    <form class="border-2 border-white rounded-3 border p-3" method="post">
+        <div class="mb-3">
+            <input type="email" class="form-control" name="username" [(ngModel)]="username" placeholder="USERNAME">
+        </div>
+        <div class="mb-3">
+            <input type="password" class="form-control" name="password" [(ngModel)]="password" placeholder="PASSWORD">
+        </div>
+        <button (click)="login()" type="submit" class="btn btn-warning mt-3 border-1 border border-black">LOGIN</button>
+    </form>
+</div>
