@@ -28,7 +28,7 @@ export class LoginPageComponent implements OnInit {
 
   login() {
     this.accountService.loginAccount(this.username, this.password).subscribe(() => {
-      this.router.navigateByUrl('/books');
+      this.router.navigateByUrl('/listBook');
     })
   }
 }
