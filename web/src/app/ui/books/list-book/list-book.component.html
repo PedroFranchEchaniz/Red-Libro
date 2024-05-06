@@ -1,1 +1,13 @@
-<p>list-book works!</p>
+<!-- list-book.component.html -->
+<div *ngIf="stores$ | async as stores; else loading">
+    <ul>
+        <li *ngFor="let store of stores">
+            <h3>{{ store.titulo }}</h3>
+            <p>ISBN: {{ store.isbn }}</p>
+            <p>Cantidad disponible: {{ store.cantidad }}</p>
+        </li>
+    </ul>
+</div>
+<ng-template #loading>
+    <p>Cargando tiendas...</p>
+</ng-template>

@@ -27,6 +27,7 @@ export class LoginPageComponent implements OnInit {
   login() {
     this.accountService.loginAccount(this.username, this.password).subscribe({
       next: (response) => {
+        localStorage.setItem('uuid', response.id.toString());
         this.router.navigateByUrl('/listBook');
       },
       error: (error: HttpErrorResponse) => {
