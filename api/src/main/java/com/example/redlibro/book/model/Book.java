@@ -40,7 +40,7 @@ public class Book {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Genre> genres;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true) //revisar cascadeType.All soft Delete
     private List<Rating> ratings = new ArrayList<>();
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
