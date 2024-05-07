@@ -19,6 +19,7 @@ export class LoginPageComponent implements OnInit {
     localStorage.clear();
 
     let token = localStorage.getItem('token');
+    console.log(token);
     if (token) {
       this.router.navigateByUrl('/listBook');
     }
@@ -27,11 +28,12 @@ export class LoginPageComponent implements OnInit {
   login() {
     this.accountService.loginAccount(this.username, this.password).subscribe({
       next: (response) => {
-        localStorage.setItem('uuid', response.id.toString());
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('uuid', response.id);
+        console.log(localStorage.getItem('uuid')); // Asumiendo que la respuesta incluye un token
         this.router.navigateByUrl('/listBook');
       },
       error: (error: HttpErrorResponse) => {
-        // Aquí manejas el error
         if (error.status === 401) {
           this.errorMessage = 'Username or Password is incorrect';
         } else {
@@ -40,4 +42,5 @@ export class LoginPageComponent implements OnInit {
       }
     });
   }
+
 }

@@ -1,5 +1,5 @@
 export interface UserLoginRespomse {
-    id: String;
+    id: string;
     username: string;
     name: string;
     roles: string[];

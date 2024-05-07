@@ -1,5 +1,5 @@
 export interface GetStoreResponse {
-    content: Content[]
+    content: Store[]
     pageable: Pageable
     last: boolean
     totalPages: number
@@ -12,7 +12,7 @@ export interface GetStoreResponse {
     empty: boolean
 }
 
-export interface Content {
+export interface Store {
     pk: string
     isbn: string
     titulo: string
