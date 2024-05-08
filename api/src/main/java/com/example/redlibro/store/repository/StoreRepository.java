@@ -3,6 +3,8 @@ package com.example.redlibro.store.repository;
 import com.example.redlibro.store.model.Store;
 import com.example.redlibro.store.model.StorePk;
 import com.example.redlibro.user.model.Shop;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -24,6 +26,10 @@ public interface StoreRepository extends JpaRepository<Store, StorePk> {
     Optional<Store>shopBookStore(String isbn, UUID uuid);
 
     @Query("SELECT s from Store s WHERE s.shop.uuid = ?1")
-    Optional<List<Store>>shopStore(UUID shopUuid);
+    Page<Store> findStoresByShopUuid(UUID shopUuid, Pageable pageable);
+
+
+
+
 }
 

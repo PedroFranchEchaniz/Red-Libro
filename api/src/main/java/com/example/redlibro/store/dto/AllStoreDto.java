@@ -15,7 +15,7 @@ public record AllStoreDto(
         return AllStoreDto.builder()
                 .pk(store.getStorePk().toString())
                 .isbn(store.getStorePk().getBookIsbn())
-                .isbn(store.getBook().getTitulo())
+                .titulo(store.getBook().getTitulo())
                 .cantidad(store.getStock())
                 .build();
     }

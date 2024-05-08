@@ -3,6 +3,7 @@ package com.example.redlibro.store.service;
 import com.example.redlibro.book.exception.BookNotFoundException;
 import com.example.redlibro.book.exception.ShopNotFoundException;
 import com.example.redlibro.book.model.Book;
+import com.example.redlibro.store.exception.ResourceNotFoundException;
 import com.example.redlibro.store.exception.StorePkAllReadyExists;
 import com.example.redlibro.store.model.Store;
 import com.example.redlibro.store.model.StorePk;
@@ -10,6 +11,8 @@ import com.example.redlibro.store.repository.StoreRepository;
 import com.example.redlibro.user.model.Shop;
 import com.example.redlibro.user.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -24,11 +27,8 @@ public class StoreService {
     private final StoreRepository storeRepository;
     private final ShopRepository shopRepository;
 
-    private List<Store> shopStore (UUID storeUUID){
-        if(storeRepository.shopStore(storeUUID).isPresent()) {
-            return storeRepository.shopStore(storeUUID).get();
-        }
-        return null;
+    public Page<Store> findStoresByShopUuid(UUID uuid, Pageable pageable) {
+        return storeRepository.findStoresByShopUuid(uuid, pageable);
     }
 
     public void sumarStore(StorePk pk, int cantidad){
