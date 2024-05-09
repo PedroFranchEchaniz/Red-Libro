@@ -20,7 +20,7 @@ export class LoginPageComponent implements OnInit {
     let token = localStorage.getItem('token');
     console.log(token);
     if (token) {
-      this.router.navigateByUrl('');
+      this.router.navigateByUrl('/listBook');
     }
   }
 

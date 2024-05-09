@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Pageable, GetStoreResponse } from '../../models/getStore.interface';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environment/environment';
-import { Store } from '../../models/store';
+import { AmountEdited } from '../../models/amountStore.interface';
 
 
 @Injectable({
@@ -25,4 +25,17 @@ export class StoreServiceService {
       { headers: headers }
     );
   }
+
+  editAmountStore(isbn: string, editAmount: AmountEdited): Observable<GetStoreResponse> {
+    console.log('Aqui llega');
+    console.log(editAmount.uuid)
+    return this.http.put<GetStoreResponse>(
+      `${environment.apiBaseUrl}/store/edit/${isbn}`, editAmount,
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+  }
+
 }

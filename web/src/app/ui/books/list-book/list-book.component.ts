@@ -35,11 +35,25 @@ export class ListBookComponent implements OnInit {
   }
 
   confirmarCambio() {
-    console.log('Nueva cantidad confirmada:', this.cantidadEditada);
-    console.log(this.isbn);
-    console.log(this.pk);
-    console.log(this.uuid);
     this.mostrarFormulario = false;
+
+    const amountEdited = {
+      cantidad: this.cantidadEditada,
+      uuid: this.uuid
+    }
+    console.log(amountEdited);
+    this.storeService.editAmountStore(this.isbn, amountEdited).subscribe(
+      response => {
+        console.log('Respuesta del servidor:', response);
+        // Aquí puedes agregar lógica adicional que se ejecutaría después de recibir la respuesta
+      },
+      error => {
+        console.error('Error:', error);
+      }
+    ); this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.getStore();
+      this.router.navigate([location.pathname]);
+    });
   }
 
   cancelar() {
