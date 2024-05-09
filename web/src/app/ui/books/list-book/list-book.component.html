@@ -12,8 +12,31 @@
             <tr *ngFor="let store of stores">
                 <td>{{ store.isbn }}</td>
                 <td>{{ store.titulo }}</td>
-                <td>{{ store.cantidad }}</td>
+                <td>
+                    <input type="number" class="form-control" [(ngModel)]="store.cantidad"
+                        (keyup.enter)="mostrarFormulario = true; cantidadEditada = store.cantidad; isbn = store.isbn; pk = store.pk; uuid = store.uuid">
+                </td>
             </tr>
         </tbody>
     </table>
+</div>
+
+<!--Modal-->
+
+<div *ngIf="mostrarFormulario" class="row mt-3">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Confirmar Cambio</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que quieres cambiar la cantidad a?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="confirmarCambio()">Confirmar</button>
+            </div>
+        </div>
+    </div>
 </div>

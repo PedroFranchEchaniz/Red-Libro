@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StoreServiceService } from '../../../service/AccountService/store-service.service';
 import { Store } from '../../../models/getStore.interface';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-list-book',
@@ -10,22 +12,39 @@ import { Store } from '../../../models/getStore.interface';
 })
 export class ListBookComponent implements OnInit {
   stores!: Store[];
-  uuid: string | null = localStorage.getItem('uuid') // Usaremos un Observable para manejar los datos de forma reactiva
-
-  constructor(private storeService: StoreServiceService) { }
+  uuid: string | null = localStorage.getItem('uuid')
+  mostrarFormulario: boolean = false
+  cantidadEditada: number = 0;
+  isbn!: string;
+  pk!: string;
+  constructor(private storeService: StoreServiceService, private router: Router) { }
 
   ngOnInit() {
     this.getStore();
   }
 
   getStore() {
-    if (this.uuid) { // Verificar si uuid no es null
+    this.uuid = localStorage.getItem('uuid');
+    if (this.uuid) {
       this.storeService.getStoresByShopUuid(this.uuid, 0).subscribe(resp => {
         this.stores = resp.content;
       });
     } else {
       console.error('No UUID found in localStorage.');
-      // Aquí podrías redirigir al usuario o mostrar un mensaje
     }
+  }
+
+  confirmarCambio() {
+    console.log('Nueva cantidad confirmada:', this.cantidadEditada);
+    console.log(this.isbn);
+    console.log(this.pk);
+    console.log(this.uuid);
+    this.mostrarFormulario = false;
+  }
+
+  cancelar() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([location.pathname]);
+    });
   }
 }

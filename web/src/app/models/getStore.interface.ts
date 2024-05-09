@@ -17,6 +17,7 @@ export interface Store {
     isbn: string
     titulo: string
     cantidad: number
+    uuid: string
 }
 
 export interface Pageable {

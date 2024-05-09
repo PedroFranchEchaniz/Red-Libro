@@ -16,21 +16,19 @@ export class LoginPageComponent implements OnInit {
   constructor(private accountService: AccountServiceService, private router: Router) { }
 
   ngOnInit(): void {
-    localStorage.clear();
 
     let token = localStorage.getItem('token');
     console.log(token);
     if (token) {
-      this.router.navigateByUrl('/listBook');
+      this.router.navigateByUrl('');
     }
   }
 
   login() {
     this.accountService.loginAccount(this.username, this.password).subscribe({
       next: (response) => {
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('uuid', response.id);
-        console.log(localStorage.getItem('uuid')); // Asumiendo que la respuesta incluye un token
+        localStorage.setItem('token', response.token);  // Asegúrate de que response.token y response.id son correctos
+        localStorage.setItem('uuid', response.id.toString());  // Convierte a string si necesario
         this.router.navigateByUrl('/listBook');
       },
       error: (error: HttpErrorResponse) => {
@@ -42,5 +40,7 @@ export class LoginPageComponent implements OnInit {
       }
     });
   }
+
+
 
 }
