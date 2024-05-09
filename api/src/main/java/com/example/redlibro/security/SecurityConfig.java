@@ -92,7 +92,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 //.csrf().disable()
                 .csrf((csrf)-> csrf
-                        .ignoringRequestMatchers(antMatcher("/**")))
+                        .ignoringRequestMatchers(antMatcher("/**"), antMatcher("/book/**")))
                 /*
                         .exceptionHandling()
                                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
@@ -117,12 +117,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers(
                                 antMatcher("/client/**"),
-                                antMatcher("/book/**"),
                                 antMatcher("/booking/**"),
                                 antMatcher("/shop/**")
                         ).hasRole("User")
                         .requestMatchers(antMatcher("/shop/**"),
-                                antMatcher("/book/**"),
                                 antMatcher("/store/**"))
                         .hasRole("Shop")
                         .anyRequest().authenticated());

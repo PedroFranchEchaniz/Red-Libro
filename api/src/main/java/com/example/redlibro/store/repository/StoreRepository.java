@@ -28,6 +28,11 @@ public interface StoreRepository extends JpaRepository<Store, StorePk> {
     @Query("SELECT s from Store s WHERE s.shop.uuid = ?1")
     Page<Store> findStoresByShopUuid(UUID shopUuid, Pageable pageable);
 
+    @Query("SELECT s from Store s WHERE s.book.ISBN = ?1 AND s.shop.uuid = ?2")
+    Optional<Store>getStoreByIsbn(String isbn, UUID uuid);
+
+
+
 
 
 

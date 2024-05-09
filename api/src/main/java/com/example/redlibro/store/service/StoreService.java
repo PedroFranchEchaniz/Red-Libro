@@ -3,6 +3,7 @@ package com.example.redlibro.store.service;
 import com.example.redlibro.book.exception.BookNotFoundException;
 import com.example.redlibro.book.exception.ShopNotFoundException;
 import com.example.redlibro.book.model.Book;
+import com.example.redlibro.store.dto.ChangeAmountStore;
 import com.example.redlibro.store.exception.ResourceNotFoundException;
 import com.example.redlibro.store.exception.StorePkAllReadyExists;
 import com.example.redlibro.store.model.Store;
@@ -31,11 +32,11 @@ public class StoreService {
         return storeRepository.findStoresByShopUuid(uuid, pageable);
     }
 
-    public void sumarStore(StorePk pk, int cantidad){
-        Store store = storeRepository.findById(pk)
+    public Store EditAmounStore(String isbn, ChangeAmountStore changeAmountStore){
+        Store store = storeRepository.getStoreByIsbn(isbn, changeAmountStore.uuid())
                 .orElseThrow(BookNotFoundException::new);
-        store.setStock(store.getStock()+cantidad);
-        storeRepository.save(store);
+        store.setStock(changeAmountStore.cantidad());
+        return storeRepository.save(store);
     }
 
 

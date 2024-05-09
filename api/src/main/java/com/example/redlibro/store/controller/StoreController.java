@@ -1,7 +1,9 @@
 package com.example.redlibro.store.controller;
 
 import com.example.redlibro.store.dto.AllStoreDto;
+import com.example.redlibro.store.dto.ChangeAmountStore;
 import com.example.redlibro.store.model.Store;
+import com.example.redlibro.store.model.StorePk;
 import com.example.redlibro.store.repository.StoreRepository;
 import com.example.redlibro.store.service.StoreService;
 import com.example.redlibro.user.dto.ClienteResponse;
@@ -10,6 +12,7 @@ import com.example.redlibro.user.dto.GetShopDtoDetail;
 import com.example.redlibro.user.model.Client;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.ReactiveAdapterRegistry;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -31,4 +34,11 @@ public class StoreController {
         Page<AllStoreDto> storeDtos = stores.map(AllStoreDto::fromStore);
         return ResponseEntity.ok(storeDtos);
     }
+
+    @PutMapping("store/{isbn}")
+    public AllStoreDto changeAmountStore(@PathVariable String isbn,@RequestBody ChangeAmountStore changeAmountStore){
+        return AllStoreDto.fromStore(storeService.EditAmounStore(isbn, changeAmountStore));
+    }
+
+
 }
