@@ -35,7 +35,7 @@ public class StoreController {
         return ResponseEntity.ok(storeDtos);
     }
 
-    @PutMapping("store/{isbn}")
+    @PutMapping("store/edit/{isbn}")
     public AllStoreDto changeAmountStore(@PathVariable String isbn,@RequestBody ChangeAmountStore changeAmountStore){
         return AllStoreDto.fromStore(storeService.EditAmounStore(isbn, changeAmountStore));
     }
