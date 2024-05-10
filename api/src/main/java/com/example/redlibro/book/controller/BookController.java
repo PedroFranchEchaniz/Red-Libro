@@ -87,4 +87,11 @@ public class BookController {
                 .map(GetShopWithBook::of)
                 .toList();
     }
+
+    @GetMapping("book/getAll")
+    public List<GetBookWithRating> getAllBooks (){
+        return bookService.getAllBooks().stream()
+                .map(GetBookWithRating::of)
+                .toList();
+    }
 }
