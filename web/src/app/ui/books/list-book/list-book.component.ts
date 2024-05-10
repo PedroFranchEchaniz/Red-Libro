@@ -45,7 +45,6 @@ export class ListBookComponent implements OnInit {
     this.storeService.editAmountStore(this.isbn, amountEdited).subscribe(
       response => {
         console.log('Respuesta del servidor:', response);
-        // Aquí puedes agregar lógica adicional que se ejecutaría después de recibir la respuesta
       },
       error => {
         console.error('Error:', error);

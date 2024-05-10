@@ -6,6 +6,10 @@ import com.example.redlibro.booking.model.Booking;
 import com.example.redlibro.booking.service.BookingService;
 import com.example.redlibro.store.model.StorePk;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +33,12 @@ public class BookingController {
         storePk.setBookIsbn(bookisbn);
         storePk.setShopUuid(shopUuid);
         return GetBookingDto.of(bookingService.reservar(storePk, clientUUid));
+    }
+
+    @GetMapping("book/booking/{shopUuid}")
+    public ResponseEntity<Page<GetBookingDto>> getBookingShop (@PathVariable UUID shopUuid, @PageableDefault(page=0, size=4) Pageable pageable){
+        Page<GetBookingDto> booking = bookingService.shopBooking(shopUuid, pageable).map(GetBookingDto::of);
+        return ResponseEntity.ok(booking);
     }
 
 }

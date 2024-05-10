@@ -1,22 +1,44 @@
 <app-nav-bar></app-nav-bar>
-<div class="container mt-3">
+<div class="m-3">
     <h2>Lista de Libros</h2>
-    <table class="table table-hover">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col" class="col-5">ISBN</th>
-                <th scope="col" class="col-5">Título</th>
-                <th scope="col" class="col-5">Autor</th>
-                <th scope="col" class="col-2">Valoración</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let book of books">
-                <td class="col-5">{{ book.isbn }}</td>
-                <td class="col-5" (mouseover)="showInfo()">{{ book.titulo }}</td>
-                <td class="col-5">{{book.autor}}</td>
-                <td class="col-2"> {{book.valoracion}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="m-4">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" class="col-5">ISBN</th>
+                    <th scope="col" class="col-5">Título</th>
+                    <th scope="col" class="col-5">Autor</th>
+                    <th scope="col" class="col-2">Valoración</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let book of books">
+                    <td class="col-5">{{ book.isbn }}</td>
+                    <td class="col-5" (click)="open(content, book)">{{ book.titulo }}</td>
+                    <td class="col-5">{{book.autor}}</td>
+                    <td class="col-2"> {{book.valoracion}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+
+
+<!--modal-->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{bookSelected.titulo}}</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="mb-3">
+
+                <div>
+                    <p>{{bookSelected!.resumen}}</p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</ng-template>

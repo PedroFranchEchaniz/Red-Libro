@@ -11,6 +11,8 @@ import { ListBookComponent } from './ui/books/list-book/list-book.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ListBooksInAplicacitionComponent } from './ui/books/list-books-in-aplicacition/list-books-in-aplicacition.component';
 import { RouterLink } from '@angular/router';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { BookingComponent } from './ui/books/booking/booking.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { RouterLink } from '@angular/router';
     LoginPageComponent,
     ListBookComponent,
     NavBarComponent,
-    ListBooksInAplicacitionComponent
+    ListBooksInAplicacitionComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,9 @@ import { RouterLink } from '@angular/router';
     FormsModule,
     RouterLink
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
