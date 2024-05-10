@@ -8,19 +8,25 @@ import { LoginPageComponent } from './ui/login-page/login-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ListBookComponent } from './ui/books/list-book/list-book.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { ListBooksInAplicacitionComponent } from './ui/books/list-books-in-aplicacition/list-books-in-aplicacition.component';
+import { RouterLink } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    ListBookComponent
+    ListBookComponent,
+    NavBarComponent,
+    ListBooksInAplicacitionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   providers: [],
   bootstrap: [AppComponent]
