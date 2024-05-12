@@ -16,9 +16,9 @@ export class StoreServiceService {
   getStoresByShopUuid(uuid: string, page: number): Observable<GetStoreResponse> {
     const token = localStorage.getItem('token');
 
-    console.log(token); // Asegúrate de obtener el token de localStorage
+    console.log(token);
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`  // Usa la variable token aquí
+      'Authorization': `Bearer ${token}`
     });
     return this.http.get<GetStoreResponse>(
       `${environment.apiBaseUrl}/store/${uuid}/stores?page=${page}`,

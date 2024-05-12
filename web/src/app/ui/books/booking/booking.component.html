@@ -1,3 +1,9 @@
-<app-nav-bar>
+<app-nav-bar></app-nav-bar>
 
-    <p>booking works!</p>
+<div>
+    <tr *ngFor="let booking of bookings">
+        <td class="col-5">{{ booking.codigo }}</td>
+        <td class="col-5">{{ booking.nombreUsuario }}</td>
+
+    </tr>
+</div>
