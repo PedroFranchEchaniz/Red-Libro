@@ -15,7 +15,7 @@
                 <td class="col-5">{{ store.titulo }}</td>
                 <td class="col-2">
                     <input type="number" class="form-control col-2" [(ngModel)]="store.cantidad"
-                        (keyup.enter)="mostrarFormulario = true; cantidadEditada = store.cantidad; isbn = store.isbn; pk = store.pk; uuid = store.uuid">
+                        (keyup.enter)="open(content, store)">
                 </td>
             </tr>
         </tbody>
@@ -40,3 +40,22 @@
         </div>
     </div>
 </div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title"></h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="mb-3">
+
+                <div>
+                    <p></p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</ng-template>

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StoreServiceService } from '../../../service/AccountService/store-service.service';
 import { Store } from '../../../models/getStore.interface';
 import { Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -17,7 +18,11 @@ export class ListBookComponent implements OnInit {
   cantidadEditada: number = 0;
   isbn!: string;
   pk!: string;
+  modalService: any;
+  storeSelected!: Store;
+  closeResult = '';
   constructor(private storeService: StoreServiceService, private router: Router) { }
+
 
   ngOnInit() {
     this.getStore();
@@ -59,5 +64,28 @@ export class ListBookComponent implements OnInit {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([location.pathname]);
     });
+  }
+
+  open(content: TemplateRef<any>, store: Store) {
+    this.storeSelected = store;
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      },
+    );
+  }
+
+  private getDismissReason(reason: any): string {
+    switch (reason) {
+      case ModalDismissReasons.ESC:
+        return 'by pressing ESC';
+      case ModalDismissReasons.BACKDROP_CLICK:
+        return 'by clicking on a backdrop';
+      default:
+        return `with: ${reason}`;
+    }
   }
 }
