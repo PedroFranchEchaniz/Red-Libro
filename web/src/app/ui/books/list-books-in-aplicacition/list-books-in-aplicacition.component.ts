@@ -3,6 +3,8 @@ import { StoreServiceService } from '../../../service/AccountService/store-servi
 import { BookServiceService } from '../../../service/book-service.service';
 import { AllBooks } from '../../../models/allBooks.interface';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-list-books-in-aplicacition',
@@ -19,16 +21,31 @@ export class ListBooksInAplicacitionComponent implements OnInit {
   private modalService = inject(NgbModal);
   closeResult = '';
   bookSelected!: AllBooks;
-  constructor(private bookService: BookServiceService) { }
+  filter = new FormControl('');
+  filteredBooks: AllBooks[] = [];
+  bookForm!: FormGroup;
+  content!: TemplateRef<any>;
+
+  constructor(private fb: FormBuilder, private bookService: BookServiceService) { }
 
   ngOnInit() {
     this.getAllBooks();
+    this.bookForm = this.fb.group({
+      filter: ['']
+    });
   }
 
   getAllBooks() {
     this.bookService.getAllBooks().subscribe(resp => {
       this.books = resp;
+      this.filteredBooks = resp;
     })
+  }
+
+  filterBooks(value: string): AllBooks[] {
+    return this.books.filter(book =>
+      book.titulo.toLowerCase().includes(value.toLowerCase())
+    );
   }
 
   open(content: TemplateRef<any>, book: AllBooks) {
@@ -53,6 +70,4 @@ export class ListBooksInAplicacitionComponent implements OnInit {
         return `with: ${reason}`;
     }
   }
-
-
 }

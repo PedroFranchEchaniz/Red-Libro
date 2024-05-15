@@ -1,9 +1,10 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StoreServiceService } from '../../../service/AccountService/store-service.service';
 import { Store } from '../../../models/getStore.interface';
 import { Router } from '@angular/router';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @Component({
@@ -18,9 +19,12 @@ export class ListBookComponent implements OnInit {
   cantidadEditada: number = 0;
   isbn!: string;
   pk!: string;
-  modalService: any;
   storeSelected!: Store;
   closeResult = '';
+  private modalService = inject(NgbModal);
+  private modalRef: NgbModalRef | undefined;
+
+
   constructor(private storeService: StoreServiceService, private router: Router) { }
 
 
@@ -40,14 +44,14 @@ export class ListBookComponent implements OnInit {
   }
 
   confirmarCambio() {
-    this.mostrarFormulario = false;
+    this.storeSelected
 
     const amountEdited = {
-      cantidad: this.cantidadEditada,
-      uuid: this.uuid
+      cantidad: this.storeSelected.cantidad,
+      uuid: this.storeSelected.uuid
     }
     console.log(amountEdited);
-    this.storeService.editAmountStore(this.isbn, amountEdited).subscribe(
+    this.storeService.editAmountStore(this.storeSelected.isbn, amountEdited).subscribe(
       response => {
         console.log('Respuesta del servidor:', response);
       },
@@ -58,17 +62,26 @@ export class ListBookComponent implements OnInit {
       this.getStore();
       this.router.navigate([location.pathname]);
     });
+
+    if (this.modalRef) {
+      this.modalRef.close();
+    }
   }
 
   cancelar() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([location.pathname]);
     });
+    if (this.modalRef) {
+      this.modalRef.close();
+    }
+
   }
 
   open(content: TemplateRef<any>, store: Store) {
     this.storeSelected = store;
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+    this.modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+    this.modalRef.result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
       },
