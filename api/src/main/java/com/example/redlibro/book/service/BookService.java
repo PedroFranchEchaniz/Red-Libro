@@ -117,7 +117,7 @@ public class BookService {
        return arrayBooks;
     }
 
-    public Book libroMedia(String isbn) {
+   public Book libroMedia(String isbn) {
         Book bookEncontrado = bookRepository.findById(isbn)
                 .orElseThrow(BookNotFoundException::new);
 
@@ -131,16 +131,16 @@ public class BookService {
         return bookEncontrado;
     }
 
-    public boolean existsByBookIsbnAndStockGreaterThanZero(String isbn) {
+   public boolean existsByBookIsbnAndStockGreaterThanZero(String isbn) {
         Long count = storeRepository.existsByBookIsbnAndStockGreaterThanZero(isbn);
         return count != null && count > 0;
     }
 
-    public List<Store> shopsWithBook(String isbn) {
+   public List<Store> shopsWithBook(String isbn) {
         return storeRepository.shoWithBookAvailable(isbn).orElse(new ArrayList<>());
     }
 
-    public GetBookAndRating getRatingsForBook(String isbn) {
+   public GetBookAndRating getRatingsForBook(String isbn) {
         Book book = bookRepository.findById(isbn)
                 .orElseThrow(BookNotFoundException::new);
         List<GetRatingDto> valoraciones = ratingRepository.findRatingsByIsbn(isbn)
@@ -162,7 +162,11 @@ public class BookService {
                 book.isDisponible(),
                 valoraciones
         );
-    }
+   }
+
+   public List<Book> getAllBooks (){
+        return bookRepository.findAll();
+   }
 
 
 

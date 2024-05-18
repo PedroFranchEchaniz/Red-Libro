@@ -15,6 +15,8 @@ import com.example.redlibro.user.model.Shop;
 import com.example.redlibro.user.repository.ClientRepository;
 import com.example.redlibro.user.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -55,6 +57,10 @@ public class BookingService {
                 .build();
 
         return bookingRepository.save(booking);
+    }
+
+    public Page<Booking> shopBooking (UUID uuid, Pageable pageable){
+        return bookingRepository.getShopBooking(uuid, pageable);
     }
 
 }
