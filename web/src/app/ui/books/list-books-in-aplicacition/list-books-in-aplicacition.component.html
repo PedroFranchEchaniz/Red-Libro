@@ -9,24 +9,24 @@
                     <input id="table-filtering-search" class="form-control" type="text" formControlName="filter" />
                 </div>
             </div>
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" class="col-5">ISBN</th>
+                        <th scope="col" class="col-5">Título</th>
+                        <th scope="col" class="col-5">Autor</th>
+                        <th scope="col" class="col-2">Valoración</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let book of filteredBooks">
+                        <td class="col-5">{{ book.isbn }}</td>
+                        <td class="col-5" (click)="open(content, book)">{{ book.titulo }}</td>
+                        <td class="col-5">{{book.autor}}</td>
+                        <td class="col-2">{{book.valoracion}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </form>
-        <table class="table table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col" class="col-5">ISBN</th>
-                    <th scope="col" class="col-5">Título</th>
-                    <th scope="col" class="col-5">Autor</th>
-                    <th scope="col" class="col-2">Valoración</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let book of filteredBooks">
-                    <td class="col-5">{{ book.isbn }}</td>
-                    <td class="col-5" (click)="open(content, book)">{{ book.titulo }}</td>
-                    <td class="col-5">{{book.autor}}</td>
-                    <td class="col-2"> {{book.valoracion}}</td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </div>

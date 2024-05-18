@@ -4,12 +4,12 @@ import { BookServiceService } from '../../../service/book-service.service';
 import { AllBooks } from '../../../models/allBooks.interface';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-books-in-aplicacition',
   templateUrl: './list-books-in-aplicacition.component.html',
-  styleUrl: './list-books-in-aplicacition.component.css'
+  styleUrls: ['./list-books-in-aplicacition.component.css']
 })
 export class ListBooksInAplicacitionComponent implements OnInit {
 
@@ -33,18 +33,26 @@ export class ListBooksInAplicacitionComponent implements OnInit {
     this.bookForm = this.fb.group({
       filter: ['']
     });
+
+    this.bookForm.get('filter')?.valueChanges.pipe(
+      debounceTime(300) // Añade un retardo para evitar filtrar en cada pulsación de tecla
+    ).subscribe(value => {
+      this.filteredBooks = this.filterBooks(value);
+    });
   }
 
   getAllBooks() {
     this.bookService.getAllBooks().subscribe(resp => {
       this.books = resp;
-      this.filteredBooks = resp;
-    })
+      this.filteredBooks = resp; // Inicialmente, muestra todos los libros
+    });
   }
 
   filterBooks(value: string): AllBooks[] {
+    const filterValue = value.toLowerCase();
     return this.books.filter(book =>
-      book.titulo.toLowerCase().includes(value.toLowerCase())
+      book.titulo.toLowerCase().includes(filterValue) ||
+      book.autor.toLowerCase().includes(filterValue)
     );
   }
 
