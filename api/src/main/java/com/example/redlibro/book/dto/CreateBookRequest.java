@@ -15,7 +15,6 @@ public record CreateBookRequest(
         double mediaValoracion,
         String uuidShor,
         int stock,
-        double precio,
         LocalDate fechaRegistro
 
 ) {
