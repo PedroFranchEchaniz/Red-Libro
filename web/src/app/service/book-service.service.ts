@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environment/environment';
 import { Observable } from 'rxjs';
 import { AllBooks } from '../models/allBooks.interface';
+import { newBook } from '../models/newBook.interface';
+import { newBookResponse } from '../models/newBookResponse.interface';
 
 
 @Injectable({
@@ -21,6 +23,20 @@ export class BookServiceService {
     });
     return this.http.get<AllBooks[]>(
       `${environment.apiBaseUrl}/book/getAll`,
+      { headers: headers }
+    );
+  }
+
+  newBook(newBook: newBook): Observable<newBook> {
+    const token = localStorage.getItem('token');
+    console.log(newBook.ISBN);
+    console.log(token);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json' // Asegúrate de tener el Content-Type correcto
+    });
+    return this.http.post<newBook>(
+      `${environment.apiBaseUrl}/book/newBook`, newBook,
       { headers: headers }
     );
   }
