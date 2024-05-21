@@ -50,7 +50,7 @@ public class BookController {
             @ApiResponse(responseCode = "500", description = "Tienda no encontrada", content = @Content)
     })
     @Operation(summary = "AddBook", description = "Añadir un nuevo libro")
-    @PostMapping("/shop/newBook")
+    @PostMapping("/book/newBook")
     public ResponseEntity<BookResponse>createBook(@Valid @RequestBody CreateBookRequest createBookRequest){
         Book book = bookService.createBook(createBookRequest);
         return ResponseEntity.status(HttpStatus.CREATED)
