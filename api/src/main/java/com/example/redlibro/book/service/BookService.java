@@ -60,23 +60,9 @@ public class BookService {
                 .mediaValoracion(0.0)
                 .disponible(disponible)
                 .build();
-        bookRepository.save(b);
-
-        Shop shop = shopRepository.findById(UUID.fromString(createBookRequest.uuidShor()))
-                .orElseThrow(ShopNotFoundException::new);
-
-        Store store = new Store();
-        StorePk storePk = new StorePk();
-        storePk.setShopUuid(UUID.fromString(createBookRequest.uuidShor()));
-        storePk.setBookIsbn(createBookRequest.ISBN());
-        store.setStorePk(storePk);
-        store.setStock(createBookRequest.stock());
-        store.setDateRegiste(LocalDate.now());
-        store.setBook(b);
-        store.setShop(shop);
-        storeRepository.save(store);
-        return b;
+        return bookRepository.save(b);
     }
+
 
    public List<Book>[] librosOrdenados (){
         List<Book>[] arrayBooks = (List<Book>[])new List<?>[5];

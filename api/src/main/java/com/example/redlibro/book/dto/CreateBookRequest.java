@@ -13,10 +13,7 @@ public record CreateBookRequest(
         String[]genres,
         String resumen,
         double mediaValoracion,
-        String uuidShor,
         int stock,
-        double precio,
         LocalDate fechaRegistro
-
 ) {
 }

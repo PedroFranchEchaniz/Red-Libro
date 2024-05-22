@@ -1,3 +1,24 @@
-<app-nav-bar>
-
-    <p>booking works!</p>
+<app-nav-bar></app-nav-bar>
+<div class="m-3">
+    <h2>Reservas</h2>
+    <div class="m-4">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <th scope="col" class="col-5">Codigo de la reserva</th>
+                <th scope="col" class="col-5">Usuario</th>
+                <th scope="col" class="col-5">Fecha de la reserva</th>
+                <th scope="col" class="col-5">Acciones</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let booking of bookings">
+                    <td class="col-3">{{ booking.codigo }}</td>
+                    <td class="col-3">{{ booking.nombreUsuario }}</td>
+                    <td class="col-3">{{ booking.fechaReserva }}</td>
+                    <td class="col-3">
+                        <button type="button" class="btn btn-outline-danger">ELIMINAR</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

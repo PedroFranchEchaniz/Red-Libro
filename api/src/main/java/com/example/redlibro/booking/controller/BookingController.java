@@ -35,7 +35,7 @@ public class BookingController {
         return GetBookingDto.of(bookingService.reservar(storePk, clientUUid));
     }
 
-    @GetMapping("book/booking/{shopUuid}")
+    @GetMapping("/shopBooking/{shopUuid}")
     public ResponseEntity<Page<GetBookingDto>> getBookingShop (@PathVariable UUID shopUuid, @PageableDefault(page=0, size=4) Pageable pageable){
         Page<GetBookingDto> booking = bookingService.shopBooking(shopUuid, pageable).map(GetBookingDto::of);
         return ResponseEntity.ok(booking);

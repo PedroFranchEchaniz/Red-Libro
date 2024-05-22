@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginPageComponent } from './ui/login-page/login-page.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListBookComponent } from './ui/books/list-book/list-book.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ListBooksInAplicacitionComponent } from './ui/books/list-books-in-aplicacition/list-books-in-aplicacition.component';
@@ -29,7 +29,8 @@ import { BookingComponent } from './ui/books/booking/booking.component';
     NgbModule,
     HttpClientModule,
     FormsModule,
-    RouterLink
+    RouterLink,
+    ReactiveFormsModule
   ],
   providers: [
     provideAnimationsAsync()
