@@ -25,6 +25,7 @@ public class Book {
 
     @Id
     private String ISBN;
+
     private String titulo;
     private String autor;
     private String editorial;

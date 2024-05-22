@@ -24,6 +24,9 @@ INSERT INTO book_genres (book_isbn, genres) VALUES ('9780060935467', 2);
 INSERT INTO book (isbn, titulo, autor, editorial, portada, fecha, fecha_alta, resumen,media_valoracion, disponible) VALUES ('9783333333333', 'El Enigma de la Esfinge', 'Sarah Stone', 'Aventuras Eternas', 'URL_GENÉRICA_DE_PORTADA', '2024-02-28', '2024-02-28', 'Descubre los misterios que esconde la antigua esfinge a través de los ojos de nuestra heroína, en una aventura que combina historia, mitología y suspense.', 0, false);
 INSERT INTO book_genres (book_isbn, genres) VALUES ('9783333333333', 1);
 
+INSERT INTO book (isbn, titulo, autor, editorial, portada, fecha, fecha_alta, resumen,media_valoracion, disponible) VALUES ('97833333333334', 'El Enigma de la Esfinge', 'Sarah Stone', 'Aventuras Eternas', 'URL_GENÉRICA_DE_PORTADA', '2024-02-28', '2024-02-28', 'Descubre los misterios que esconde la antigua esfinge a través de los ojos de nuestra heroína, en una aventura que combina historia, mitología y suspense.', 0, false);
+INSERT INTO book_genres (book_isbn, genres) VALUES ('97833333333334', 1);
+
 
 INSERT INTO user_model (account_non_expired, account_non_locked, credentials_non_expired, enabled, uuid, password, username) VALUES (true, true, true, true, '3fff85ce-354b-4e4c-bbc3-7ce138e573b6', '{bcrypt}$2b$12$FV5uUswMRP9NMgZGDeMm6ejlQ37SIAe6biliXr5Dc1dEL4sQLB6Yq', 'shop');
 INSERT INTO shop (uuid, name, direccion, contacto, lat, lon) VALUES ('3fff85ce-354b-4e4c-bbc3-7ce138e573b6', 'Librería Gandalf', 'Calle Falsa 123', '+34 123 456 789', '40.416775', '-3.703790');
