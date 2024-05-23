@@ -9,7 +9,6 @@
                     <input id="table-filtering-search" class="form-control" type="text"
                         style="height: 40px; border-radius: 8px;" formControlName="filter" />
                 </div>
-
                 <button type="button" class="btn btn-outline-primary col-md-1"
                     (click)="openAddBookModal(addBookModal)">Agregar libro</button>
             </div>
@@ -20,6 +19,7 @@
                         <th scope="col" class="col-5">Título</th>
                         <th scope="col" class="col-5">Autor</th>
                         <th scope="col" class="col-2">Valoración</th>
+                        <th scope="col" class="col-2">Agregar a almacen</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,6 +28,10 @@
                         <td class="col-5" (click)="open(content, book)">{{ book.titulo }}</td>
                         <td class="col-5">{{book.autor}}</td>
                         <td class="col-2">{{book.valoracion}}</td>
+                        <td class="col-2">
+                            <button *ngIf="!bookInStore(book.isbn)" type="button" class="btn btn-primary"
+                                (click)="openAddToStoreModal(addToStoreModal, book.isbn)">Agregar</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -64,28 +68,22 @@
                     <div class="mb-3">
                         <label for="isbn" class="form-label">ISBN</label>
                         <input type="text" id="isbn" class="form-control" [(ngModel)]="newBook.ISBN" name="isbn">
-
                         <label for="titulo" class="form-label">Título</label>
                         <input type="text" id="titulo" class="form-control" [(ngModel)]="newBook.titulo" name="titulo">
-
                         <label for="autor" class="form-label">Autor</label>
                         <input type="text" id="autor" class="form-control" [(ngModel)]="newBook.autor" name="autor">
-
                         <label for="editorial" class="form-label">Editorial</label>
                         <input type="text" id="editorial" class="form-control" [(ngModel)]="newBook.editorial"
                             name="editorial">
-
                         <label for="resumen" class="form-label">Resumen</label>
                         <input type="text" id="resumen" class="form-control" [(ngModel)]="newBook.resumen"
                             name="resumen">
-
                         <div class="mb-3">
                             <label for="genres" class="form-label">Géneros</label>
                             <select id="genres" class="form-select" [(ngModel)]="selectedGenres" name="genres" multiple>
                                 <option *ngFor="let genre of availableGenres" [value]="genre">{{ genre }}</option>
                             </select>
                         </div>
-
                         <label for="portada" class="form-label">Portada</label>
                         <input type="file" id="portada" class="form-control" (change)="onFileSelected($event)">
                     </div>
@@ -101,5 +99,28 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')">Cancelar</button>
         <button type="button" class="btn btn-primary" (click)="saveBook()">Guardar</button>
+    </div>
+</ng-template>
+
+<ng-template #addToStoreModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Agregar libro a la tienda</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="mb-3">
+                <label for="cantidad" class="form-label">Cantidad</label>
+                <input type="number" id="cantidad" class="form-control" [(ngModel)]="newStore.cantidad" name="cantidad">
+                <label for="precio" class="form-label">Precio</label>
+                <input type="number" id="precio" class="form-control" [(ngModel)]="newStore.precio" name="precio">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')">Cancelar</button>
+        <!-- Aquí cambiamos el evento click para llamar al método confirmAddToStore -->
+        <button type="button" class="btn btn-primary"
+            (click)="confirmAddToStore(newStore.cantidad, newStore.precio)">Agregar</button>
     </div>
 </ng-template>
