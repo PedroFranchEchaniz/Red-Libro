@@ -96,4 +96,10 @@ public class BookController {
                 .toList();
     }
 
+   /* @PutMapping("book/edit/{isbn}")
+    public GetBookDto editBook(@PathVariable String isbn, @RequestBody EditBookDto editBookDto){
+
+
+    }*/
+
 }

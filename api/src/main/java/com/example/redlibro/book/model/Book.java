@@ -34,6 +34,8 @@ public class Book {
     private LocalDate fechaAlta;
     private double mediaValoracion;
     private boolean disponible;
+    private LocalDate fechaEdicion;
+    private String nombreTienda;
 
     @Column(columnDefinition = "TEXT")
     private String resumen;

@@ -1,6 +1,7 @@
 package com.example.redlibro.book.service;
 
 import com.example.redlibro.book.dto.CreateBookRequest;
+import com.example.redlibro.book.dto.EditBookDto;
 import com.example.redlibro.book.dto.GetBookAndRating;
 import com.example.redlibro.book.dto.GetBookDto;
 import com.example.redlibro.book.exception.BookAlreadyExistsException;
@@ -153,6 +154,28 @@ public class BookService {
    public List<Book> getAllBooks (){
         return bookRepository.findAll();
    }
+
+    public Book editBook(String isbn, EditBookDto editBookDto) {
+        LocalDate fecha = LocalDate.parse(editBookDto.fecha());
+        Book editBook = bookRepository.findById(isbn).orElseThrow(BookNotFoundException::new);
+
+        Set<Genre> genresSet = Arrays.stream(editBookDto.genres())
+                .map(Genre::valueOf)
+                .collect(Collectors.toSet());
+
+        Shop shop = shopRepository.findById(UUID.fromString(editBookDto.uuid())).orElseThrow(ShopNotFoundException::new);
+
+        editBook.setTitulo(editBookDto.titulo());
+        editBook.setAutor(editBookDto.autor());
+        editBook.setResumen(editBookDto.resumen());
+        editBook.setFecha(fecha);
+        editBook.setEditorial(editBookDto.editorial());
+        editBook.setGenres(genresSet);
+        editBook.setFechaEdicion(LocalDate.now());
+        editBook.setNombreTienda(shop.getName());
+
+        return bookRepository.save(editBook);
+    }
 
 
 
