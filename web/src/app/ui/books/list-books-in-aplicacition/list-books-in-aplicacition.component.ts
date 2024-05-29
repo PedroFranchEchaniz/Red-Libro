@@ -8,6 +8,9 @@ import { debounceTime } from 'rxjs/operators';
 import { newBook } from '../../../models/newBook.interface';
 import { Store } from '../../../models/getStore.interface';
 import { newStore } from '../../../models/adToStore.interface';
+import { EditBook } from '../../../models/editBook.interface';
+import { Observable } from 'rxjs';
+import { book } from 'ngx-bootstrap-icons';
 
 @Component({
   selector: 'app-list-books-in-aplicacition',
@@ -44,6 +47,15 @@ export class ListBooksInAplicacitionComponent implements OnInit {
   selectedGenres: string[] = [];
   availableGenres: string[] = ['Ficción', 'No ficción', 'Drama', 'Misterio', 'Romance', 'Aventura', 'Fantasia', 'Ciencia ficción', 'Thriller', 'Terror', 'Biografía', 'Autobiografía', 'Poesía', 'Ensayo', 'Historia'];
   imagePreview: string | ArrayBuffer | null = null;
+  editBookData: any = {
+    titulo: '',
+    autor: '',
+    editorial: '',
+    resumen: '',
+    fecha: '',
+    genres: [],
+    uuid: ''
+  };
 
   constructor(private fb: FormBuilder, private bookService: BookServiceService, private storeService: StoreServiceService) { }
 
@@ -160,25 +172,66 @@ export class ListBooksInAplicacitionComponent implements OnInit {
   addToStore(isbn: string) {
     console.log(isbn);
     this.newStore.bookIsbn = isbn;
-    this.newStore.shopUuid = localStorage.getItem('uuid') || ''; // Asegúrate de obtener el UUID correctamente
+    this.newStore.shopUuid = localStorage.getItem('uuid') || '';
     console.log(this.newStore);
   }
 
   openAddToStoreModal(content: TemplateRef<any>, isbn: string) {
-    // Abre el modal
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
-    // Asigna el ISBN seleccionado
     this.newStore.bookIsbn = isbn;
   }
 
-  // Nuevo método para confirmar la adición del libro a la tienda
   confirmAddToStore(cantidad: number, precio: number) {
-    // Configura los valores en newStore
-    this.newStore.shopUuid = localStorage.getItem('uuid') || ''; // Asegúrate de obtener el UUID correctamente
+    this.newStore.shopUuid = localStorage.getItem('uuid') || '';
     this.newStore.cantidad = cantidad;
     this.newStore.precio = precio;
-
-    // Realiza las acciones necesarias, como imprimir los datos por consola
     console.log(this.newStore);
   }
+
+  openEditBookModal(content: TemplateRef<any>, book: AllBooks) {
+    // Asigna el libro seleccionado a editBookData
+    this.editBookData = { ...book };
+    // Asigna el ISBN del libro seleccionado a una propiedad en tu componente
+    this.editBookData.isbn = book.isbn;
+    this.editBookData.uuid = localStorage.getItem('uuid');
+    // Abre el modal de edición
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      },
+    );
+  }
+
+  confirmEdit(content: TemplateRef<any>, editedBook: EditBook) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        if (result === 'confirm') {
+          this.editBook(this.editBookData.isbn, editedBook).subscribe(
+            response => {
+              console.log('Libro editado:', response);
+              this.modalService.dismissAll();
+            },
+            error => {
+              console.error('Error al editar el libro:', error);
+            }
+          );
+        }
+      },
+      (reason) => {
+        console.log(`Modal dismissed with: ${reason}`);
+      }
+    );
+  }
+  editBook(isbn: string, editBook: EditBook): Observable<EditBook> {
+    return this.bookService.editBook(isbn, editBook);
+  }
+
+
+
+
+
+
 }

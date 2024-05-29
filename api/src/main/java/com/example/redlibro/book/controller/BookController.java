@@ -96,10 +96,9 @@ public class BookController {
                 .toList();
     }
 
-   /* @PutMapping("book/edit/{isbn}")
+   @PutMapping("book/edit/{isbn}")
     public GetBookDto editBook(@PathVariable String isbn, @RequestBody EditBookDto editBookDto){
-
-
-    }*/
+        return GetBookDto.of(bookService.editBook(isbn, editBookDto));
+    }
 
 }
