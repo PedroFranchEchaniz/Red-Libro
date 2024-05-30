@@ -1,9 +1,9 @@
 export interface EditBook {
-    titulo: string
-    autor: string
-    resumen: string
-    fecha: string
-    editorial: string
-    genres: string[]
-    uuid: string
+    titulo: string;
+    autor: string;
+    editorial: string;
+    resumen: string;
+    fecha: string;
+    genres: string[];
+    uuid: string;
 }

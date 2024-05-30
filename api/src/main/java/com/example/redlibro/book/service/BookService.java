@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Array;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -147,6 +148,8 @@ public class BookService {
                 book.getResumen(),
                 book.getMediaValoracion(),
                 book.isDisponible(),
+                book.getFechaEdicion(),
+                book.getNombreTienda(),
                 valoraciones
         );
    }
@@ -171,7 +174,7 @@ public class BookService {
         editBook.setFecha(fecha);
         editBook.setEditorial(editBookDto.editorial());
         editBook.setGenres(genresSet);
-        editBook.setFechaEdicion(LocalDate.now());
+        editBook.setFechaEdicion(LocalDateTime.now());
         editBook.setNombreTienda(shop.getName());
 
         return bookRepository.save(editBook);

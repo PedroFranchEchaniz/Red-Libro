@@ -6,8 +6,10 @@ export interface AllBooks {
     fecha: Date;
     fechaAlta: Date;
     portada: string;
-    genres: string;
+    genres: string[];
     resumen: string;
     valoracion: number;
     disponible: boolean;
+    fechaEdicion: string;
+    nombreTienda: string;
 }

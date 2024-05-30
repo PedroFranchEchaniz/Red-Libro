@@ -11,6 +11,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -34,7 +35,7 @@ public class Book {
     private LocalDate fechaAlta;
     private double mediaValoracion;
     private boolean disponible;
-    private LocalDate fechaEdicion;
+    private LocalDateTime fechaEdicion;
     private String nombreTienda;
 
     @Column(columnDefinition = "TEXT")
