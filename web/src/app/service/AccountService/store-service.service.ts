@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Pageable, GetStoreResponse } from '../../models/getStore.interface';
+import { Pageable, GetStoreResponse, Store } from '../../models/getStore.interface';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environment/environment';
 import { AmountEdited } from '../../models/amountStore.interface';
+import { newStore } from '../../models/adToStore.interface';
 
 
 @Injectable({
@@ -37,5 +38,18 @@ export class StoreServiceService {
         }
       });
   }
+
+  addToStore(newStore: newStore): Observable<newStore> {
+    const token = localStorage.getItem('token');
+    console.log('Hola Pedro');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post<newStore>(
+      `${environment.apiBaseUrl}/store/newStore`, newStore,
+      { headers: headers }
+    );
+  }
+
 
 }

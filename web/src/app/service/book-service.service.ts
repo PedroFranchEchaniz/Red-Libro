@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AllBooks } from '../models/allBooks.interface';
 import { newBook } from '../models/newBook.interface';
 import { newBookResponse } from '../models/newBookResponse.interface';
+import { EditBook } from '../models/editBook.interface';
 
 
 @Injectable({
@@ -39,6 +40,18 @@ export class BookServiceService {
       `${environment.apiBaseUrl}/book/newBook`, newBook,
       { headers: headers }
     );
+  }
+
+  editBook(isbn: String, editBook: EditBook): Observable<EditBook> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    return this.http.put<EditBook>(
+      `${environment.apiBaseUrl}/book/edit/${isbn}`, editBook,
+      { headers: headers }
+    )
   }
 
 }

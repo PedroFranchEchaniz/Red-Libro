@@ -2,6 +2,7 @@ package com.example.redlibro.store.controller;
 
 import com.example.redlibro.store.dto.AllStoreDto;
 import com.example.redlibro.store.dto.ChangeAmountStore;
+import com.example.redlibro.store.dto.NewStoreRequest;
 import com.example.redlibro.store.model.Store;
 import com.example.redlibro.store.model.StorePk;
 import com.example.redlibro.store.repository.StoreRepository;
@@ -38,6 +39,11 @@ public class StoreController {
     @PutMapping("store/edit/{isbn}")
     public AllStoreDto changeAmountStore(@PathVariable String isbn,@RequestBody ChangeAmountStore changeAmountStore){
         return AllStoreDto.fromStore(storeService.EditAmounStore(isbn, changeAmountStore));
+    }
+
+    @PostMapping("store/newStore")
+    public AllStoreDto newStore (@RequestBody NewStoreRequest newStoreRequest){
+        return AllStoreDto.fromStore(storeService.newBookInStore(newStoreRequest));
     }
 
 

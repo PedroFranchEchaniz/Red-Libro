@@ -6,6 +6,8 @@ import com.example.redlibro.shelving.Shelving;
 import com.example.redlibro.shelving.dto.ShelvingDto;
 import lombok.Builder;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +24,8 @@ public record GetBookAndRating(
         String resumen,
         Double valoracion,
         boolean disponible,
+        LocalDateTime fechaEdicion,
+        String nombreTienda,
         List<GetRatingDto> valoraciones
 ) {
     public static GetBookAndRating of(Book book) {
@@ -36,6 +40,8 @@ public record GetBookAndRating(
                 .resumen(book.getResumen())
                 .valoracion(book.getMediaValoracion())
                 .disponible(book.isDisponible())
+                .fechaEdicion(book.getFechaEdicion())
+                .nombreTienda(book.getNombreTienda())
                 .valoraciones(book.getRatings().stream()
                         .map(GetRatingDto::of)
                         .collect(Collectors.toList()))

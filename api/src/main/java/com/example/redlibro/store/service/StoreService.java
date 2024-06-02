@@ -3,7 +3,9 @@ package com.example.redlibro.store.service;
 import com.example.redlibro.book.exception.BookNotFoundException;
 import com.example.redlibro.book.exception.ShopNotFoundException;
 import com.example.redlibro.book.model.Book;
+import com.example.redlibro.book.repository.BookRepository;
 import com.example.redlibro.store.dto.ChangeAmountStore;
+import com.example.redlibro.store.dto.NewStoreRequest;
 import com.example.redlibro.store.exception.ResourceNotFoundException;
 import com.example.redlibro.store.exception.StorePkAllReadyExists;
 import com.example.redlibro.store.model.Store;
@@ -27,6 +29,7 @@ public class StoreService {
 
     private final StoreRepository storeRepository;
     private final ShopRepository shopRepository;
+    private final BookRepository bookRepository;
 
     public Page<Store> findStoresByShopUuid(UUID uuid, Pageable pageable) {
         return storeRepository.findStoresByShopUuid(uuid, pageable);
@@ -47,26 +50,34 @@ public class StoreService {
         storeRepository.save(store);
     }
 
-    public void newBookInStore(String isbn, UUID uuidShop, int cantidad) {
-
-        if(shopRepository.findById(uuidShop).isEmpty()){
+    public Store newBookInStore(NewStoreRequest newStoreRequest) {
+        if (shopRepository.findById(UUID.fromString(newStoreRequest.shopUuid())).isEmpty()) {
             throw new ShopNotFoundException();
+        }
+        if (bookRepository.findById(newStoreRequest.bookIsbn()).isEmpty()) {
+            throw new BookNotFoundException();
         }else{
-            Shop shop = shopRepository.findById(uuidShop).get();
+            Book book = bookRepository.findById(newStoreRequest.bookIsbn()).get();
+            Shop shop = shopRepository.findById(UUID.fromString(newStoreRequest.shopUuid())).get();
             StorePk storePk = new StorePk();
-            if(storeRepository.findById(storePk).isPresent()){
+            storePk.setBookIsbn(newStoreRequest.bookIsbn());
+            storePk.setShopUuid(UUID.fromString(newStoreRequest.shopUuid()));
+
+            if (storeRepository.findById(storePk).isPresent()) {
                 throw new StorePkAllReadyExists();
             }
-            storePk.setBookIsbn(isbn);
-            storePk.setShopUuid(uuidShop);
+
             Store newStore = Store.builder()
                     .storePk(storePk)
-                    .stock(cantidad)
+                    .book(book)
+                    .stock(newStoreRequest.cantidad())
+                    .precio(newStoreRequest.precio())
                     .dateRegiste(LocalDate.now())
+                    .shop(shop)
                     .build();
-            storeRepository.save(newStore);
-        }
 
+            return storeRepository.save(newStore);
+        }
     }
 
 

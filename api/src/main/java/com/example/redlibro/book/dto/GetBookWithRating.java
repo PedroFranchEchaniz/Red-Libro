@@ -1,7 +1,10 @@
 package com.example.redlibro.book.dto;
 
 import com.example.redlibro.book.model.Book;
+import com.example.redlibro.book.model.Genre;
 import lombok.Builder;
+
+import java.time.LocalDateTime;
 
 @Builder
 public record GetBookWithRating(
@@ -12,10 +15,12 @@ public record GetBookWithRating(
         String fecha,
         String fechaAlta,
         String portada,
-        String genres,
+        String[] genres,
         String resumen,
         Double valoracion,
-        boolean disponible
+        boolean disponible,
+        LocalDateTime fechaEdicion,
+        String nombreTienda
 ) {
     public static GetBookWithRating of (Book book){
         return GetBookWithRating.builder()
@@ -26,10 +31,12 @@ public record GetBookWithRating(
                 .fecha(book.getFecha().toString())
                 .fechaAlta(book.getFechaAlta().toString())
                 .portada(book.getPortada())
-                .genres(book.getGenres().toString())
+                .genres(book.getGenres().stream().map(Genre::name).toArray(String[]::new))
                 .resumen(book.getResumen())
                 .valoracion(book.getMediaValoracion())
                 .disponible(book.isDisponible())
+                .fechaEdicion(book.getFechaEdicion())
+                .nombreTienda(book.getNombreTienda())
                 .build();
     }
 }

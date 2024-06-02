@@ -3,8 +3,12 @@ package com.example.redlibro.book.dto;
 import com.example.redlibro.book.model.Book;
 import lombok.Builder;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+import com.example.redlibro.book.model.Genre;
+
 
 @Builder
 public record GetBookDto(
@@ -15,9 +19,11 @@ public record GetBookDto(
         String fecha,
         String fechaAlta,
         String portada,
-        String genres,
+        String[] genres,
         String resumen,
-        Double valoracion
+        Double valoracion,
+        LocalDateTime fechaEdicion,
+        String nombreTienda
 ) {
     public static GetBookDto of(Book book){
         return GetBookDto.builder()
@@ -28,8 +34,10 @@ public record GetBookDto(
                 .fecha(book.getFecha().toString())
                 .fechaAlta(book.getFechaAlta().toString())
                 .portada(book.getPortada())
-                .genres(book.getGenres().toString())
+                .genres(book.getGenres().stream().map(Genre::name).toArray(String[]::new))
                 .resumen(book.getResumen())
+                .fechaEdicion(book.getFechaEdicion())
+                .nombreTienda(book.getNombreTienda())
                 .build();
     }
 }

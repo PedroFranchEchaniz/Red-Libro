@@ -23,6 +23,8 @@ export class ListBookComponent implements OnInit {
   closeResult = '';
   private modalService = inject(NgbModal);
   private modalRef: NgbModalRef | undefined;
+  page: number = 0;
+  totalPages: number = 1;
 
 
   constructor(private storeService: StoreServiceService, private router: Router) { }
@@ -35,8 +37,9 @@ export class ListBookComponent implements OnInit {
   getStore() {
     this.uuid = localStorage.getItem('uuid');
     if (this.uuid) {
-      this.storeService.getStoresByShopUuid(this.uuid, 0).subscribe(resp => {
+      this.storeService.getStoresByShopUuid(this.uuid, this.page).subscribe(resp => {
         this.stores = resp.content;
+        this.totalPages = resp.totalPages; // Asumiendo que la respuesta tiene esta propiedad
       });
     } else {
       console.error('No UUID found in localStorage.');
@@ -99,6 +102,13 @@ export class ListBookComponent implements OnInit {
         return 'by clicking on a backdrop';
       default:
         return `with: ${reason}`;
+    }
+  }
+
+  changePage(newPage: number) {
+    if (newPage >= 0 && newPage < this.totalPages) {
+      this.page = newPage;
+      this.getStore();
     }
   }
 }
