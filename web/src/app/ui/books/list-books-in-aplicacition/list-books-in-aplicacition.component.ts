@@ -189,7 +189,16 @@ export class ListBooksInAplicacitionComponent implements OnInit {
     this.newStore.precio = precio;
     console.log(this.newStore);
 
+    this.storeService.addToStore(this.newStore).subscribe(
+      response => {
+        console.log('Store added successfully', response);
+      },
+      error => {
+        console.error('Error adding to store', error);
+      }
+    );
   }
+
 
   openEditBookModal(content: TemplateRef<any>, book: AllBooks) {
     if (!book) {
@@ -203,20 +212,16 @@ export class ListBooksInAplicacitionComponent implements OnInit {
         uuid: ''
       };
     } else {
-      // Copiamos todos los datos del libro seleccionado al formulario de edición
       this.editBookData = { ...book };
 
-      // Convertimos los géneros a un array de strings si es necesario
       if (typeof this.editBookData.genres === 'string') {
         this.editBookData.genres = JSON.parse(this.editBookData.genres);
       }
 
-      // Asignamos el ISBN y el UUID del usuario
       this.editBookData.isbn = book.isbn;
       this.editBookData.uuid = localStorage.getItem('uuid');
     }
 
-    // Abrimos el modal
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
@@ -230,11 +235,9 @@ export class ListBooksInAplicacitionComponent implements OnInit {
 
 
   confirmEdit(content: TemplateRef<any>, editedBook: EditBook) {
-    // Si no se proporcionan nuevos géneros, mantener los géneros existentes
     if (!editedBook.genres || editedBook.genres.length === 0) {
       editedBook.genres = this.bookSelected.genres ? this.bookSelected.genres : [];
     } else {
-      // Filtrar cualquier género vacío y asegurarse de que los géneros sean solo cadenas de texto
       editedBook.genres = editedBook.genres.filter(genre => typeof genre === 'string' && genre.trim() !== '');
     }
 
@@ -245,8 +248,8 @@ export class ListBooksInAplicacitionComponent implements OnInit {
             response => {
               console.log('Libro editado:', response);
               this.modalService.dismissAll();
-              this.getAllBooks(); // Recargar la lista de libros después de la edición
-              this.getStoreBooks(); // Recargar la lista de libros en la tienda después de la edición
+              this.getAllBooks();
+              this.getStoreBooks();
             },
             error => {
               console.error('Error al editar el libro:', error);
@@ -264,6 +267,8 @@ export class ListBooksInAplicacitionComponent implements OnInit {
   editBook(isbn: string, editBook: EditBook): Observable<EditBook> {
     return this.bookService.editBook(isbn, editBook);
   }
+
+
 }
 
 

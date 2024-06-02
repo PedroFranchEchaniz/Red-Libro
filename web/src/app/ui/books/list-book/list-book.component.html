@@ -20,6 +20,16 @@
             </tr>
         </tbody>
     </table>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item" [class.disabled]="page <= 0">
+                <a class="page-link" (click)="changePage(page - 1)">Previous</a>
+            </li>
+            <li class="page-item" [class.disabled]="page >= totalPages - 1">
+                <a class="page-link" (click)="changePage(page + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 <!--Modal-->
