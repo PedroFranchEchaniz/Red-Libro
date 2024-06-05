@@ -54,7 +54,7 @@ public class Booking {
 
     private LocalDate fechaExpiacion;
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne
     @JoinColumn(name = "book_isbn")
     private Book book;
 

@@ -20,6 +20,7 @@ public record GetClienteDtoDetail(
     public static GetClienteDtoDetail of (Client c){
         Set<GetBookingDto> bookingDtos = c.getBookings().stream()
                 .map(booking -> new GetBookingDto(
+                        booking.getUuid(),
                         booking.getBookingCode(),
                         booking.getFechaReserva(),
                         booking.getFechaExpiacion(),

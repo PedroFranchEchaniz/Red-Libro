@@ -63,4 +63,13 @@ public class BookingService {
         return bookingRepository.getShopBooking(uuid, pageable);
     }
 
+    public void deleteBooking(StorePk storePk, UUID uuid){
+        Store store = storeRepository.findById(storePk)
+                .orElseThrow(ShopNotFoundException::new);
+
+        storeservice.sumarStore(storePk);
+
+        bookingRepository.deleteById(uuid);
+    }
+
 }

@@ -2,7 +2,7 @@ INSERT INTO user_model (account_non_expired, account_non_locked, credentials_non
 INSERT INTO Client (name, last_name, uuid) values ('Paco', 'Fernadez', 'c4e27173-52b5-4bd9-94ee-88a07167fa72');
 INSERT INTO user_model_roles(user_model_uuid, roles) values ('c4e27173-52b5-4bd9-94ee-88a07167fa72', 1);
 
-INSERT INTO user_model (account_non_expired, account_non_locked, credentials_non_expired, enabled, uuid, password, username) VALUES (true, true, true, true, 'c4e27173-52b5-4bd9-94ee-88a07167fa71', '{bcrypt}$2b$12$FV5uUswMRP9NMgZGDeMm6ejlQ37SIAe6biliXr5Dc1dEL4sQLB6Yq', 'username2');
+INSERT INTO user_model (account_non_expired, account_non_locked, credentials_non_expired, enabled, uuid, password, username) VALUES (true, true, true, true, 'c4e27173-52b5-4bd9-94ee-88a07167fa71', '{bcrypt}$2a$10$cI6vfyAJMujWe97XN8pXq.waSgoxRCTS8AQ0LTPkAmSpP6XcDAACm', 'username2');
 INSERT INTO Client (name, last_name, uuid) values ('Paco', 'Fernadez', 'c4e27173-52b5-4bd9-94ee-88a07167fa71');
 INSERT INTO user_model_roles(user_model_uuid, roles) values ('c4e27173-52b5-4bd9-94ee-88a07167fa71', 1);
 

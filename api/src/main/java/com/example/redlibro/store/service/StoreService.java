@@ -50,6 +50,13 @@ public class StoreService {
         storeRepository.save(store);
     }
 
+    public void sumarStore (StorePk pk){
+        Store store = storeRepository.findById(pk)
+                .orElseThrow(BookNotFoundException::new);
+        store.setStock(store.getStock()+1);
+        storeRepository.save(store);
+    }
+
     public Store newBookInStore(NewStoreRequest newStoreRequest) {
         if (shopRepository.findById(UUID.fromString(newStoreRequest.shopUuid())).isEmpty()) {
             throw new ShopNotFoundException();

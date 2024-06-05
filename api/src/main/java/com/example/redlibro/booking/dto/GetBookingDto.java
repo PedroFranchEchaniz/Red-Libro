@@ -9,6 +9,7 @@ import java.util.UUID;
 @Builder
 
 public record GetBookingDto(
+        UUID uuid,
         UUID codigo,
         LocalDate fechaReserva,
         LocalDate fechaExpiacion,
@@ -25,6 +26,7 @@ public record GetBookingDto(
 
     public static GetBookingDto of (Booking booking){
         return GetBookingDto.builder()
+                .uuid(booking.getUuid())
                 .codigo(booking.getBookingCode())
                 .fechaReserva(booking.getFechaReserva())
                 .fechaExpiacion(booking.getFechaExpiacion())
