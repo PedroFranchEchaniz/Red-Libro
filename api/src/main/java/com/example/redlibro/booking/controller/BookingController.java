@@ -39,7 +39,7 @@ public class BookingController {
     }
 
     @DeleteMapping("/shopBooking/delete/{bookingUuid}")
-    public void deleteBooking (@PathVariable UUID bookingUuid, String bookisbn, UUID shopUuid){
+    public void deleteBooking (@PathVariable UUID bookingUuid, @RequestParam String bookisbn, @RequestParam UUID shopUuid){
         StorePk storePk = new StorePk();
         storePk.setBookIsbn(bookisbn);
         storePk.setShopUuid(shopUuid);

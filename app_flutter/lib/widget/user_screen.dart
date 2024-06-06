@@ -66,7 +66,12 @@ class _UserScreenState extends State<UserScreen> {
                       scrollDirection: Axis.horizontal,
                       itemCount: user.booking?.length ?? 0,
                       itemBuilder: (context, index) {
-                        final reserva = user.booking![index];
+                        final reserva = user.booking?[index];
+                        if (reserva == null) {
+                          print('La reserva en el índice $index es nula');
+                          return SizedBox();
+                        }
+                        print('Reserva en el índice $index: $reserva');
                         return Card(
                           color: Colors.grey[850],
                           elevation: 4,
@@ -107,6 +112,14 @@ class _UserScreenState extends State<UserScreen> {
                                   style: TextStyle(color: Colors.white),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    BlocProvider.of<LogesUserBloc>(context).add(
+                                        DeleteBooking(reserva.uuid!,
+                                            reserva.idbn!, reserva.uuidShop!));
+                                  },
+                                  child: Text('Eliminar reserva'),
                                 ),
                               ],
                             ),

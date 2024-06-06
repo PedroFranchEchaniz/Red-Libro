@@ -54,6 +54,8 @@ class RegistedUserResponse {
 }
 
 class Booking {
+  String? uuidShop;
+  String? uuid;
   String? codigo;
   String? fechaReserva;
   String? fechaExpiacion;
@@ -65,7 +67,9 @@ class Booking {
   String? lon;
 
   Booking(
-      {this.codigo,
+      {this.uuidShop,
+      this.uuid,
+      this.codigo,
       this.fechaReserva,
       this.fechaExpiacion,
       this.nombreUsuario,
@@ -85,6 +89,8 @@ class Booking {
     idbn = json['idbn'];
     lat = json['lat'];
     lon = json['lon'];
+    uuid = json['uuid'];
+    uuidShop = json['uuidShop'];
   }
 
   Map<String, dynamic> toJson() {

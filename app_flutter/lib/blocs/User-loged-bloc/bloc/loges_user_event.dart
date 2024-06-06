@@ -4,3 +4,11 @@ part of 'loges_user_bloc.dart';
 sealed class LogesUserEvent {}
 
 class FetchUser extends LogesUserEvent {}
+
+class DeleteBooking extends LogesUserEvent {
+  final String bookingUuid;
+  final String bookIsbn;
+  final String shopUuid;
+
+  DeleteBooking(this.bookingUuid, this.bookIsbn, this.shopUuid);
+}
