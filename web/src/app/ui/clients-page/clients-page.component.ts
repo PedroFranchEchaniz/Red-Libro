@@ -19,10 +19,15 @@ export class ClientsPageComponent implements OnInit {
   }
 
   allClients() {
-    this.accountServiceService.getclients(this.page).subscribe((resp: GetAllClientsResponse) => {
-      this.clients = resp.content;
-      console.log(resp);
-    });
+    this.accountServiceService.getclients(this.page).subscribe(
+      (resp: GetAllClientsResponse) => {
+        console.log(resp);
+        this.clients = resp.content;
+      },
+      (error) => {
+        console.error('Error fetching clients:', error);
+      }
+    );
   }
 
   changePage(newPage: number) {
