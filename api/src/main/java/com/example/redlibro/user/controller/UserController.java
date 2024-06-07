@@ -126,4 +126,20 @@ public class UserController {
     public List<BooksInshelvingDto> booksInUserShelving (@AuthenticationPrincipal Client client){
         return userService.booksInShelving(client.getUuid());
     }
+
+    @GetMapping("shop/allUser")
+    public List<AllClientsDto>getClients(){
+        return userService.getAllClients();
+    }
+
+    @GetMapping("shop/getUser/{uuid}")
+    public AllClientsDto getClient(@PathVariable UUID uuid){
+        return userService.getClient(uuid);
+    }
+
+    @PutMapping("shop/bann/{uuid}")
+    public UserDto bannUser(@PathVariable UUID uuid){
+        return userService.banClient(uuid);
+    }
 }
+
