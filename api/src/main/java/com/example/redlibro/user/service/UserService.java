@@ -18,6 +18,7 @@ import com.example.redlibro.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -143,8 +144,8 @@ public class UserService {
 
     }
 
-    public List<AllClientsDto> getAllClients(){
-        return userRepository.getAllClients();
+    public List<AllClientsDto> getAllClients(Pageable pageable){
+        return userRepository.getAllClients(pageable);
     }
 
     public AllClientsDto getClient(UUID uuid){

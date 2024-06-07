@@ -17,6 +17,8 @@ import com.example.redlibro.user.repository.UserRepository;
 import com.example.redlibro.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -128,8 +130,8 @@ public class UserController {
     }
 
     @GetMapping("shop/allUser")
-    public List<AllClientsDto>getClients(){
-        return userService.getAllClients();
+    public List<AllClientsDto>getClients(@PageableDefault(page=0, size=4) Pageable pageable){
+        return userService.getAllClients(pageable);
     }
 
     @GetMapping("shop/getUser/{uuid}")
