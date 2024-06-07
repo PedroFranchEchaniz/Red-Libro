@@ -129,18 +129,18 @@ public class UserController {
         return userService.booksInShelving(client.getUuid());
     }
 
-    @GetMapping("shop/allUser")
+    @GetMapping("shopClient/allUser")
     public List<AllClientsDto>getClients(@PageableDefault(page=0, size=4) Pageable pageable){
         return userService.getAllClients(pageable);
     }
 
-    @GetMapping("shop/getUser/{uuid}")
+    @GetMapping("shopClient/getUser/{uuid}")
     public AllClientsDto getClient(@PathVariable UUID uuid){
         return userService.getClient(uuid);
     }
 
-    @PutMapping("shop/bann/{uuid}")
-    public UserDto bannUser(@PathVariable UUID uuid){
+    @PutMapping("shopClient/bann/{uuid}")
+    public UserDto bannUser(@PathVariable UUID uuid) {
         return userService.banClient(uuid);
     }
 }

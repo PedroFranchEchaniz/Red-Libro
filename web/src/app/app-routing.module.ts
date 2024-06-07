@@ -4,6 +4,7 @@ import { LoginPageComponent } from './ui/login-page/login-page.component';
 import { ListBookComponent } from './ui/books/list-book/list-book.component';
 import { ListBooksInAplicacitionComponent } from './ui/books/list-books-in-aplicacition/list-books-in-aplicacition.component';
 import { BookingComponent } from './ui/books/booking/booking.component';
+import { ClientsPageComponent } from './ui/clients-page/clients-page.component';
 
 const routes: Routes = [
 
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'books', component: ListBooksInAplicacitionComponent },
   { path: 'listBook', component: ListBookComponent },
   { path: 'login', component: LoginPageComponent },
+  { path: 'clients', component: ClientsPageComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
 ];

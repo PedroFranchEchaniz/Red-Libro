@@ -18,9 +18,9 @@ export class BookServiceService {
   getAllBooks(): Observable<AllBooks[]> {
     const token = localStorage.getItem('token');
 
-    console.log(token); // Asegúrate de obtener el token de localStorage
+    console.log(token);
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`  // Usa la variable token aquí
+      'Authorization': `Bearer ${token}`
     });
     return this.http.get<AllBooks[]>(
       `${environment.apiBaseUrl}/book/getAll`,
@@ -34,7 +34,7 @@ export class BookServiceService {
     console.log(token);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json' // Asegúrate de tener el Content-Type correcto
+      'Content-Type': 'application/json'
     });
     return this.http.post<newBook>(
       `${environment.apiBaseUrl}/book/newBook`, newBook,

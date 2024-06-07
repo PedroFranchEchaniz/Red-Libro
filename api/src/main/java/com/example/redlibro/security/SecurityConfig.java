@@ -122,7 +122,8 @@ public class SecurityConfig {
                         ).hasRole("User")
                         .requestMatchers(
                                 antMatcher("/store/**"),
-                                antMatcher("/shopBooking"))
+                                antMatcher("/shopBooking"),
+                                antMatcher("/shopClient"))
                         .hasRole("Shop")
                         .anyRequest().authenticated());
 

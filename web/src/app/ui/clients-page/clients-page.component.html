@@ -1,0 +1,30 @@
+<app-nav-bar></app-nav-bar>
+<div class="container mt-3">
+    <h2>Store</h2>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="col-5">ISBN</th>
+                <th scope="col" class="col-5">Título</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let client of clients">
+                <td class="col-5">{{ client.uuid }}</td>
+                <td class="col-5">{{ client.username }}</td>
+
+            </tr>
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item" [class.disabled]="page <= 0">
+                <a class="page-link" (click)="changePage(page - 1)">Previous</a>
+            </li>
+            <li class="page-item" [class.disabled]="page >= totalPages - 1">
+                <a class="page-link" (click)="changePage(page + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>

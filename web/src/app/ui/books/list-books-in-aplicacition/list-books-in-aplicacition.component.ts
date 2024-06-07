@@ -43,7 +43,7 @@ export class ListBooksInAplicacitionComponent implements OnInit {
     resumen: '',
     mediaValoracion: 0
   };
-  newStore: newStore = { bookIsbn: '', shopUuid: '', cantidad: 0, precio: 0 }; // Inicialización de newStore
+  newStore: newStore = { bookIsbn: '', shopUuid: '', cantidad: 0, precio: 0 };
   selectedGenres: string[] = [];
   availableGenres: string[] = ['Fantasia', 'Policiaca', 'Aventuras', 'Misterio', 'Cienciaficcion', 'Ficcion', 'NoFiccion', 'Drama', 'Romance', 'Thriller', 'Terror', 'Biografía', 'Autobiografía', 'Poesía', 'Ensayo', 'Historia'];
   imagePreview: string | ArrayBuffer | null = null;
@@ -68,7 +68,7 @@ export class ListBooksInAplicacitionComponent implements OnInit {
     });
 
     this.bookForm.get('filter')?.valueChanges.pipe(
-      debounceTime(300) // Añade un retardo para evitar filtrar en cada pulsación de tecla
+      debounceTime(300)
     ).subscribe(value => {
       this.filteredBooks = this.filterBooks(value);
     });
@@ -78,7 +78,7 @@ export class ListBooksInAplicacitionComponent implements OnInit {
   getAllBooks() {
     this.bookService.getAllBooks().subscribe(resp => {
       this.books = resp;
-      this.filteredBooks = resp; // Inicialmente, muestra todos los libros
+      this.filteredBooks = resp;
     });
   }
 
