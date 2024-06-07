@@ -14,8 +14,14 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
 
     Optional<Client> findFirstByUsername(String username);
 
-    @Query("SELECT new com.example.redlibro.booking.dto.GetBookingDto(b.bookingCode, b.fechaReserva, b.fechaExpiacion, b.client.username, b.book.titulo, b.book.portada, b.book.ISBN, b.lat, b.lon) FROM Booking b WHERE b.client.uuid = :clientUuid")
+    @Query("SELECT new com.example.redlibro.booking.dto.GetBookingDto(" +
+            "b.shop.uuid, b.uuid, b.bookingCode, b.fechaReserva, b.fechaExpiacion, " +
+            "b.client.username, b.book.titulo, b.book.portada, b.book.ISBN, " +
+            "b.lat, b.lon) " +
+            "FROM Booking b " +
+            "WHERE b.client.uuid = :clientUuid")
     List<GetBookingDto> findBookingsByClientUuid(UUID clientUuid);
+
 
     @Query("SELECT c FROM Client c LEFT JOIN FETCH c.bookings WHERE c.uuid = :uuid")
     Optional<Client> findClientWithBookings(UUID uuid);

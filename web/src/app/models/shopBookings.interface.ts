@@ -13,6 +13,7 @@ export interface BookingResponse {
 }
 
 export interface Booking {
+    uuid: string;
     codigo: string;
     fechaReserva: Date;
     fechaExpiacion: Date;

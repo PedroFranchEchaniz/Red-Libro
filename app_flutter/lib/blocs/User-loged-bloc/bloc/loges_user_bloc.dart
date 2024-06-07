@@ -19,5 +19,17 @@ class LogesUserBloc extends Bloc<LogesUserEvent, LogesUserState> {
         emit(UserError(e.toString()));
       }
     });
+
+    on<DeleteBooking>((event, emit) async {
+      try {
+        // Llamar al método deleteBooking del repositorio
+        await userRepo.deleteBooking(
+            event.bookingUuid, event.bookIsbn, event.shopUuid);
+        // Después de eliminar, volvemos a cargar los datos del usuario
+        add(FetchUser());
+      } catch (e) {
+        emit(UserError('Error al eliminar la reserva: $e'));
+      }
+    });
   }
 }

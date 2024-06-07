@@ -25,4 +25,18 @@ export class BookingComponent implements OnInit {
     })
   }
 
+  deleteBooking(uuid: string, bookIsbn: string) {
+    const shopUuid = localStorage.getItem('uuid');
+    this.bookingService.deleteBooking(uuid, bookIsbn, shopUuid!).subscribe(
+      () => {
+        // Manejar la respuesta exitosa, por ejemplo, actualizar la lista de reservas
+        this.getbooking();
+      },
+      error => {
+        // Manejar el error, si es necesario
+        console.error('Error al eliminar la reserva', error);
+      }
+    );
+  }
+
 }

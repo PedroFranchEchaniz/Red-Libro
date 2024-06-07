@@ -15,7 +15,8 @@
                     <td class="col-3">{{ booking.nombreUsuario }}</td>
                     <td class="col-3">{{ booking.fechaReserva }}</td>
                     <td class="col-3">
-                        <button type="button" class="btn btn-outline-danger">ELIMINAR</button>
+                        <button type="button" class="btn btn-outline-danger"
+                            (click)="deleteBooking(booking.uuid, booking.idbn)">ELIMINAR</button>
                     </td>
                 </tr>
             </tbody>

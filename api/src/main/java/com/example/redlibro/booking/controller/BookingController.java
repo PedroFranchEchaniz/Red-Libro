@@ -11,10 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -39,6 +36,14 @@ public class BookingController {
     public ResponseEntity<Page<GetBookingDto>> getBookingShop (@PathVariable UUID shopUuid, @PageableDefault(page=0, size=4) Pageable pageable){
         Page<GetBookingDto> booking = bookingService.shopBooking(shopUuid, pageable).map(GetBookingDto::of);
         return ResponseEntity.ok(booking);
+    }
+
+    @DeleteMapping("/shopBooking/delete/{bookingUuid}")
+    public void deleteBooking (@PathVariable UUID bookingUuid, @RequestParam String bookisbn, @RequestParam UUID shopUuid){
+        StorePk storePk = new StorePk();
+        storePk.setBookIsbn(bookisbn);
+        storePk.setShopUuid(shopUuid);
+        bookingService.deleteBooking(storePk, bookingUuid);
     }
 
 }

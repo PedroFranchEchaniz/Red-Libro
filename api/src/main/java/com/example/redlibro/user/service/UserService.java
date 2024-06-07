@@ -117,7 +117,6 @@ public class UserService {
         Client client = clientRepository.findClientWithRatings(clientUuid)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado"));
 
-
         List<GetBookingDto> bookingDtos = clientRepository.findBookingsByClientUuid(clientUuid);
         List<BooksInshelvingDto> booksInshelvingDtos = shelvingRepository.shelvingOfClient(clientUuid);
 
@@ -131,6 +130,7 @@ public class UserService {
                 new HashSet<>(booksInshelvingDtos)
         );
     }
+
 
     public Boolean bookInShelving(String isbn) {
         if(shelvingRepository.isbnIsPresent(isbn)>0)
