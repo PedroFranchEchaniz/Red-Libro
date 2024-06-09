@@ -12,6 +12,7 @@ import com.example.redlibro.shelving.dto.ShelvingDto;
 import com.example.redlibro.user.dto.*;
 import com.example.redlibro.user.model.Client;
 import com.example.redlibro.user.model.Shop;
+import com.example.redlibro.user.model.UserModel;
 import com.example.redlibro.user.repository.ClientRepository;
 import com.example.redlibro.user.repository.UserRepository;
 import com.example.redlibro.user.service.UserService;
@@ -130,7 +131,7 @@ public class UserController {
     }
 
     @GetMapping("shopClient/allUser")
-    public List<AllClientsDto>getClients(@PageableDefault(page=0, size=4) Pageable pageable){
+    public List<UserDto>getClients(@PageableDefault(page=0, size=4) Pageable pageable){
         return userService.getAllClients(pageable);
     }
 
@@ -139,7 +140,7 @@ public class UserController {
         return userService.getClient(uuid);
     }
 
-    @PutMapping("shopClient/bann/{uuid}")
+    @GetMapping("shopClient/bann/{uuid}")
     public UserDto bannUser(@PathVariable UUID uuid) {
         return userService.banClient(uuid);
     }

@@ -11,6 +11,7 @@ export class ClientsPageComponent implements OnInit {
   page: number = 0;
   totalPages: number = 1;
   clients!: AllClientsDto[];
+  client!: AllClientsDto;
 
   constructor(private accountServiceService: AccountServiceService) { }
 
@@ -22,7 +23,7 @@ export class ClientsPageComponent implements OnInit {
     this.accountServiceService.getclients(this.page).subscribe(
       (resp: GetAllClientsResponse) => {
         console.log(resp);
-        this.clients = resp.content;
+        this.clients = resp
       },
       (error) => {
         console.error('Error fetching clients:', error);
@@ -35,5 +36,18 @@ export class ClientsPageComponent implements OnInit {
       this.page = newPage;
       this.allClients();
     }
+  }
+
+  toggleBann(uuid: string) {
+    this.accountServiceService.toogleBann(uuid).subscribe(
+      (resp: AllClientsDto) => {
+        console.log(resp);
+        this.client = resp;
+      },
+      (error) => {
+        console.error('Error fetching clients:', error);
+      }
+    );
+
   }
 }

@@ -4,16 +4,27 @@
     <table class="table table-hover">
         <thead class="thead-dark">
             <tr>
-                <th scope="col" class="col-5">ISBN</th>
-                <th scope="col" class="col-5">Título</th>
-
+                <th scope="col" class="col-3">UUID</th>
+                <th scope="col" class="col-3">Username</th>
+                <th scope="col" class="col-3">Estado</th>
+                <th scope="col" class="col-3">Acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let client of clients">
-                <td class="col-5">{{ client.uuid }}</td>
-                <td class="col-5">{{ client.username }}</td>
-
+                <td class="col-3">{{ client.uuid }}</td>
+                <td class="col-3">{{ client.username }}</td>
+                <td class="col-4">
+                    <span [style.background-color]="client.isEnable ? '#28a745' : '#dc3545'"
+                        style="color: white; padding: 5px; border-radius: 50%; display: inline-block;">
+                        {{ client.isEnable ? '&#x2714;' : '&#x2716;' }}
+                    </span>
+                </td>
+                <td class="col-3">
+                    <button class="btn btn-primary" [innerText]="client.isEnable ? 'Bann' : 'UnBann'"
+                        (click)="toggleBann(client.uuid)">
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -144,7 +144,7 @@ public class UserService {
 
     }
 
-    public List<AllClientsDto> getAllClients(Pageable pageable){
+    public List<UserDto> getAllClients(Pageable pageable){
         return userRepository.getAllClients(pageable);
     }
 
@@ -155,7 +155,15 @@ public class UserService {
 
     public UserDto banClient (UUID uuid){
         UserModel user = userRepository.getClientforBan(uuid).orElseThrow(ClientNotFoundException::new);
-        user.setEnabled(false);
+        if(user.isEnabled()) {
+            user.setEnabled(false);
+            userRepository.save(user);
+
+        }else {
+
+            user.setEnabled(true);
+            userRepository.save(user);
+        }
         return UserDto.of(user);
     }
 }
