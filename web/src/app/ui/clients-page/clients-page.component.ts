@@ -43,6 +43,7 @@ export class ClientsPageComponent implements OnInit {
       (resp: AllClientsDto) => {
         console.log(resp);
         this.client = resp;
+        this.allClients();
       },
       (error) => {
         console.error('Error fetching clients:', error);
