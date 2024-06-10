@@ -12,11 +12,14 @@ import com.example.redlibro.shelving.dto.ShelvingDto;
 import com.example.redlibro.user.dto.*;
 import com.example.redlibro.user.model.Client;
 import com.example.redlibro.user.model.Shop;
+import com.example.redlibro.user.model.UserModel;
 import com.example.redlibro.user.repository.ClientRepository;
 import com.example.redlibro.user.repository.UserRepository;
 import com.example.redlibro.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -126,4 +129,20 @@ public class UserController {
     public List<BooksInshelvingDto> booksInUserShelving (@AuthenticationPrincipal Client client){
         return userService.booksInShelving(client.getUuid());
     }
+
+    @GetMapping("shopClient/allUser")
+    public List<UserDto>getClients(@PageableDefault(page=0, size=4) Pageable pageable){
+        return userService.getAllClients(pageable);
+    }
+
+    @GetMapping("shopClient/getUser/{uuid}")
+    public AllClientsDto getClient(@PathVariable UUID uuid){
+        return userService.getClient(uuid);
+    }
+
+    @GetMapping("shopClient/bann/{uuid}")
+    public UserDto bannUser(@PathVariable UUID uuid) {
+        return userService.banClient(uuid);
+    }
 }
+

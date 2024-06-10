@@ -2,6 +2,7 @@ package com.example.redlibro.user.repository;
 
 import com.example.redlibro.booking.dto.GetBookingDto;
 import com.example.redlibro.booking.model.Booking;
+import com.example.redlibro.user.dto.AllClientsDto;
 import com.example.redlibro.user.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -33,6 +34,8 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
     Optional<Client> findByUuidWithRatings(UUID uuid);
 
     boolean existsById(UUID uuid);
+
+
 
 }
 

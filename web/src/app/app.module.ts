@@ -13,6 +13,7 @@ import { ListBooksInAplicacitionComponent } from './ui/books/list-books-in-aplic
 import { RouterLink } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { BookingComponent } from './ui/books/booking/booking.component';
+import { ClientsPageComponent } from './ui/clients-page/clients-page.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { BookingComponent } from './ui/books/booking/booking.component';
     ListBookComponent,
     NavBarComponent,
     ListBooksInAplicacitionComponent,
-    BookingComponent
+    BookingComponent,
+    ClientsPageComponent
   ],
   imports: [
     BrowserModule,

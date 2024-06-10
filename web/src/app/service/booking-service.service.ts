@@ -30,7 +30,6 @@ export class BookingServiceService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    // Construir la URL con los parámetros de la reserva y la tienda
     const url = `${environment.apiBaseUrl}/shopBooking/delete/${uuid}?bookisbn=${bookIsbn}&shopUuid=${shopUuid}`;
     return this.http.delete<void>(url, { headers: headers });
   }

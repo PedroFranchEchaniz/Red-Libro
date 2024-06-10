@@ -2,12 +2,11 @@ package com.example.redlibro.user.service;
 
 import com.example.redlibro.book.model.Book;
 import com.example.redlibro.booking.dto.GetBookingDto;
+import com.example.redlibro.booking.exceptions.ClientNotFoundException;
 import com.example.redlibro.shelving.Repository.ShelvingRepository;
 import com.example.redlibro.shelving.dto.BooksInshelvingDto;
 import com.example.redlibro.shelving.dto.ShelvingDto;
-import com.example.redlibro.user.dto.CreateClientRequest;
-import com.example.redlibro.user.dto.CreateShopRequest;
-import com.example.redlibro.user.dto.GetClienteDtoDetail;
+import com.example.redlibro.user.dto.*;
 import com.example.redlibro.user.exception.PasswordNotValidException;
 import com.example.redlibro.user.model.Client;
 import com.example.redlibro.user.model.Shop;
@@ -19,7 +18,9 @@ import com.example.redlibro.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -141,5 +142,28 @@ public class UserService {
     public List<BooksInshelvingDto> booksInShelving(UUID uuid){
         return shelvingRepository.shelvingOfClient(uuid);
 
+    }
+
+    public List<UserDto> getAllClients(Pageable pageable){
+        return userRepository.getAllClients(pageable);
+    }
+
+    public AllClientsDto getClient(UUID uuid){
+        return userRepository.getClient(uuid)
+                .orElseThrow(ClientNotFoundException::new);
+    }
+
+    public UserDto banClient (UUID uuid){
+        UserModel user = userRepository.getClientforBan(uuid).orElseThrow(ClientNotFoundException::new);
+        if(user.isEnabled()) {
+            user.setEnabled(false);
+            userRepository.save(user);
+
+        }else {
+
+            user.setEnabled(true);
+            userRepository.save(user);
+        }
+        return UserDto.of(user);
     }
 }
