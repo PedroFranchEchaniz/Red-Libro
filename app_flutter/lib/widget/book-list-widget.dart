@@ -1,10 +1,11 @@
-import 'package:app_flutter/repositories/bookDetail/bookDetail_repository_impl.dart';
+import 'package:app_flutter/pages/allBooks_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_flutter/models/response/book_response.dart';
 import 'package:app_flutter/pages/book_detail_page.dart';
+import 'package:app_flutter/repositories/bookDetail/bookDetail_repository_impl.dart';
 import 'package:app_flutter/blocs/shopBook-bloc/bloc/shop_bloc.dart';
 import 'package:app_flutter/repositories/shopWithBook/shopWithBook_repository_impl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BookListWidget extends StatelessWidget {
   final List<Book> books;
@@ -51,8 +52,7 @@ class BookListWidget extends StatelessWidget {
                           shopWithBookRepository: ShopWithBookRepositoryImpl()),
                       child: BookDetailPage(
                         book: book,
-                        bookDetailRepository:
-                            BookDetailRepositoryImpl(), // Asumiendo que puedes crear una instancia así
+                        bookDetailRepository: BookDetailRepositoryImpl(),
                       ),
                     ),
                   ));
@@ -104,6 +104,17 @@ class BookListWidget extends StatelessWidget {
                 ),
               );
             },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => AllBooksPage(),
+              ));
+            },
+            child: Text('Ver todos los libros'),
           ),
         ),
       ],

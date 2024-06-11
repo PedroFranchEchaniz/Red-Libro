@@ -1,9 +1,6 @@
 package com.example.redlibro.book.service;
 
-import com.example.redlibro.book.dto.CreateBookRequest;
-import com.example.redlibro.book.dto.EditBookDto;
-import com.example.redlibro.book.dto.GetBookAndRating;
-import com.example.redlibro.book.dto.GetBookDto;
+import com.example.redlibro.book.dto.*;
 import com.example.redlibro.book.exception.BookAlreadyExistsException;
 import com.example.redlibro.book.exception.BookNotFoundException;
 import com.example.redlibro.book.exception.ShopNotFoundException;
@@ -18,9 +15,11 @@ import com.example.redlibro.store.model.StorePk;
 import com.example.redlibro.store.repository.StoreRepository;
 import com.example.redlibro.user.model.Shop;
 import com.example.redlibro.user.repository.ShopRepository;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.apache.el.parser.AstTrue;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Array;
@@ -180,6 +179,19 @@ public class BookService {
         return bookRepository.save(editBook);
     }
 
+    @Transactional
+    public List<GetBookWithRating> filterBooks(String titulo, String autor, String editorial, Boolean disponible, Genre genre) {
+        List<Book> books;
+        if (titulo == null && autor == null && editorial == null && disponible == null && genre == null) {
+            books = bookRepository.findAll();
+        } else {
+            books = bookRepository.filterBooks(titulo, autor, editorial, disponible, genre);
+        }
 
+        // Recargar la colección ratings antes de serializar
+        books.forEach(book -> Hibernate.initialize(book.getRatings()));
+
+        return books.stream().map(GetBookWithRating::of).collect(Collectors.toList());
+    }
 
 }
