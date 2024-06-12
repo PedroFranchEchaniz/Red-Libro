@@ -1,6 +1,7 @@
 package com.example.redlibro.book.repository;
 
 import com.example.redlibro.book.model.Book;
+import com.example.redlibro.book.model.Genre;
 import org.hibernate.validator.constraints.ISBN;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,6 +24,18 @@ public interface BookRepository extends JpaRepository<Book, String> {
 
     @Query("SELECT b FROM Book b LEFT JOIN FETCH b.ratings WHERE b.ISBN = :isbn")
     Optional<Book> findByIdWithRatings(String isbn);
+
+    @Query("SELECT b FROM Book b JOIN b.genres g " +
+            "WHERE (:titulo IS NULL OR b.titulo LIKE %:titulo%) " +
+            "AND (:autor IS NULL OR b.autor LIKE %:autor%) " +
+            "AND (:editorial IS NULL OR b.editorial LIKE %:editorial%) " +
+            "AND (:disponible IS NULL OR b.disponible = :disponible) " +
+            "AND (:genre IS NULL OR g = :genre)")
+    List<Book> filterBooks(@Param("titulo") String titulo,
+                           @Param("autor") String autor,
+                           @Param("editorial") String editorial,
+                           @Param("disponible") Boolean disponible,
+                           @Param("genre") Genre genre);
 
     boolean existsByISBN(String isbn);
 

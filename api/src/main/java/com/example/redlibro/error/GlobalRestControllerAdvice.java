@@ -2,9 +2,11 @@ package com.example.redlibro.error;
 
 import com.example.redlibro.error.model.impl.ApiErrorImpl;
 import com.example.redlibro.error.model.impl.ApiValidationSubError;
+import com.example.redlibro.store.exception.StoreNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -42,5 +44,10 @@ public class GlobalRestControllerAdvice {
                                 .build()
                 );
 
+    }
+
+    @ExceptionHandler(StoreNotFoundException.class)
+    public ResponseEntity<Object> handleStoreNotFoundException(StoreNotFoundException ex, WebRequest request) {
+        return buildApiError(ex.getMessage(), request, HttpStatus.NOT_FOUND);
     }
 }
