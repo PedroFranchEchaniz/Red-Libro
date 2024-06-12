@@ -53,6 +53,7 @@ public class BookService {
             Set<Genre> genres = Arrays.stream(createBookRequest.genres())
                     .map(Genre::valueOf)
                     .collect(Collectors.toSet());
+
             LocalDate fecha = LocalDate.parse(createBookRequest.fecha());
 
             Book b = Book.builder()
@@ -74,7 +75,10 @@ public class BookService {
     }
 
 
-   public List<Book>[] librosOrdenados (){
+
+
+
+    public List<Book>[] librosOrdenados (){
         List<Book>[] arrayBooks = (List<Book>[])new List<?>[5];
 
         arrayBooks[0] = bookRepository.fantasybooks();

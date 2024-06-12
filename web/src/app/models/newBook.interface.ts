@@ -1,5 +1,5 @@
 export interface newBook {
-    ISBN: String
+    ISBN: string
     titulo: string
     autor: string
     editorial: string
@@ -8,4 +8,5 @@ export interface newBook {
     genres: string[]
     resumen: string
     mediaValoracion: number
+    stock: number
 }

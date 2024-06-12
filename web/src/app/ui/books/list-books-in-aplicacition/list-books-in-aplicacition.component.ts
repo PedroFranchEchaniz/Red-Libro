@@ -11,6 +11,8 @@ import { newStore } from '../../../models/adToStore.interface';
 import { EditBook } from '../../../models/editBook.interface';
 import { Observable } from 'rxjs';
 import { book } from 'ngx-bootstrap-icons';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-list-books-in-aplicacition',
@@ -18,6 +20,8 @@ import { book } from 'ngx-bootstrap-icons';
   styleUrls: ['./list-books-in-aplicacition.component.css']
 })
 export class ListBooksInAplicacitionComponent implements OnInit {
+
+
 
   books!: AllBooks[];
   storeBooks!: Store[];
@@ -41,7 +45,8 @@ export class ListBooksInAplicacitionComponent implements OnInit {
     fecha: '',
     genres: [],
     resumen: '',
-    mediaValoracion: 0
+    mediaValoracion: 0,
+    stock: 0
   };
   newStore: newStore = { bookIsbn: '', shopUuid: '', cantidad: 0, precio: 0 };
   selectedGenres: string[] = [];
@@ -139,37 +144,49 @@ export class ListBooksInAplicacitionComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imagePreview = reader.result;
-        this.newBook.portda = reader.result as string;
-      };
-      reader.readAsDataURL(file);
-    }
+    this.selectedFile = event.target.files[0];
   }
 
-  saveBook() {
-    const fechaActual = new Date();
+  selectedFile: File | null = null;
 
+
+  saveBook() {
+    const formData = new FormData();
+    const fechaActual = new Date();
     const año = fechaActual.getFullYear();
     const mes = ('0' + (fechaActual.getMonth() + 1)).slice(-2);
     const dia = ('0' + fechaActual.getDate()).slice(-2);
     const fechaFormateada = `${año}-${mes}-${dia}`;
 
-    this.newBook.genres = this.selectedGenres;
-    this.newBook.fecha = fechaFormateada;
-    console.log(this.newBook);
-    this.bookService.newBook(this.newBook).subscribe(
+    if (this.selectedFile) {
+      formData.append('file', this.selectedFile);
+      this.newBook.portda = this.selectedFile.name;
+    }
+
+    formData.append('ISBN', this.newBook.ISBN);
+    formData.append('titulo', this.newBook.titulo);
+    formData.append('autor', this.newBook.autor);
+    formData.append('editorial', this.newBook.editorial);
+    formData.append('fecha', fechaFormateada);
+
+    this.selectedGenres.forEach(genre => {
+      formData.append('genres', genre);
+    });
+
+    formData.append('resumen', this.newBook.resumen);
+    formData.append('mediaValoracion', this.newBook.mediaValoracion.toString());
+    formData.append('stock', '0');
+
+    this.bookService.newBook(formData).subscribe(
       response => {
-        console.log('Respuesta del servidor:', response);
+        console.log('Book saved successfully!', response);
       },
       error => {
-        console.error('Error:', error);
+        console.error('Error saving book:', error);
       }
     );
   }
+
 
   addToStore(isbn: string) {
     console.log(isbn);
