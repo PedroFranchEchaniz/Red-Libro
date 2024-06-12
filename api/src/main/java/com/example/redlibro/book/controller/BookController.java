@@ -20,6 +20,7 @@ import org.hibernate.validator.constraints.ISBN;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 import java.util.List;
@@ -52,8 +53,12 @@ public class BookController {
     })
     @Operation(summary = "AddBook", description = "Añadir un nuevo libro")
     @PostMapping("/book/newBook")
-    public ResponseEntity<BookResponse>createBook(@Valid @RequestBody CreateBookRequest createBookRequest){
+    public ResponseEntity<BookResponse> createBook(@RequestParam("file") MultipartFile file, @Valid CreateBookRequest createBookRequest) {
+        // Procesa el archivo adjunto (si es necesario)
+        // Puedes acceder a los datos del formulario a través de createBookRequest
+
         Book book = bookService.createBook(createBookRequest);
+
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(BookResponse.fromBook(book));
     }

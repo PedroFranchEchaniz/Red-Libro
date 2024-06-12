@@ -125,6 +125,7 @@ public class SecurityConfig {
                                 antMatcher("/shopBooking"),
                                 antMatcher("/shopClient"))
                         .hasRole("Shop")
+                        .requestMatchers(antMatcher("/portadas/**")).permitAll()
                         .anyRequest().authenticated());
 
 
