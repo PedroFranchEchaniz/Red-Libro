@@ -48,8 +48,7 @@ public class BookController {
                                             """
                             )}
                     )}),
-            @ApiResponse(responseCode = "500"),
-            @ApiResponse(responseCode = "500", description = "Tienda no encontrada", content = @Content)
+            @ApiResponse(responseCode = "500", description = "El libro ya existe", content = @Content),
     })
     @Operation(summary = "AddBook", description = "Añadir un nuevo libro")
     @PostMapping("/book/newBook")
@@ -104,14 +103,18 @@ public class BookController {
                                     """
                     )}
             )}),
-            @ApiResponse(responseCode = "500"),
             @ApiResponse(responseCode = "500", description = "Libros no encontrados", content = @Content)
     })
     @GetMapping("/book/allBooks")
-    public List<GetBookWithRating> allBooks(){
-        return bookRepository.findAll().stream()
+    public ResponseEntity<List<GetBookWithRating>> allBooks() {
+        List<Book> books = bookRepository.findAll();
+        if (books.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        List<GetBookWithRating> booksWithRating = books.stream()
                 .map(GetBookWithRating::of)
                 .toList();
+        return ResponseEntity.ok(booksWithRating);
     }
 
     @ApiResponses(value = {
@@ -246,8 +249,8 @@ public class BookController {
                                             """
                             )}
                     )}),
-            @ApiResponse(responseCode = "500"),
-            @ApiResponse(responseCode = "500", description = "Libros no encontrados", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Server internal error"),
+            @ApiResponse(responseCode = "404", description = "Libro no encontrado", content = @Content)
     })
     @GetMapping("/book/listsBooks")
     public List<List<GetBookAndRating>> allBooksArray() {
@@ -296,8 +299,8 @@ public class BookController {
                                             """
                             )}
                     )}),
-            @ApiResponse(responseCode = "500"),
-            @ApiResponse(responseCode = "500", description = "Libros no encontrados", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Server internal error"),
+            @ApiResponse(responseCode = "404", description = "Libro no encontrado", content = @Content)
     })
     @GetMapping("/book/{isbn}")
     public GetBookAndRating detailsbook (@PathVariable String isbn)  {
@@ -506,8 +509,10 @@ public class BookController {
                                             """
                             )}
                     )}),
-            @ApiResponse(responseCode = "500"),
-            @ApiResponse(responseCode = "500", description = "Libros no encontrados", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Internal server error"),
+            @ApiResponse(responseCode = "404", description = "Libro no encontrado", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Tienda no encontrada", content = @Content)
+
     })
    @PutMapping("book/edit/{isbn}")
     public GetBookDto editBook(@PathVariable String isbn, @RequestBody EditBookDto editBookDto){

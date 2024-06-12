@@ -188,7 +188,6 @@ public class BookService {
             books = bookRepository.filterBooks(titulo, autor, editorial, disponible, genre);
         }
 
-        // Recargar la colección ratings antes de serializar
         books.forEach(book -> Hibernate.initialize(book.getRatings()));
 
         return books.stream().map(GetBookWithRating::of).collect(Collectors.toList());
