@@ -27,7 +27,6 @@ public class StorageService {
     }
 
     private String generateFilename(String originalFilename) {
-        // Aquí podrías implementar lógica para generar nombres de archivo únicos si es necesario
         return originalFilename;
     }
 }
