@@ -42,7 +42,8 @@ public interface StoreRepository extends JpaRepository<Store, StorePk> {
     Optional<Store>getStoreByIsbn(String isbn, UUID uuid);
 
 
-
+    @Query("SELECT s FROM Store s WHERE s.book.ISBN = ?1 AND s.stock > 0")
+    List<Store> findStoresWithBookInStock(String isbn);
 
 
 

@@ -5,4 +5,5 @@ abstract class ShelvingRepository {
   Future<UserShelvingResponse> addToShelving(String isbn);
   Future<bool> bookIsInShelving(String isbn);
   Future<BookInShelvingResponse> getBooksInShelving();
+  Future<bool> bookIsInStore(String isbn);
 }

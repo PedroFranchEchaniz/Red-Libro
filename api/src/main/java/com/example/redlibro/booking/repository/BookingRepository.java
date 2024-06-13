@@ -12,4 +12,6 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
     @Query("SELECT b from Booking b WHERE b.shop.uuid = ?1")
     Page<Booking> getShopBooking (UUID uuid, Pageable pageable);
+
+
 }

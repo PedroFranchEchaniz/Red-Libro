@@ -163,4 +163,9 @@ public class StoreController {
     }
 
 
+    @GetMapping("client/bookInStore/{isbn}")
+    public ResponseEntity<Boolean> isInStore(@PathVariable String isbn) {
+        boolean isInStore = storeService.isInStore(isbn);
+        return ResponseEntity.ok(isInStore);
+    }
 }

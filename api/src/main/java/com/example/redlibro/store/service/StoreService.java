@@ -96,7 +96,10 @@ public class StoreService {
         }
     }
 
-
+    public boolean isInStore(String isbn) {
+        List<Store> stores = storeRepository.findStoresWithBookInStock(isbn);
+        return !stores.isEmpty();
+    }
 
 
 }

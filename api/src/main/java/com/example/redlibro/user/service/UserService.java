@@ -1,6 +1,7 @@
 package com.example.redlibro.user.service;
 
 import com.example.redlibro.book.model.Book;
+import com.example.redlibro.book.repository.BookRepository;
 import com.example.redlibro.booking.dto.GetBookingDto;
 import com.example.redlibro.booking.exceptions.ClientNotFoundException;
 import com.example.redlibro.shelving.Repository.ShelvingRepository;
@@ -38,6 +39,7 @@ public class UserService {
     private final ClientRepository clientRepository;
     private final ShopRepository shopRepository;
     private final ShelvingRepository shelvingRepository;
+    private final BookRepository bookRepository;
 
     public Client createClient(CreateClientRequest createUserReques) {
         if (userRepository.existsByUsernameIgnoreCase(createUserReques.username()))

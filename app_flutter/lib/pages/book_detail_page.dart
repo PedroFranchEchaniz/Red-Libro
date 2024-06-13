@@ -172,60 +172,68 @@ class BookDetailPage extends StatelessWidget {
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: const Color.fromARGB(255, 0, 0, 0))),
-                    SizedBox(height: 10), // Espacio antes del autor
+                    SizedBox(height: 10),
                     Text("Autor: ${book.autor ?? "Autor desconocido"}",
                         style: TextStyle(
                             fontSize: 18,
                             color: const Color.fromARGB(255, 0, 0, 0))),
-                    SizedBox(height: 20), // Espacio antes del botón de reserva
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            BlocProvider.of<ShopBloc>(context)
-                                .add(GetShopsWithBook(book.isbn!));
-                          },
-                          child: Text('Reserva'),
-                          style:
-                              ElevatedButton.styleFrom(primary: Colors.green),
-                        ),
-                        SizedBox(width: 10),
-                        FutureBuilder<bool>(
-                          future:
-                              shelvingRepository.bookIsInShelving(book.isbn!),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return CircularProgressIndicator();
-                            } else if (snapshot.hasError) {
-                              return Text('Error');
-                            } else if (snapshot.data == true) {
-                              return Container();
-                            } else {
-                              return IconButton(
-                                icon: Icon(Icons.bookmark_add,
-                                    color: Colors.blue),
-                                onPressed: () async {
-                                  try {
-                                    await shelvingRepository
-                                        .addToShelving(book.isbn!);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content: Text(
-                                                'Libro añadido a tu estantería')));
-                                  } catch (e) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content: Text(
-                                                'Error al añadir el libro')));
-                                  }
-                                },
-                              );
-                            }
-                          },
-                        ),
-                      ],
+                    SizedBox(height: 20),
+                    FutureBuilder<bool>(
+                      future: shelvingRepository.bookIsInStore(book.isbn!),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error al comprobar disponibilidad');
+                        } else if (snapshot.data == true) {
+                          return ElevatedButton(
+                            onPressed: () {
+                              BlocProvider.of<ShopBloc>(context)
+                                  .add(GetShopsWithBook(book.isbn!));
+                            },
+                            child: Text('Reserva'),
+                            style:
+                                ElevatedButton.styleFrom(primary: Colors.green),
+                          );
+                        } else {
+                          return Text(
+                              'Este libro no está disponible para reserva');
+                        }
+                      },
+                    ),
+                    SizedBox(height: 20),
+                    FutureBuilder<bool>(
+                      future: shelvingRepository.bookIsInShelving(book.isbn!),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error');
+                        } else if (snapshot.data == true) {
+                          return Container();
+                        } else {
+                          return IconButton(
+                            icon: Icon(Icons.bookmark_add, color: Colors.blue),
+                            onPressed: () async {
+                              try {
+                                await shelvingRepository
+                                    .addToShelving(book.isbn!);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            'Libro añadido a tu estantería')));
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content:
+                                            Text('Error al añadir el libro')));
+                              }
+                            },
+                          );
+                        }
+                      },
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),

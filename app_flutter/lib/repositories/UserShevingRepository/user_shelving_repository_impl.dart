@@ -78,4 +78,27 @@ class ShelvingRepositoryImpl implements ShelvingRepository {
       throw Exception('Ueeeepa');
     }
   }
+
+  @override
+  Future<bool> bookIsInStore(String isbn) async {
+    String? token = await _storage.read(key: 'authToken');
+
+    if (token == null) {
+      throw Exception('Authorization token not found');
+    }
+
+    final response = await _httpClient.get(
+      Uri.parse('http://10.0.2.2:8080/client/bookInStore/$isbn'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to check if book is in store');
+    }
+  }
 }
