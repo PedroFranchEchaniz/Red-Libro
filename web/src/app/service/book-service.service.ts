@@ -30,6 +30,7 @@ export class BookServiceService {
 
   newBook(data: FormData): Observable<any> {
     const token = localStorage.getItem('token');
+    console.log(FormData);
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
 

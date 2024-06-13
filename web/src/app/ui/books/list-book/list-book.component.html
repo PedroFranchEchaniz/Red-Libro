@@ -15,7 +15,7 @@
                 <td class="col-5">{{ store.titulo }}</td>
                 <td class="col-2">
                     <input type="number" class="form-control col-2" [(ngModel)]="store.cantidad"
-                        (keyup.enter)="open(content, store)">
+                        (keyup.enter)="open(content, store)" min="0" step="1">
                 </td>
             </tr>
         </tbody>

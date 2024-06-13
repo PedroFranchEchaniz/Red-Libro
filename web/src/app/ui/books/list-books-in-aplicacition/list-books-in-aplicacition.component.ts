@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { StoreServiceService } from '../../../service/AccountService/store-service.service';
 import { BookServiceService } from '../../../service/book-service.service';
 import { AllBooks } from '../../../models/allBooks.interface';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { newBook } from '../../../models/newBook.interface';
@@ -26,7 +26,7 @@ export class ListBooksInAplicacitionComponent implements OnInit {
 
   books!: AllBooks[];
   storeBooks!: Store[];
-  allStoreBooks: AllStoreDto[] = []; // Inicializa como un array vacío de AllStoreDto
+  allStoreBooks: AllStoreDto[] = [];
   mostrarFormulario: boolean = false;
   router: any;
   resumen!: string;
@@ -64,6 +64,7 @@ export class ListBooksInAplicacitionComponent implements OnInit {
     uuid: ''
   };
 
+  activeModal: NgbModalRef | undefined;
 
   constructor(private fb: FormBuilder, private bookService: BookServiceService, private storeService: StoreServiceService) { }
 
@@ -95,7 +96,7 @@ export class ListBooksInAplicacitionComponent implements OnInit {
     if (uuid) {
       this.storeService.getStoresByShopUuid(uuid, 0).subscribe(resp => {
         this.storeBooks = resp.content;
-        this.getAllStoreBooks(); // Cargar todos los libros en la tienda después de obtener los libros de la tienda
+        this.getAllStoreBooks();
       });
     }
   }
@@ -113,7 +114,7 @@ export class ListBooksInAplicacitionComponent implements OnInit {
     if (uuid) {
       this.storeService.getAllStoreByShopUuid(uuid).subscribe(
         (resp: AllStoreDto[]) => {
-          this.allStoreBooks = resp; // Asigna la respuesta correctamente al array de AllStoreDto
+          this.allStoreBooks = resp;
         },
         error => {
           console.error('Error fetching store books:', error);
@@ -151,18 +152,28 @@ export class ListBooksInAplicacitionComponent implements OnInit {
   };
 
   openAddBookModal(content: TemplateRef<any>) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+    this.activeModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+
+    this.activeModal.result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
       },
       (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      },
+      }
     );
   }
 
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+    const file: File = event.target.files[0];
+    this.selectedFile = file;
+
+    // Mostrar vista previa de la imagen seleccionada
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+    reader.readAsDataURL(file);
   }
 
   selectedFile: File | null = null;
@@ -198,12 +209,17 @@ export class ListBooksInAplicacitionComponent implements OnInit {
     this.bookService.newBook(formData).subscribe(
       response => {
         console.log('Book saved successfully!', response);
+        if (this.activeModal) {
+          this.activeModal.close(); // Close the modal after saving
+        }
+        this.getAllBooks();
       },
       error => {
         console.error('Error saving book:', error);
       }
     );
   }
+
 
 
   addToStore(isbn: string) {

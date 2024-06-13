@@ -64,6 +64,7 @@ public class BookService {
                     .portada(portadaFilename)
                     .genres(genres)
                     .fecha(fecha)
+                    .resumen(createBookRequest.resumen())
                     .fechaAlta(LocalDate.now())
                     .mediaValoracion(0.0)
                     .disponible(disponible)
