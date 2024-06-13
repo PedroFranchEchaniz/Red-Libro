@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
-
+  logout() {
+    sessionStorage.clear();
+  }
 }
