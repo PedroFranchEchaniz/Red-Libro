@@ -120,6 +120,14 @@ public class UserController {
         return ResponseEntity.ok(ShelvingDto.of(shelving));
     }
 
+    @DeleteMapping("client/deleteShelving/{isbn}")
+    public void deleteShelving (@PathVariable String isbn,  @AuthenticationPrincipal Client client){
+        ShelvingPk shelvingPk = new ShelvingPk();
+        shelvingPk.setBook_isbn(isbn);
+        shelvingPk.setClient_uuid(client.getUuid());
+        userService.deleteShelving(shelvingPk);
+    }
+
     @GetMapping("client/bookInShelving/{isbn}")
     public Boolean bookInShelving (@PathVariable String isbn){
          return userService.bookInShelving(isbn);

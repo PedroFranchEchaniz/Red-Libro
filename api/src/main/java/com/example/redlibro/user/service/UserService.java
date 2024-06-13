@@ -4,6 +4,7 @@ import com.example.redlibro.book.model.Book;
 import com.example.redlibro.booking.dto.GetBookingDto;
 import com.example.redlibro.booking.exceptions.ClientNotFoundException;
 import com.example.redlibro.shelving.Repository.ShelvingRepository;
+import com.example.redlibro.shelving.ShelvingPk;
 import com.example.redlibro.shelving.dto.BooksInshelvingDto;
 import com.example.redlibro.shelving.dto.ShelvingDto;
 import com.example.redlibro.user.dto.*;
@@ -165,5 +166,9 @@ public class UserService {
             userRepository.save(user);
         }
         return UserDto.of(user);
+    }
+
+    public void deleteShelving (ShelvingPk shelvingPk){
+        shelvingRepository.deleteById(shelvingPk);
     }
 }
