@@ -12,3 +12,9 @@ class DeleteBooking extends LogesUserEvent {
 
   DeleteBooking(this.bookingUuid, this.bookIsbn, this.shopUuid);
 }
+
+class DeleteShelving extends LogesUserEvent {
+  final String isbn;
+
+  DeleteShelving(this.isbn);
+}

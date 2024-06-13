@@ -67,4 +67,31 @@ class RegistedUserRepositoryImpl extends RegistedUserRepository {
       print('Error al conectar con el servidor: $e');
     }
   }
+
+  @override
+  Future<void> deleteShelving(String isbn) async {
+    String? token = await _storage.read(key: 'authToken');
+
+    if (token == null) {
+      throw Exception('Authorization token not found');
+    }
+
+    final url = 'http://10.0.2.2:8080/client/deleteShelving/$isbn';
+
+    try {
+      final response = await _httpClient.delete(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to delete shelving');
+      }
+    } catch (e) {
+      throw Exception('Error connecting to the server: $e');
+    }
+  }
 }

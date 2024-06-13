@@ -4,4 +4,5 @@ abstract class RegistedUserRepository {
   Future<RegistedUserResponse> getRegistedUser();
   Future<void> deleteBooking(
       String bookingUuid, String bookIsbn, String shopUuid);
+  Future<void> deleteShelving(String isbn);
 }

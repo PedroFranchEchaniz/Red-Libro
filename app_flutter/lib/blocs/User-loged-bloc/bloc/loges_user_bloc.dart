@@ -31,5 +31,14 @@ class LogesUserBloc extends Bloc<LogesUserEvent, LogesUserState> {
         emit(UserError('Error al eliminar la reserva: $e'));
       }
     });
+
+    on<DeleteShelving>((event, emit) async {
+      try {
+        await userRepo.deleteShelving(event.isbn);
+        add(FetchUser());
+      } catch (e) {
+        emit(UserError('Error al eliminar el estante: $e'));
+      }
+    });
   }
 }
