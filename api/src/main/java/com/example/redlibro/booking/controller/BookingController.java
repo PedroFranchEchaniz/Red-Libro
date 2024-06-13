@@ -127,7 +127,7 @@ public class BookingController {
                                                       "empty": false
                                                     },
                                                     "empty": false
-                                                  }
+                                               }
                                                 
                                             """
                             )}
