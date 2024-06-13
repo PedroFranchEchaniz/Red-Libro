@@ -28,19 +28,18 @@ export class BookServiceService {
     );
   }
 
-  newBook(newBook: newBook): Observable<newBook> {
+  newBook(data: FormData): Observable<any> {
     const token = localStorage.getItem('token');
-    console.log(newBook.ISBN);
-    console.log(token);
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
-    return this.http.post<newBook>(
-      `${environment.apiBaseUrl}/book/newBook`, newBook,
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', `Bearer ${token}`);
+
+    return this.http.post<any>(
+      `${environment.apiBaseUrl}/book/newBook`,
+      data,
       { headers: headers }
     );
   }
+
 
   editBook(isbn: String, editBook: EditBook): Observable<EditBook> {
     const token = localStorage.getItem('token');

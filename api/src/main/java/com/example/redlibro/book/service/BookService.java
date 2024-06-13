@@ -10,6 +10,8 @@ import com.example.redlibro.book.repository.BookRepository;
 import com.example.redlibro.rating.dto.GetRatingDto;
 import com.example.redlibro.rating.model.Rating;
 import com.example.redlibro.rating.repository.RatingRepository;
+import com.example.redlibro.storage.exceptions.StorageException;
+import com.example.redlibro.storage.storageService.StorageService;
 import com.example.redlibro.store.model.Store;
 import com.example.redlibro.store.model.StorePk;
 import com.example.redlibro.store.repository.StoreRepository;
@@ -36,6 +38,7 @@ public class BookService {
     private final RatingRepository ratingRepository;
     private final ShopRepository shopRepository;
     private final StoreRepository storeRepository;
+    private final StorageService storageService;
 
     public Book createBook(CreateBookRequest createBookRequest) {
         boolean disponible = createBookRequest.stock() > 0;
@@ -44,28 +47,38 @@ public class BookService {
             throw new BookAlreadyExistsException();
         }
 
-        Set<Genre> genres = Arrays.stream(createBookRequest.genres())
-                .map(Genre::valueOf)
-                .collect(Collectors.toSet());
-        LocalDate fecha = LocalDate.parse(createBookRequest.fecha());
+        try {
+            String portadaFilename = storageService.store(createBookRequest.file());
 
-        Book b = Book.builder()
-                .ISBN(createBookRequest.ISBN())
-                .titulo(createBookRequest.titulo())
-                .autor(createBookRequest.autor())
-                .editorial(createBookRequest.editorial())
-                .portada(createBookRequest.portda())
-                .genres(genres)
-                .fecha(fecha)
-                .fechaAlta(LocalDate.now())
-                .mediaValoracion(0.0)
-                .disponible(disponible)
-                .build();
-        return bookRepository.save(b);
+            Set<Genre> genres = Arrays.stream(createBookRequest.genres())
+                    .map(Genre::valueOf)
+                    .collect(Collectors.toSet());
+
+            LocalDate fecha = LocalDate.parse(createBookRequest.fecha());
+
+            Book b = Book.builder()
+                    .ISBN(createBookRequest.ISBN())
+                    .titulo(createBookRequest.titulo())
+                    .autor(createBookRequest.autor())
+                    .editorial(createBookRequest.editorial())
+                    .portada(portadaFilename)
+                    .genres(genres)
+                    .fecha(fecha)
+                    .fechaAlta(LocalDate.now())
+                    .mediaValoracion(0.0)
+                    .disponible(disponible)
+                    .build();
+            return bookRepository.save(b);
+        } catch (Exception ex) {
+            throw new StorageException("Error storing portada file: " + createBookRequest.file().getOriginalFilename(), ex);
+        }
     }
 
 
-   public List<Book>[] librosOrdenados (){
+
+
+
+    public List<Book>[] librosOrdenados (){
         List<Book>[] arrayBooks = (List<Book>[])new List<?>[5];
 
         arrayBooks[0] = bookRepository.fantasybooks();

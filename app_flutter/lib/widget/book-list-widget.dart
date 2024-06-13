@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'package:http/http.dart' as http;
+
 import 'package:app_flutter/pages/allBooks_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app_flutter/models/response/book_response.dart';
@@ -6,16 +9,36 @@ import 'package:app_flutter/repositories/bookDetail/bookDetail_repository_impl.d
 import 'package:app_flutter/blocs/shopBook-bloc/bloc/shop_bloc.dart';
 import 'package:app_flutter/repositories/shopWithBook/shopWithBook_repository_impl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class BookListWidget extends StatelessWidget {
   final List<Book> books;
   final int categoryIndex;
+  final String baseUrl = 'http://10.0.2.2:8080/portadas/';
+  final FlutterSecureStorage _storage = FlutterSecureStorage();
 
-  const BookListWidget({
+  BookListWidget({
     Key? key,
     required this.books,
     required this.categoryIndex,
   }) : super(key: key);
+
+  Future<Map<String, String>> _getHeaders() async {
+    String? token = await _storage.read(key: 'authToken');
+    return {
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+  }
+
+  Future<ImageProvider> _loadImage(String imageUrl) async {
+    final headers = await _getHeaders();
+    final response = await http.get(Uri.parse(imageUrl), headers: headers);
+    if (response.statusCode == 200) {
+      return MemoryImage(response.bodyBytes);
+    } else {
+      throw Exception('Failed to load image');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +67,8 @@ class BookListWidget extends StatelessWidget {
             itemCount: books.length,
             itemBuilder: (context, index) {
               final book = books[index];
+              final imageUrl = baseUrl + (book.portada ?? '');
+
               return GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -67,12 +92,24 @@ class BookListWidget extends StatelessWidget {
                         aspectRatio: 2 / 3,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(
-                            book.portada ?? '',
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Image.asset('assets/images/image.png',
-                                  fit: BoxFit.cover);
+                          child: FutureBuilder<ImageProvider>(
+                            future: _loadImage(imageUrl),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                if (snapshot.hasError) {
+                                  return Image.asset('assets/images/image.png',
+                                      fit: BoxFit.cover);
+                                } else {
+                                  return Image(
+                                    image: snapshot.data!,
+                                    fit: BoxFit.cover,
+                                  );
+                                }
+                              } else {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
                             },
                           ),
                         ),

@@ -42,7 +42,7 @@ public class StoreController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Obtener store de una tienda", content = {
                     @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = GetRatingDto.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = AllStoreDto.class)),
                             examples = {@ExampleObject(
                                     value = """
                                             {
@@ -95,7 +95,7 @@ public class StoreController {
             @ApiResponse(responseCode = "404", description = "Store not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @Operation(summary = "NewRating", description = "Añadir valoracion")
+    @Operation(summary = "Get Store", description = "Obtener el Store de una tienda")
     @GetMapping("store/{shopUuid}/stores")
     public ResponseEntity<Page<AllStoreDto>> getStoresByShopUuid(@PathVariable UUID shopUuid, @PageableDefault(page=0, size=4) Pageable pageable) {
         Page<Store> stores = storeService.findStoresByShopUuid(shopUuid, pageable);
@@ -109,7 +109,7 @@ public class StoreController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Editar la cantidad de un libro en el store", content = {
                     @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = GetRatingDto.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = AllStoreDto.class)),
                             examples = {@ExampleObject(
                                     value = """
                                             {
@@ -118,8 +118,7 @@ public class StoreController {
                                               "titulo": "Ejemplo de Libro",
                                               "cantidad": 10,
                                               "uuid": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
-                                            }
-                                                                                        
+                                            }                                                                                       \s
                                             """
                             )}
                     )}),
@@ -134,7 +133,7 @@ public class StoreController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Agregar libro a Store", content = {
                     @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = GetRatingDto.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = AllStoreDto.class)),
                             examples = {@ExampleObject(
                                     value = """
                                             {
@@ -143,8 +142,7 @@ public class StoreController {
                                               "titulo": "Ejemplo de Libro",
                                               "cantidad": 10,
                                               "uuid": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
-                                            }
-                                                                                        
+                                            }                                                                                       \s
                                             """
                             )}
                     )}),

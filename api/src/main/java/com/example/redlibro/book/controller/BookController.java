@@ -20,7 +20,9 @@ import org.hibernate.validator.constraints.ISBN;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +38,7 @@ public class BookController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Dar libro de alta", content = {
                     @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = GetRatingDto.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = BookResponse.class)),
                             examples = {@ExampleObject(
                                     value = """
                                             {
@@ -52,8 +54,30 @@ public class BookController {
     })
     @Operation(summary = "AddBook", description = "Añadir un nuevo libro")
     @PostMapping("/book/newBook")
-    public ResponseEntity<BookResponse>createBook(@Valid @RequestBody CreateBookRequest createBookRequest){
+    public ResponseEntity<BookResponse> createBook(@RequestParam("file") MultipartFile file,
+                                                   @RequestParam String ISBN,
+                                                   @RequestParam String titulo,
+                                                   @RequestParam String autor,
+                                                   @RequestParam String editorial,
+                                                   @RequestParam String fecha,
+                                                   @RequestParam String[] genres,
+                                                   @RequestParam String resumen,
+                                                   @RequestParam double mediaValoracion,
+                                                   @RequestParam int stock
+    ) {
+        System.out.println("Cadenas de género recibidas:");
+        for (String genre : genres) {
+            System.out.println(genre);
+        }
+
+        System.out.println("Cadena de géneros recibida: " + genres);
+
+        CreateBookRequest createBookRequest = new CreateBookRequest(
+                ISBN, titulo, autor, editorial, file, fecha, genres, resumen, mediaValoracion, stock
+        );
+
         Book book = bookService.createBook(createBookRequest);
+
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(BookResponse.fromBook(book));
     }
@@ -259,7 +283,7 @@ public class BookController {
                 .map(list -> list.stream()
                         .map(book -> bookService.getRatingsForBook(book.getISBN())) // Usar getRatingsForBook para obtener las valoraciones
                         .collect(Collectors.toList()))
-                .collect(Collectors.toList()); // Cambio para retornar una lista de listas
+                .collect(Collectors.toList());
         return dtoLists;
     }
 
