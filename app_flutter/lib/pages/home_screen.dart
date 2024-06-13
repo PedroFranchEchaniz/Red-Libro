@@ -27,9 +27,66 @@ class _HomePageState extends State<HomePage> {
             return ListView.builder(
               itemCount: state.books.length,
               itemBuilder: (context, index) {
+                String genre = ''; // Inicializar con un valor predeterminado
+                switch (index) {
+                  case 0:
+                    genre = 'Fantasía';
+                    break;
+                  case 1:
+                    genre = 'Policiaca';
+                    break;
+                  case 2:
+                    genre = 'Aventuras';
+                    break;
+                  case 3:
+                    genre = 'Misterio';
+                    break;
+                  case 4:
+                    genre = 'Ciencia Ficción';
+                    break;
+                  case 5:
+                    genre = 'Ficción';
+                    break;
+                  case 6:
+                    genre = 'No Ficción';
+                    break;
+                  case 7:
+                    genre = 'Drama';
+                    break;
+                  case 8:
+                    genre = 'Romance';
+                    break;
+                  case 9:
+                    genre = 'Thriller';
+                    break;
+                  case 10:
+                    genre = 'Horror';
+                    break;
+                  case 11:
+                    genre = 'Biografía';
+                    break;
+                  case 12:
+                    genre = 'Autobiografía';
+                    break;
+                  case 13:
+                    genre = 'Poesía';
+                    break;
+                  case 14:
+                    genre = 'Ensayo';
+                    break;
+                  case 15:
+                    genre = 'Historia';
+                    break;
+                  default:
+                    genre =
+                        'Género Desconocido'; // Manejar otros casos según sea necesario
+                    break;
+                }
+
                 return BookListWidget(
                   books: state.books[index],
                   categoryIndex: index,
+                  genre: genre, // Pasar el género correspondiente
                 );
               },
             );

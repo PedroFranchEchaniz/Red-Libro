@@ -14,6 +14,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class BookListWidget extends StatelessWidget {
   final List<Book> books;
   final int categoryIndex;
+  final String genre; // Nuevo parámetro para el género
   final String baseUrl = 'http://10.0.2.2:8080/portadas/';
   final FlutterSecureStorage _storage = FlutterSecureStorage();
 
@@ -21,6 +22,7 @@ class BookListWidget extends StatelessWidget {
     Key? key,
     required this.books,
     required this.categoryIndex,
+    required this.genre, // Agregamos el género
   }) : super(key: key);
 
   Future<Map<String, String>> _getHeaders() async {
@@ -52,7 +54,7 @@ class BookListWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            'Categoría ${categoryIndex + 1}',
+            genre, // Mostramos el género en lugar de 'Categoría ${categoryIndex + 1}'
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,

@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"username\",\r\n    \"password\": \"1234\"\r\n}",
+					"raw": "{\r\n    \"username\": \"username\",\r\n    \"password\": \"1234567890\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,7 +70,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MDk0Njc0OTcsImV4cCI6MTcxMDA3MjI5N30.iUxjnCnFlCV4xkLFJ_8jcLqPr13pLchXXUct20pX0TPioEpLCT0s7Wif-nnvBnlS6zdEgGjhPh_Qz1padz3_GQ",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MTgyNjYyMjQsImV4cCI6MTcxODg3MTAyNH0.tN4Fw2AvTK83C04mxzaO86PJSV3gFob1-9uOoiGDbCAtMXwWR9fBrelYV5e_VFbqgo5AFlyQKG_2dIoK8d84ZQ",
 							"type": "string"
 						}
 					]
@@ -127,7 +127,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzZmZmODVjZS0zNTRiLTRlNGMtYmJjMy03Y2UxMzhlNTczYjYiLCJpYXQiOjE3MDg1OTE1NTIsImV4cCI6MTcwOTE5NjM1Mn0.aJ73nc9FQajgUshF3Dlzd-9FqswKrcU2G8ZJsuebXFWSLODWzWdEgdWxcz9WqeuWa1x5Vpg9DxXXzA_Fn_dbpQ",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzZmZmODVjZS0zNTRiLTRlNGMtYmJjMy03Y2UxMzhlNTczYjYiLCJpYXQiOjE3MTgxODc0NjEsImV4cCI6MTcxODc5MjI2MX0.JWb6AA7twDKra_IowzL3U7cteOKLWwaOYUuhmcWiR_jkDf8kyj6A5eQsJeNGixwXZ-Th3xF6pbsfV-RdXdgnzA",
 							"type": "string"
 						}
 					]
@@ -135,22 +135,68 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"ISBN\": \"1234567890123\",\r\n  \"titulo\": \"El Nombre del Viento\",\r\n  \"autor\": \"Patrick Rothfuss\",\r\n  \"editorial\": \"DAW Books\",\r\n  \"portda\": \"https://example.com/portada.jpg\",\r\n  \"fecha\": \"2007-03-27\",\r\n  \"genres\": [\"Fantasia\"],\r\n  \"resumen\": \"Es la historia de Kvothe, un aventurero y músico extraordinario.\",\r\n  \"mediaValoracion\": 4.8,\r\n  \"uuidShor\": \"3fff85ce-354b-4e4c-bbc3-7ce138e573b6\",\r\n  \"stock\": 0,\r\n  \"precio\": 19.99  \r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "ISBN",
+							"value": "123456789000000060006",
+							"type": "text"
+						},
+						{
+							"key": "autor",
+							"value": "El nombre del autor",
+							"type": "text"
+						},
+						{
+							"key": "editorial",
+							"value": "Nombre de la editorial",
+							"type": "text"
+						},
+						{
+							"key": "fecha",
+							"value": "2024-06-12",
+							"type": "text"
+						},
+						{
+							"key": "genres",
+							"value": "Fantasia",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/pedro/OneDrive/Escritorio/book2.jpg"
+						},
+						{
+							"key": "titulo",
+							"value": "El nombre del libro",
+							"type": "text"
+						},
+						{
+							"key": "resumen",
+							"value": "Un resumen del libro",
+							"type": "text"
+						},
+						{
+							"key": "mediaValoracion",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "stock",
+							"value": "12",
+							"type": "text"
 						}
-					}
+					]
 				},
 				"url": {
-					"raw": "localhost:8080/shop/newBook",
+					"raw": "localhost:8080/book/newBook",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"shop",
+						"book",
 						"newBook"
 					]
 				}
@@ -222,7 +268,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MDk1ODQ2NTMsImV4cCI6MTcxMDE4OTQ1M30.vgF1zieetjw92WhwVChDq3R9hQiUMcpMMaVN-RlGAHetKsMjYAimRZZuWtKVl5v3XJRIrTJvqKY8SDR6643WAg",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MTgxNDM5ODEsImV4cCI6MTcxODc0ODc4MX0.G01dwvyzf55nUf7-Tz_mCMB6iL_59CTUX1c37VsDaSQHA1JRYKHtwuxQO6BDBz4pPlxBL8uEKRtGuEPtr-VhNw",
 							"type": "string"
 						}
 					]
@@ -251,7 +297,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MDk1Mzk0MDIsImV4cCI6MTcxMDE0NDIwMn0.-7H_kg0gFU5upRRUxHtpczxpJS9yIEgp-7OdBk0eVZGspt0Dj3KDrA9b5oEJ8ZqSUHZzLITbVEpOTcjYj5ku0A",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MTgxNDM5ODEsImV4cCI6MTcxODc0ODc4MX0.G01dwvyzf55nUf7-Tz_mCMB6iL_59CTUX1c37VsDaSQHA1JRYKHtwuxQO6BDBz4pPlxBL8uEKRtGuEPtr-VhNw",
 							"type": "string"
 						}
 					]
@@ -280,7 +326,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MDkwNjEwNDIsImV4cCI6MTcwOTY2NTg0Mn0.DBHugUhxG9vqDYd2eSQVYrwe26QdneGqSJ8FXA_Q_9ykzsRWKtsdiavfnXLUPptrypSyF6RKvbiPmd38kYXciA",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MTgxNDM5ODEsImV4cCI6MTcxODc0ODc4MX0.G01dwvyzf55nUf7-Tz_mCMB6iL_59CTUX1c37VsDaSQHA1JRYKHtwuxQO6BDBz4pPlxBL8uEKRtGuEPtr-VhNw",
 							"type": "string"
 						}
 					]
@@ -310,7 +356,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MDkyMDU0NjUsImV4cCI6MTcwOTgxMDI2NX0.HP8EdoBIuzcqMg_priZB1H17n5IHzMpnj40AKFWx0-06MBXRd1J4Ph3oOKTnlDuJFq8snMJFZEpEqDbBTmFuvA",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzEiLCJpYXQiOjE3MTI1MDcxOTgsImV4cCI6MTcxMzExMTk5OH0.TCy7LRnDqqHPZ4RcO0O71XotiQcfVbe36L7wOWhohKTz9H_yqi9ZgBaAJDSjtBQEWVWaKbVTXvRzddkyF8eftg",
 							"type": "string"
 						}
 					]
@@ -318,7 +364,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/booking/3fff85ce-354b-4e4c-bbc3-7ce138e573b6/1234567890/c4e27173-52b5-4bd9-94ee-88a07167fa72",
+					"raw": "localhost:8080/booking/3fff85ce-354b-4e4c-bbc3-7ce138e573b6/9780060935467/c4e27173-52b5-4bd9-94ee-88a07167fa72",
 					"host": [
 						"localhost"
 					],
@@ -326,7 +372,7 @@
 					"path": [
 						"booking",
 						"3fff85ce-354b-4e4c-bbc3-7ce138e573b6",
-						"1234567890",
+						"9780060935467",
 						"c4e27173-52b5-4bd9-94ee-88a07167fa72"
 					]
 				}
@@ -341,7 +387,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MDk0ODg0NzIsImV4cCI6MTcxMDA5MzI3Mn0.Wm4cTuep1QeCs9S4fzbxMSEki8NaherlJFROTk3CBqCn7jV0W8TQZI6p3vdpleVYX-G9nV7iEa4na2WHsIyIlQ",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzEiLCJpYXQiOjE3MTI1MDcxOTgsImV4cCI6MTcxMzExMTk5OH0.TCy7LRnDqqHPZ4RcO0O71XotiQcfVbe36L7wOWhohKTz9H_yqi9ZgBaAJDSjtBQEWVWaKbVTXvRzddkyF8eftg",
 							"type": "string"
 						}
 					]
@@ -349,7 +395,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/client/addShelving/1234567891",
+					"raw": "localhost:8080/client/addShelving/9780060935467",
 					"host": [
 						"localhost"
 					],
@@ -357,7 +403,7 @@
 					"path": [
 						"client",
 						"addShelving",
-						"1234567891"
+						"9780060935467"
 					]
 				}
 			},
@@ -371,7 +417,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MDk1ODQ2NTMsImV4cCI6MTcxMDE4OTQ1M30.vgF1zieetjw92WhwVChDq3R9hQiUMcpMMaVN-RlGAHetKsMjYAimRZZuWtKVl5v3XJRIrTJvqKY8SDR6643WAg",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzEiLCJpYXQiOjE3MTI1MDcxOTgsImV4cCI6MTcxMzExMTk5OH0.TCy7LRnDqqHPZ4RcO0O71XotiQcfVbe36L7wOWhohKTz9H_yqi9ZgBaAJDSjtBQEWVWaKbVTXvRzddkyF8eftg",
 							"type": "string"
 						}
 					]
@@ -393,10 +439,516 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "newRating",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzEiLCJpYXQiOjE3MTAyMzY1MTIsImV4cCI6MTcxMDg0MTMxMn0.dPNa_jAflwRry_xlzAbdWjhI0szPRPW89i75EKESBwCHmq4gyKQ1ydexgs4iHYDqIIZyknCildoCoijRfsQZZw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"stars\":\"4\",\r\n    \"opinion\":\"muy chulo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/book/rating/1234567891",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book",
+						"rating",
+						"1234567891"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetShopStore",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzZmZmODVjZS0zNTRiLTRlNGMtYmJjMy03Y2UxMzhlNTczYjYiLCJpYXQiOjE3MTczNDEwMjQsImV4cCI6MTcxNzk0NTgyNH0.U4XZuuBjJ-qx5BDpSeX-MOkxsYah1gYTJfX8FqCNaCbMS5UZdL6U9Tla-RN33pnaf3zxPpQ73Lg4GExCGb0slg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/store/3fff85ce-354b-4e4c-bbc3-7ce138e573b6/stores?page=0&size=10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"store",
+						"3fff85ce-354b-4e4c-bbc3-7ce138e573b6",
+						"stores"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit-Store-Amount",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzZmZmODVjZS0zNTRiLTRlNGMtYmJjMy03Y2UxMzhlNTczYjYiLCJpYXQiOjE3MTU2MjUzMzcsImV4cCI6MTcxNjIzMDEzN30.TS2W1V0B9kYL2lvW-IX-ceHiqczTHlFiNYemeFn3KvmryhVyn8AddStWY4r6qARj_wwVziLHg0qf-IP-wRNsIQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cantidad\" : \"12\",\r\n    \"uuid\": \"3fff85ce-354b-4e4c-bbc3-7ce138e573b6\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/store/edit/1234567890",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"store",
+						"edit",
+						"1234567890"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllBooksWithRating",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MTgxNDM5ODEsImV4cCI6MTcxODc0ODc4MX0.G01dwvyzf55nUf7-Tz_mCMB6iL_59CTUX1c37VsDaSQHA1JRYKHtwuxQO6BDBz4pPlxBL8uEKRtGuEPtr-VhNw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/book/allBooks",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book",
+						"allBooks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetShopBooking",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "localhost:8080//shopBooking/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"",
+						"shopBooking",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newStore",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzZmZmODVjZS0zNTRiLTRlNGMtYmJjMy03Y2UxMzhlNTczYjYiLCJpYXQiOjE3MTYzOTQ2NTUsImV4cCI6MTcxNjk5OTQ1NX0.WP7nicg8e3u4aygIehWPri9AgkE2ewfqcHb7QEthb0ydxU_Q2XoFhMnZ0_ymq7W27hZmB2kyKrKgfj4giGvqTg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"shopUuid\":\"3fff85ce-354b-4e4c-bbc3-7ce138e573b6\",\r\n\"bookIsbn\":\"978333333333345\",\r\n\"cantidad\":12.0,\r\n\"precio\":3.25\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/store/newStore",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"store",
+						"newStore"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EdiBook",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzZmZmODVjZS0zNTRiLTRlNGMtYmJjMy03Y2UxMzhlNTczYjYiLCJpYXQiOjE3MTcwNTkwNjEsImV4cCI6MTcxNzY2Mzg2MX0.uRq4uxQkD5tqt6vIaGF7xkO_Gy4V9izaCg0zONSOyVBowHD2gGy9oynEggjtS3z4yQ2W8GdEz-ub1kRAahhjNA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"titulo\": \"nuevo titulo\",\r\n    \"autor\": \"autor actualizado\",\r\n    \"resumen\": \"resumen actualizado\",\r\n    \"fecha\": \"2024-05-29\",\r\n    \"editorial\": \"editorial actualizada\",\r\n    \"genres\": [\"Fantasia\", \"Aventuras\"],\r\n    \"uuid\": \"3fff85ce-354b-4e4c-bbc3-7ce138e573b6\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/book/edit/1234567890",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book",
+						"edit",
+						"1234567890"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteBooking",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzZmZmODVjZS0zNTRiLTRlNGMtYmJjMy03Y2UxMzhlNTczYjYiLCJpYXQiOjE3MTczNDEwMjQsImV4cCI6MTcxNzk0NTgyNH0.U4XZuuBjJ-qx5BDpSeX-MOkxsYah1gYTJfX8FqCNaCbMS5UZdL6U9Tla-RN33pnaf3zxPpQ73Lg4GExCGb0slg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/shopBooking/delete/b35cfe4a-e4f5-4dc5-b6cb-c6f6fe05b050",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shopBooking",
+						"delete",
+						"b35cfe4a-e4f5-4dc5-b6cb-c6f6fe05b050"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetClients",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzEiLCJpYXQiOjE3MTc3NDQwOTksImV4cCI6MTcxODM0ODg5OX0.rOVUszgoXM50DOdIZiG68xiSJopyBocuFJMhztP-ALeCZNzmIUsyc4-py6aCZCfTjxBUAp7XAO5DwH4IN8o2mg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/shopClient/allUser?page=0&size=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shopClient",
+						"allUser"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MTgxNDM5ODEsImV4cCI6MTcxODc0ODc4MX0.G01dwvyzf55nUf7-Tz_mCMB6iL_59CTUX1c37VsDaSQHA1JRYKHtwuxQO6BDBz4pPlxBL8uEKRtGuEPtr-VhNw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "localhost:8080/book/edit/9780060935467",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book",
+						"edit",
+						"9780060935467"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bannClient",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzZmZmODVjZS0zNTRiLTRlNGMtYmJjMy03Y2UxMzhlNTczYjYiLCJpYXQiOjE3MTc5MjEzNjQsImV4cCI6MTcxODUyNjE2NH0.5DKyfZlcCdVEIFL6HE3bvJeJV8SVjjCjrKpXV6h_csbFhgB0dmIS0MuqcK8HsFv24tKOPJWxzd3eel9A8O_Cjw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/shopClient/bann/c4e27173-52b5-4bd9-94ee-88a07167fa71",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"shopClient",
+						"bann",
+						"c4e27173-52b5-4bd9-94ee-88a07167fa71"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filterbooks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzZmZmODVjZS0zNTRiLTRlNGMtYmJjMy03Y2UxMzhlNTczYjYiLCJpYXQiOjE3MTc5MjEzNjQsImV4cCI6MTcxODUyNjE2NH0.5DKyfZlcCdVEIFL6HE3bvJeJV8SVjjCjrKpXV6h_csbFhgB0dmIS0MuqcK8HsFv24tKOPJWxzd3eel9A8O_Cjw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/book/filter?titulo=Orgullo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book",
+						"filter"
+					],
+					"query": [
+						{
+							"key": "titulo",
+							"value": "Orgullo"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteShelving",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MTgyNjE0NzAsImV4cCI6MTcxODg2NjI3MH0.P95W5MPy0NsKE4jn6tinZvhYUGvRxGUY5iZ5VsGpitz5WRp8Dguzixzc1SP9o9Y6YU15tK56l6hirXG-CTC_pA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/client/deleteShelving/1234567890",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"client",
+						"deleteShelving",
+						"1234567890"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AllStore",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzZmZmODVjZS0zNTRiLTRlNGMtYmJjMy03Y2UxMzhlNTczYjYiLCJpYXQiOjE3MTgyNjYyMTUsImV4cCI6MTcxODg3MTAxNX0.41MuG3u31aI9yTzSojVj07BPWaET4g-4h-uIraXkY38Ayy9OHIAmTZ0pn13yG-k2Ny4WC2RoZtCIhazgbpkJLA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/store/3fff85ce-354b-4e4c-bbc3-7ce138e573b6/allStore",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"store",
+						"3fff85ce-354b-4e4c-bbc3-7ce138e573b6",
+						"allStore"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjNGUyNzE3My01MmI1LTRiZDktOTRlZS04OGEwNzE2N2ZhNzIiLCJpYXQiOjE3MTgyODQzNjEsImV4cCI6MTcxODg4OTE2MX0.j6LX13Xl6isgVQllBkQTcnMGPP1nycYr0rQAMXXbiaw21B6zNBcVasJrfB7R_Xn1SOzgpgm1W4mRa_0qIpR54A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/client/bookInStore/97815032905634444",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"client",
+						"bookInStore",
+						"97815032905634444"
+					]
+				}
 			},
 			"response": []
 		}

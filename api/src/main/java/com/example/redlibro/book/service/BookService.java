@@ -80,45 +80,59 @@ public class BookService {
 
 
     public List<Book>[] librosOrdenados (){
-        List<Book>[] arrayBooks = (List<Book>[])new List<?>[5];
+        List<Book>[] arrayBooks = (List<Book>[])new List<?>[16];
 
-        arrayBooks[0] = bookRepository.fantasybooks();
-        arrayBooks[1] = bookRepository.detectivebooks();
-        arrayBooks[4] = bookRepository.syfybooks();
+        arrayBooks[0] = bookRepository.findByFantasyBooks();
+        arrayBooks[1] = bookRepository.findByDetectiveBooks();
+        arrayBooks[2] = bookRepository.findByAdventureBooks();
+        arrayBooks[3] = bookRepository.findByMysteryBooks();
+        arrayBooks[4] = bookRepository.findByScienceFictionBooks();
+        arrayBooks[5] = bookRepository.findByFictionBooks();
+        arrayBooks[6] = bookRepository.findByNonFictionBooks();
+        arrayBooks[7] = bookRepository.findByDramaBooks();
+        arrayBooks[8] = bookRepository.findByRomanceBooks();
+        arrayBooks[9] = bookRepository.findByThrillerBooks();
+        arrayBooks[10] = bookRepository.findByHorrorBooks();
+        arrayBooks[11] = bookRepository.findByBiographyBooks();
+        arrayBooks[12] = bookRepository.findByAutobiographyBooks();
+        arrayBooks[13] = bookRepository.findByPoetryBooks();
+        arrayBooks[14] = bookRepository.findByEssayBooks();
+        arrayBooks[15] = bookRepository.findByHistoryBooks();
 
-       for (int i = 0; i < arrayBooks.length; i++) {
-           if (arrayBooks[i] == null) {
-               arrayBooks[i] = new ArrayList<>();
-           }
-       }
-       List<String> allIsbns = Arrays.stream(arrayBooks)
-               .filter(Objects::nonNull)
-               .flatMap(List::stream)
-               .map(Book::getISBN)
-               .collect(Collectors.toList());
-       List<Object[]> avgRatings = ratingRepository.findAvgRatingsForBooks(allIsbns);
-       Map<String, Double> isbnToAvgRating = avgRatings.stream()
-               .collect(Collectors.toMap(
-                       avgRating -> (String) avgRating[0],
-                       avgRating -> (Double) avgRating[1]
-               ));
-       Arrays.stream(arrayBooks)
-               .filter(Objects::nonNull)
-               .flatMap(List::stream)
-               .forEach(book -> book.setMediaValoracion(isbnToAvgRating.getOrDefault(book.getISBN(), 0.0)));
+        for (int i = 0; i < arrayBooks.length; i++) {
+            if (arrayBooks[i] == null) {
+                arrayBooks[i] = new ArrayList<>();
+            }
+        }
+        List<String> allIsbns = Arrays.stream(arrayBooks)
+                .filter(Objects::nonNull)
+                .flatMap(List::stream)
+                .map(Book::getISBN)
+                .collect(Collectors.toList());
+        List<Object[]> avgRatings = ratingRepository.findAvgRatingsForBooks(allIsbns);
+        Map<String, Double> isbnToAvgRating = avgRatings.stream()
+                .collect(Collectors.toMap(
+                        avgRating -> (String) avgRating[0],
+                        avgRating -> (Double) avgRating[1]
+                ));
+        Arrays.stream(arrayBooks)
+                .filter(Objects::nonNull)
+                .flatMap(List::stream)
+                .forEach(book -> book.setMediaValoracion(isbnToAvgRating.getOrDefault(book.getISBN(), 0.0)));
 
-       for (List<Book> books : arrayBooks) {
-           if (books != null) {
-               for (Book book : books) {
-                   boolean disponible = existsByBookIsbnAndStockGreaterThanZero(book.getISBN());
-                   book.setDisponible(disponible);
-               }
-           }
-       }
-       return arrayBooks;
+        for (List<Book> books : arrayBooks) {
+            if (books != null) {
+                for (Book book : books) {
+                    boolean disponible = existsByBookIsbnAndStockGreaterThanZero(book.getISBN());
+                    book.setDisponible(disponible);
+                }
+            }
+        }
+        return arrayBooks;
     }
 
-   public Book libroMedia(String isbn) {
+
+    public Book libroMedia(String isbn) {
         Book bookEncontrado = bookRepository.findById(isbn)
                 .orElseThrow(BookNotFoundException::new);
 

@@ -1,0 +1,18 @@
+enum Genre {
+  Fantasia,
+  Policiaca,
+  Aventuras,
+  Misterio,
+  Cienciaficcion,
+  Ficcion,
+  NoFiccion,
+  Drama,
+  Romance,
+  Thriller,
+  Terror,
+  Biografia,
+  Autobiografia,
+  Poesia,
+  Ensayo,
+  Historia,
+}
