@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environment/environment';
 import { AmountEdited } from '../../models/amountStore.interface';
 import { newStore } from '../../models/adToStore.interface';
+import { AllStoreDto } from '../../models/allStoreDtoResponse.interface';
 
 
 @Injectable({
@@ -23,6 +24,19 @@ export class StoreServiceService {
     });
     return this.http.get<GetStoreResponse>(
       `${environment.apiBaseUrl}/store/${uuid}/stores?page=${page}`,
+      { headers: headers }
+    );
+  }
+
+  getAllStoreByShopUuid(uuid: string): Observable<AllStoreDto[]> {
+    const token = localStorage.getItem('token');
+
+    console.log(token);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<AllStoreDto[]>(
+      `${environment.apiBaseUrl}/store/${uuid}/allStore`,
       { headers: headers }
     );
   }

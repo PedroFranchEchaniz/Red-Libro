@@ -31,6 +31,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -104,6 +105,11 @@ public class StoreController {
         }
         Page<AllStoreDto> storeDtos = stores.map(AllStoreDto::fromStore);
         return ResponseEntity.ok(storeDtos);
+    }
+
+    @GetMapping("store/{shopUuid}/allStore")
+    public List<AllStoreDto> getAlStoreByShopUuid (@PathVariable UUID shopUuid){
+        return storeService.getAllStoreByShopUuid(shopUuid);
     }
 
     @ApiResponses(value = {

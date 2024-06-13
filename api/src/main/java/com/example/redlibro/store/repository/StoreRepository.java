@@ -1,5 +1,6 @@
 package com.example.redlibro.store.repository;
 
+import com.example.redlibro.store.dto.AllStoreDto;
 import com.example.redlibro.store.model.Store;
 import com.example.redlibro.store.model.StorePk;
 import com.example.redlibro.user.model.Shop;
@@ -27,6 +28,15 @@ public interface StoreRepository extends JpaRepository<Store, StorePk> {
 
     @Query("SELECT s from Store s WHERE s.shop.uuid = ?1")
     Page<Store> findStoresByShopUuid(UUID shopUuid, Pageable pageable);
+
+    @Query("SELECT new com.example.redlibro.store.dto.AllStoreDto(" +
+            "CAST(s.storePk AS string), " +
+            "s.storePk.bookIsbn, " +
+            "s.book.titulo, " +
+            "s.stock, " +
+            "s.shop.uuid) " +
+            "FROM Store s WHERE s.shop.uuid = ?1")
+    List<AllStoreDto> findAllStore(UUID shopUuid);
 
     @Query("SELECT s from Store s WHERE s.book.ISBN = ?1 AND s.shop.uuid = ?2")
     Optional<Store>getStoreByIsbn(String isbn, UUID uuid);

@@ -12,6 +12,7 @@ import { EditBook } from '../../../models/editBook.interface';
 import { Observable } from 'rxjs';
 import { book } from 'ngx-bootstrap-icons';
 import { HttpClient } from '@angular/common/http';
+import { AllStoreDto } from '../../../models/allStoreDtoResponse.interface';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class ListBooksInAplicacitionComponent implements OnInit {
 
   books!: AllBooks[];
   storeBooks!: Store[];
+  allStoreBooks: AllStoreDto[] = []; // Inicializa como un array vacío de AllStoreDto
   mostrarFormulario: boolean = false;
   router: any;
   resumen!: string;
@@ -68,6 +70,7 @@ export class ListBooksInAplicacitionComponent implements OnInit {
   ngOnInit() {
     this.getAllBooks();
     this.getStoreBooks();
+    this.getAllBooks();
     this.bookForm = this.fb.group({
       filter: ['']
     });
@@ -92,6 +95,7 @@ export class ListBooksInAplicacitionComponent implements OnInit {
     if (uuid) {
       this.storeService.getStoresByShopUuid(uuid, 0).subscribe(resp => {
         this.storeBooks = resp.content;
+        this.getAllStoreBooks(); // Cargar todos los libros en la tienda después de obtener los libros de la tienda
       });
     }
   }
@@ -104,8 +108,22 @@ export class ListBooksInAplicacitionComponent implements OnInit {
     );
   }
 
+  getAllStoreBooks() {
+    const uuid = localStorage.getItem('uuid');
+    if (uuid) {
+      this.storeService.getAllStoreByShopUuid(uuid).subscribe(
+        (resp: AllStoreDto[]) => {
+          this.allStoreBooks = resp; // Asigna la respuesta correctamente al array de AllStoreDto
+        },
+        error => {
+          console.error('Error fetching store books:', error);
+        }
+      );
+    }
+  }
+
   bookInStore(isbn: string): boolean {
-    return this.storeBooks.some(storeBook => storeBook.isbn === isbn);
+    return this.allStoreBooks.some(storeBook => storeBook.isbn === isbn);
   }
 
   open(content: TemplateRef<any>, book: AllBooks) {

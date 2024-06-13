@@ -4,6 +4,7 @@ import com.example.redlibro.book.exception.BookNotFoundException;
 import com.example.redlibro.book.exception.ShopNotFoundException;
 import com.example.redlibro.book.model.Book;
 import com.example.redlibro.book.repository.BookRepository;
+import com.example.redlibro.store.dto.AllStoreDto;
 import com.example.redlibro.store.dto.ChangeAmountStore;
 import com.example.redlibro.store.dto.NewStoreRequest;
 import com.example.redlibro.store.exception.ResourceNotFoundException;
@@ -33,6 +34,14 @@ public class StoreService {
 
     public Page<Store> findStoresByShopUuid(UUID uuid, Pageable pageable) {
         return storeRepository.findStoresByShopUuid(uuid, pageable);
+    }
+
+    public List<AllStoreDto> getAllStoreByShopUuid(UUID uuid) {
+        List<AllStoreDto> allStores = storeRepository.findAllStore(uuid);
+        if (allStores.isEmpty()) {
+            throw new ShopNotFoundException();
+        }
+        return allStores;
     }
 
     public Store EditAmounStore(String isbn, ChangeAmountStore changeAmountStore){
