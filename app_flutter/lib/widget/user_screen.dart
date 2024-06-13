@@ -183,6 +183,13 @@ class _UserScreenState extends State<UserScreen> {
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    BlocProvider.of<LogesUserBloc>(context)
+                                        .add(DeleteShelving(estante.isbn!));
+                                  },
+                                  child: Text('Eliminar estante'),
+                                ),
                               ],
                             ),
                           ),

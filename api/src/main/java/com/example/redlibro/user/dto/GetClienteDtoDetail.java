@@ -37,7 +37,9 @@ public record GetClienteDtoDetail(
 
         Set<BooksInshelvingDto> shelvingDtos = c.getShelvings().stream()
                 .map(shelving -> new BooksInshelvingDto(
-                        shelving.getBook().getISBN(),                        shelving.getBook().getTitulo(),
+                        shelving.getBook().getISBN(),
+                        shelving.getBook().getTitulo(),
+                        shelving.getBook().getAutor(),
                         shelving.getBook().getPortada(),
                         shelving.getBook().getMediaValoracion()
                 ))

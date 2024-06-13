@@ -16,7 +16,7 @@ public interface ShelvingRepository extends JpaRepository<Shelving, ShelvingPk> 
     @Query("SELECT COUNT(s) FROM Shelving s WHERE s.book.ISBN = ?1")
     int isbnIsPresent(String isbn);
 
-    @Query("SELECT new com.example.redlibro.shelving.dto.BooksInshelvingDto(s.book.titulo, s.book.portada, s.book.autor, s.book.mediaValoracion) FROM Shelving s WHERE s.client.uuid = ?1")
+    @Query("SELECT new com.example.redlibro.shelving.dto.BooksInshelvingDto(s.book.ISBN, s.book.titulo, s.book.portada, s.book.autor, s.book.mediaValoracion) FROM Shelving s WHERE s.client.uuid = ?1")
     List<BooksInshelvingDto> shelvingOfClient(UUID id);
 
 }

@@ -51,7 +51,6 @@ class ShelvingRepositoryImpl implements ShelvingRepository {
     );
 
     if (response.statusCode == 200) {
-      // Asumiendo que el endpoint devuelve un booleano directamente en el cuerpo de la respuesta
       return json.decode(response.body);
     } else {
       throw Exception('Failed to check if book is in shelving');

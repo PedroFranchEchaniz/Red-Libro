@@ -5,6 +5,7 @@ import lombok.Builder;
 
 @Builder
 public record BooksInshelvingDto(
+        String isbn,
         String titulo,
         String portada,
         String autor,
@@ -13,6 +14,7 @@ public record BooksInshelvingDto(
 
     public static BooksInshelvingDto of (Book book){
         return BooksInshelvingDto.builder()
+                .isbn(book.getISBN())
                 .titulo(book.getTitulo())
                 .portada(book.getPortada())
                 .autor(book.getAutor())
